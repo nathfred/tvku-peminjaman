@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\LogistikController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,18 +28,19 @@ Route::get('/dashboard', function () {
 
 // LOGISTIK
 Route::group(['middleware' => ['auth', 'logistik'], 'prefix' => 'logistik'], function () {
-    Route::get('/index', [DirectorController::class, 'index'])->name('logistik-index'); // INDEX
+    Route::get('/index', [LogistikController::class, 'index'])->name('logistik-index'); // INDEX
 
-    // READ
-    Route::get('/assignment/show', [DirectorController::class, 'show_assignments'])->name('director-show-assignments'); // ALL (TABLE)
-    Route::get('/assignment/detail/{type}/{id}', [DirectorController::class, 'detail_assignment'])->name('director-detail-assignment'); // SINGLE (FORM)
-    Route::post('/assignment/detail/{type}/{id}', [DirectorController::class, 'save_assignment'])->name('director-save-assignment'); // POST REQUEST SET PRIORITY AND APPROVAL
+    // LOAN
+    Route::get('/loan/show', [LogistikController::class, 'show_loans'])->name('logistik-show-loans'); // READ ALL (TABLE)
+    Route::get('/loan/detail/{id}', [LogistikController::class, 'detail_loan'])->name('logistik-detail-loan'); // SHOW SINGLE (FORM)
+    Route::post('/loan/detail/{id}/{approve', [LogistikController::class, 'approve_loan'])->name('logistik-approve-loan'); // SET LOAN APPROVAL (BOOLEAN)
+    Route::get('/loan/delete/{id}', [LogistikController::class, 'delete_loan'])->name('logistik-delete-loan'); // DELETE SINGLE LOAN
 
-    // PRIORITY
-    Route::get('/assignment/priority/{id}/{priority}', [DirectorController::class, 'priority_assignment'])->name('director-priority-assignment'); // SET ASSIGNMENT PRIORITY (BIASA/PENTING/SANGAT)
-
-    // APPROVE
-    Route::get('/assignment/approve/{id}/{approve}', [DirectorController::class, 'approve_assignment'])->name('director-approve-assignment'); // SET ASSIGNMENT APPROVAL (BOOLEAN)
+    // ITEMS
+    Route::get('/item/show', [LogistikController::class, 'show_items'])->name('logistik-items'); // READ ALL (TABLE)
+    Route::get('/item/detail/{id}', [LogistikController::class, 'detail_item'])->name('logistik-detail-item'); // SHOW SINGLE (FORM)
+    Route::post('/item/detail/{id}', [LogistikController::class, 'save_item'])->name('logistik-save-item'); // POST REQUEST EDIT ITEM
+    Route::get('/item/delete/{id}', [LogistikController::class, 'delete_item'])->name('logistik-delete-item'); // DELETE SINGLE ITEM
 });
 
 require __DIR__ . '/auth.php';
