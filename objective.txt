@@ -1,6 +1,9 @@
--Install Bootstrap
--Install Breeze
--Import Mazer
+-Install Bootstrap (DONE)
+-Install Breeze (DONE)
+-Import Mazer (DONE)
+-Import Vendors (DONE)
+-Create Model & Eloquent (DONE)
+-Set up Factory & Seeder
 -Routing
 -Middleware
 -User : Logistik & Divisi

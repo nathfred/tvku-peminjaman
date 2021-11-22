@@ -1,3281 +1,1960 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./node_modules/alpinejs/dist/module.esm.js":
-/*!**************************************************!*\
-  !*** ./node_modules/alpinejs/dist/module.esm.js ***!
-  \**************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ "./node_modules/alpinejs/dist/alpine.js":
+/*!**********************************************!*\
+  !*** ./node_modules/alpinejs/dist/alpine.js ***!
+  \**********************************************/
+/***/ (function(module) {
 
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ module_default)
-/* harmony export */ });
-var __create = Object.create;
-var __defProp = Object.defineProperty;
-var __getProtoOf = Object.getPrototypeOf;
-var __hasOwnProp = Object.prototype.hasOwnProperty;
-var __getOwnPropNames = Object.getOwnPropertyNames;
-var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
-var __markAsModule = (target) => __defProp(target, "__esModule", {value: true});
-var __commonJS = (callback, module) => () => {
-  if (!module) {
-    module = {exports: {}};
-    callback(module.exports, module);
-  }
-  return module.exports;
-};
-var __exportStar = (target, module, desc) => {
-  if (module && typeof module === "object" || typeof module === "function") {
-    for (let key of __getOwnPropNames(module))
-      if (!__hasOwnProp.call(target, key) && key !== "default")
-        __defProp(target, key, {get: () => module[key], enumerable: !(desc = __getOwnPropDesc(module, key)) || desc.enumerable});
-  }
-  return target;
-};
-var __toModule = (module) => {
-  return __exportStar(__markAsModule(__defProp(module != null ? __create(__getProtoOf(module)) : {}, "default", module && module.__esModule && "default" in module ? {get: () => module.default, enumerable: true} : {value: module, enumerable: true})), module);
-};
+(function (global, factory) {
+   true ? module.exports = factory() :
+  0;
+}(this, (function () { 'use strict';
 
-// node_modules/@vue/shared/dist/shared.cjs.js
-var require_shared_cjs = __commonJS((exports) => {
-  "use strict";
-  Object.defineProperty(exports, "__esModule", {value: true});
-  function makeMap(str, expectsLowerCase) {
-    const map = Object.create(null);
-    const list = str.split(",");
-    for (let i = 0; i < list.length; i++) {
-      map[list[i]] = true;
-    }
-    return expectsLowerCase ? (val) => !!map[val.toLowerCase()] : (val) => !!map[val];
-  }
-  var PatchFlagNames = {
-    [1]: `TEXT`,
-    [2]: `CLASS`,
-    [4]: `STYLE`,
-    [8]: `PROPS`,
-    [16]: `FULL_PROPS`,
-    [32]: `HYDRATE_EVENTS`,
-    [64]: `STABLE_FRAGMENT`,
-    [128]: `KEYED_FRAGMENT`,
-    [256]: `UNKEYED_FRAGMENT`,
-    [512]: `NEED_PATCH`,
-    [1024]: `DYNAMIC_SLOTS`,
-    [2048]: `DEV_ROOT_FRAGMENT`,
-    [-1]: `HOISTED`,
-    [-2]: `BAIL`
-  };
-  var slotFlagsText = {
-    [1]: "STABLE",
-    [2]: "DYNAMIC",
-    [3]: "FORWARDED"
-  };
-  var GLOBALS_WHITE_LISTED = "Infinity,undefined,NaN,isFinite,isNaN,parseFloat,parseInt,decodeURI,decodeURIComponent,encodeURI,encodeURIComponent,Math,Number,Date,Array,Object,Boolean,String,RegExp,Map,Set,JSON,Intl,BigInt";
-  var isGloballyWhitelisted = /* @__PURE__ */ makeMap(GLOBALS_WHITE_LISTED);
-  var range = 2;
-  function generateCodeFrame(source, start2 = 0, end = source.length) {
-    const lines = source.split(/\r?\n/);
-    let count = 0;
-    const res = [];
-    for (let i = 0; i < lines.length; i++) {
-      count += lines[i].length + 1;
-      if (count >= start2) {
-        for (let j = i - range; j <= i + range || end > count; j++) {
-          if (j < 0 || j >= lines.length)
-            continue;
-          const line = j + 1;
-          res.push(`${line}${" ".repeat(Math.max(3 - String(line).length, 0))}|  ${lines[j]}`);
-          const lineLength = lines[j].length;
-          if (j === i) {
-            const pad = start2 - (count - lineLength) + 1;
-            const length = Math.max(1, end > count ? lineLength - pad : end - start2);
-            res.push(`   |  ` + " ".repeat(pad) + "^".repeat(length));
-          } else if (j > i) {
-            if (end > count) {
-              const length = Math.max(Math.min(end - count, lineLength), 1);
-              res.push(`   |  ` + "^".repeat(length));
-            }
-            count += lineLength + 1;
-          }
-        }
-        break;
-      }
-    }
-    return res.join("\n");
-  }
-  var specialBooleanAttrs = `itemscope,allowfullscreen,formnovalidate,ismap,nomodule,novalidate,readonly`;
-  var isSpecialBooleanAttr = /* @__PURE__ */ makeMap(specialBooleanAttrs);
-  var isBooleanAttr2 = /* @__PURE__ */ makeMap(specialBooleanAttrs + `,async,autofocus,autoplay,controls,default,defer,disabled,hidden,loop,open,required,reversed,scoped,seamless,checked,muted,multiple,selected`);
-  var unsafeAttrCharRE = /[>/="'\u0009\u000a\u000c\u0020]/;
-  var attrValidationCache = {};
-  function isSSRSafeAttrName(name) {
-    if (attrValidationCache.hasOwnProperty(name)) {
-      return attrValidationCache[name];
-    }
-    const isUnsafe = unsafeAttrCharRE.test(name);
-    if (isUnsafe) {
-      console.error(`unsafe attribute name: ${name}`);
-    }
-    return attrValidationCache[name] = !isUnsafe;
-  }
-  var propsToAttrMap = {
-    acceptCharset: "accept-charset",
-    className: "class",
-    htmlFor: "for",
-    httpEquiv: "http-equiv"
-  };
-  var isNoUnitNumericStyleProp = /* @__PURE__ */ makeMap(`animation-iteration-count,border-image-outset,border-image-slice,border-image-width,box-flex,box-flex-group,box-ordinal-group,column-count,columns,flex,flex-grow,flex-positive,flex-shrink,flex-negative,flex-order,grid-row,grid-row-end,grid-row-span,grid-row-start,grid-column,grid-column-end,grid-column-span,grid-column-start,font-weight,line-clamp,line-height,opacity,order,orphans,tab-size,widows,z-index,zoom,fill-opacity,flood-opacity,stop-opacity,stroke-dasharray,stroke-dashoffset,stroke-miterlimit,stroke-opacity,stroke-width`);
-  var isKnownAttr = /* @__PURE__ */ makeMap(`accept,accept-charset,accesskey,action,align,allow,alt,async,autocapitalize,autocomplete,autofocus,autoplay,background,bgcolor,border,buffered,capture,challenge,charset,checked,cite,class,code,codebase,color,cols,colspan,content,contenteditable,contextmenu,controls,coords,crossorigin,csp,data,datetime,decoding,default,defer,dir,dirname,disabled,download,draggable,dropzone,enctype,enterkeyhint,for,form,formaction,formenctype,formmethod,formnovalidate,formtarget,headers,height,hidden,high,href,hreflang,http-equiv,icon,id,importance,integrity,ismap,itemprop,keytype,kind,label,lang,language,loading,list,loop,low,manifest,max,maxlength,minlength,media,min,multiple,muted,name,novalidate,open,optimum,pattern,ping,placeholder,poster,preload,radiogroup,readonly,referrerpolicy,rel,required,reversed,rows,rowspan,sandbox,scope,scoped,selected,shape,size,sizes,slot,span,spellcheck,src,srcdoc,srclang,srcset,start,step,style,summary,tabindex,target,title,translate,type,usemap,value,width,wrap`);
-  function normalizeStyle(value) {
-    if (isArray(value)) {
-      const res = {};
-      for (let i = 0; i < value.length; i++) {
-        const item = value[i];
-        const normalized = normalizeStyle(isString(item) ? parseStringStyle(item) : item);
-        if (normalized) {
-          for (const key in normalized) {
-            res[key] = normalized[key];
-          }
-        }
-      }
-      return res;
-    } else if (isObject(value)) {
-      return value;
-    }
-  }
-  var listDelimiterRE = /;(?![^(]*\))/g;
-  var propertyDelimiterRE = /:(.+)/;
-  function parseStringStyle(cssText) {
-    const ret = {};
-    cssText.split(listDelimiterRE).forEach((item) => {
-      if (item) {
-        const tmp = item.split(propertyDelimiterRE);
-        tmp.length > 1 && (ret[tmp[0].trim()] = tmp[1].trim());
-      }
-    });
-    return ret;
-  }
-  function stringifyStyle(styles) {
-    let ret = "";
-    if (!styles) {
-      return ret;
-    }
-    for (const key in styles) {
-      const value = styles[key];
-      const normalizedKey = key.startsWith(`--`) ? key : hyphenate(key);
-      if (isString(value) || typeof value === "number" && isNoUnitNumericStyleProp(normalizedKey)) {
-        ret += `${normalizedKey}:${value};`;
-      }
-    }
-    return ret;
-  }
-  function normalizeClass(value) {
-    let res = "";
-    if (isString(value)) {
-      res = value;
-    } else if (isArray(value)) {
-      for (let i = 0; i < value.length; i++) {
-        const normalized = normalizeClass(value[i]);
-        if (normalized) {
-          res += normalized + " ";
-        }
-      }
-    } else if (isObject(value)) {
-      for (const name in value) {
-        if (value[name]) {
-          res += name + " ";
-        }
-      }
-    }
-    return res.trim();
-  }
-  var HTML_TAGS = "html,body,base,head,link,meta,style,title,address,article,aside,footer,header,h1,h2,h3,h4,h5,h6,hgroup,nav,section,div,dd,dl,dt,figcaption,figure,picture,hr,img,li,main,ol,p,pre,ul,a,b,abbr,bdi,bdo,br,cite,code,data,dfn,em,i,kbd,mark,q,rp,rt,rtc,ruby,s,samp,small,span,strong,sub,sup,time,u,var,wbr,area,audio,map,track,video,embed,object,param,source,canvas,script,noscript,del,ins,caption,col,colgroup,table,thead,tbody,td,th,tr,button,datalist,fieldset,form,input,label,legend,meter,optgroup,option,output,progress,select,textarea,details,dialog,menu,summary,template,blockquote,iframe,tfoot";
-  var SVG_TAGS = "svg,animate,animateMotion,animateTransform,circle,clipPath,color-profile,defs,desc,discard,ellipse,feBlend,feColorMatrix,feComponentTransfer,feComposite,feConvolveMatrix,feDiffuseLighting,feDisplacementMap,feDistanceLight,feDropShadow,feFlood,feFuncA,feFuncB,feFuncG,feFuncR,feGaussianBlur,feImage,feMerge,feMergeNode,feMorphology,feOffset,fePointLight,feSpecularLighting,feSpotLight,feTile,feTurbulence,filter,foreignObject,g,hatch,hatchpath,image,line,linearGradient,marker,mask,mesh,meshgradient,meshpatch,meshrow,metadata,mpath,path,pattern,polygon,polyline,radialGradient,rect,set,solidcolor,stop,switch,symbol,text,textPath,title,tspan,unknown,use,view";
-  var VOID_TAGS = "area,base,br,col,embed,hr,img,input,link,meta,param,source,track,wbr";
-  var isHTMLTag = /* @__PURE__ */ makeMap(HTML_TAGS);
-  var isSVGTag = /* @__PURE__ */ makeMap(SVG_TAGS);
-  var isVoidTag = /* @__PURE__ */ makeMap(VOID_TAGS);
-  var escapeRE = /["'&<>]/;
-  function escapeHtml(string) {
-    const str = "" + string;
-    const match = escapeRE.exec(str);
-    if (!match) {
-      return str;
-    }
-    let html = "";
-    let escaped;
-    let index;
-    let lastIndex = 0;
-    for (index = match.index; index < str.length; index++) {
-      switch (str.charCodeAt(index)) {
-        case 34:
-          escaped = "&quot;";
-          break;
-        case 38:
-          escaped = "&amp;";
-          break;
-        case 39:
-          escaped = "&#39;";
-          break;
-        case 60:
-          escaped = "&lt;";
-          break;
-        case 62:
-          escaped = "&gt;";
-          break;
-        default:
-          continue;
-      }
-      if (lastIndex !== index) {
-        html += str.substring(lastIndex, index);
-      }
-      lastIndex = index + 1;
-      html += escaped;
-    }
-    return lastIndex !== index ? html + str.substring(lastIndex, index) : html;
-  }
-  var commentStripRE = /^-?>|<!--|-->|--!>|<!-$/g;
-  function escapeHtmlComment(src) {
-    return src.replace(commentStripRE, "");
-  }
-  function looseCompareArrays(a, b) {
-    if (a.length !== b.length)
-      return false;
-    let equal = true;
-    for (let i = 0; equal && i < a.length; i++) {
-      equal = looseEqual(a[i], b[i]);
-    }
-    return equal;
-  }
-  function looseEqual(a, b) {
-    if (a === b)
-      return true;
-    let aValidType = isDate(a);
-    let bValidType = isDate(b);
-    if (aValidType || bValidType) {
-      return aValidType && bValidType ? a.getTime() === b.getTime() : false;
-    }
-    aValidType = isArray(a);
-    bValidType = isArray(b);
-    if (aValidType || bValidType) {
-      return aValidType && bValidType ? looseCompareArrays(a, b) : false;
-    }
-    aValidType = isObject(a);
-    bValidType = isObject(b);
-    if (aValidType || bValidType) {
-      if (!aValidType || !bValidType) {
-        return false;
-      }
-      const aKeysCount = Object.keys(a).length;
-      const bKeysCount = Object.keys(b).length;
-      if (aKeysCount !== bKeysCount) {
-        return false;
-      }
-      for (const key in a) {
-        const aHasKey = a.hasOwnProperty(key);
-        const bHasKey = b.hasOwnProperty(key);
-        if (aHasKey && !bHasKey || !aHasKey && bHasKey || !looseEqual(a[key], b[key])) {
-          return false;
-        }
-      }
-    }
-    return String(a) === String(b);
-  }
-  function looseIndexOf(arr, val) {
-    return arr.findIndex((item) => looseEqual(item, val));
-  }
-  var toDisplayString = (val) => {
-    return val == null ? "" : isObject(val) ? JSON.stringify(val, replacer, 2) : String(val);
-  };
-  var replacer = (_key, val) => {
-    if (isMap(val)) {
-      return {
-        [`Map(${val.size})`]: [...val.entries()].reduce((entries, [key, val2]) => {
-          entries[`${key} =>`] = val2;
-          return entries;
-        }, {})
-      };
-    } else if (isSet(val)) {
-      return {
-        [`Set(${val.size})`]: [...val.values()]
-      };
-    } else if (isObject(val) && !isArray(val) && !isPlainObject(val)) {
-      return String(val);
-    }
-    return val;
-  };
-  var babelParserDefaultPlugins = [
-    "bigInt",
-    "optionalChaining",
-    "nullishCoalescingOperator"
-  ];
-  var EMPTY_OBJ = Object.freeze({});
-  var EMPTY_ARR = Object.freeze([]);
-  var NOOP = () => {
-  };
-  var NO = () => false;
-  var onRE = /^on[^a-z]/;
-  var isOn = (key) => onRE.test(key);
-  var isModelListener = (key) => key.startsWith("onUpdate:");
-  var extend = Object.assign;
-  var remove = (arr, el) => {
-    const i = arr.indexOf(el);
-    if (i > -1) {
-      arr.splice(i, 1);
-    }
-  };
-  var hasOwnProperty = Object.prototype.hasOwnProperty;
-  var hasOwn = (val, key) => hasOwnProperty.call(val, key);
-  var isArray = Array.isArray;
-  var isMap = (val) => toTypeString(val) === "[object Map]";
-  var isSet = (val) => toTypeString(val) === "[object Set]";
-  var isDate = (val) => val instanceof Date;
-  var isFunction = (val) => typeof val === "function";
-  var isString = (val) => typeof val === "string";
-  var isSymbol = (val) => typeof val === "symbol";
-  var isObject = (val) => val !== null && typeof val === "object";
-  var isPromise = (val) => {
-    return isObject(val) && isFunction(val.then) && isFunction(val.catch);
-  };
-  var objectToString = Object.prototype.toString;
-  var toTypeString = (value) => objectToString.call(value);
-  var toRawType = (value) => {
-    return toTypeString(value).slice(8, -1);
-  };
-  var isPlainObject = (val) => toTypeString(val) === "[object Object]";
-  var isIntegerKey = (key) => isString(key) && key !== "NaN" && key[0] !== "-" && "" + parseInt(key, 10) === key;
-  var isReservedProp = /* @__PURE__ */ makeMap(",key,ref,onVnodeBeforeMount,onVnodeMounted,onVnodeBeforeUpdate,onVnodeUpdated,onVnodeBeforeUnmount,onVnodeUnmounted");
-  var cacheStringFunction = (fn) => {
-    const cache = Object.create(null);
-    return (str) => {
-      const hit = cache[str];
-      return hit || (cache[str] = fn(str));
-    };
-  };
-  var camelizeRE = /-(\w)/g;
-  var camelize = cacheStringFunction((str) => {
-    return str.replace(camelizeRE, (_, c) => c ? c.toUpperCase() : "");
-  });
-  var hyphenateRE = /\B([A-Z])/g;
-  var hyphenate = cacheStringFunction((str) => str.replace(hyphenateRE, "-$1").toLowerCase());
-  var capitalize = cacheStringFunction((str) => str.charAt(0).toUpperCase() + str.slice(1));
-  var toHandlerKey = cacheStringFunction((str) => str ? `on${capitalize(str)}` : ``);
-  var hasChanged = (value, oldValue) => value !== oldValue && (value === value || oldValue === oldValue);
-  var invokeArrayFns = (fns, arg) => {
-    for (let i = 0; i < fns.length; i++) {
-      fns[i](arg);
-    }
-  };
-  var def = (obj, key, value) => {
-    Object.defineProperty(obj, key, {
-      configurable: true,
-      enumerable: false,
-      value
-    });
-  };
-  var toNumber = (val) => {
-    const n = parseFloat(val);
-    return isNaN(n) ? val : n;
-  };
-  var _globalThis;
-  var getGlobalThis = () => {
-    return _globalThis || (_globalThis = typeof globalThis !== "undefined" ? globalThis : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : typeof __webpack_require__.g !== "undefined" ? __webpack_require__.g : {});
-  };
-  exports.EMPTY_ARR = EMPTY_ARR;
-  exports.EMPTY_OBJ = EMPTY_OBJ;
-  exports.NO = NO;
-  exports.NOOP = NOOP;
-  exports.PatchFlagNames = PatchFlagNames;
-  exports.babelParserDefaultPlugins = babelParserDefaultPlugins;
-  exports.camelize = camelize;
-  exports.capitalize = capitalize;
-  exports.def = def;
-  exports.escapeHtml = escapeHtml;
-  exports.escapeHtmlComment = escapeHtmlComment;
-  exports.extend = extend;
-  exports.generateCodeFrame = generateCodeFrame;
-  exports.getGlobalThis = getGlobalThis;
-  exports.hasChanged = hasChanged;
-  exports.hasOwn = hasOwn;
-  exports.hyphenate = hyphenate;
-  exports.invokeArrayFns = invokeArrayFns;
-  exports.isArray = isArray;
-  exports.isBooleanAttr = isBooleanAttr2;
-  exports.isDate = isDate;
-  exports.isFunction = isFunction;
-  exports.isGloballyWhitelisted = isGloballyWhitelisted;
-  exports.isHTMLTag = isHTMLTag;
-  exports.isIntegerKey = isIntegerKey;
-  exports.isKnownAttr = isKnownAttr;
-  exports.isMap = isMap;
-  exports.isModelListener = isModelListener;
-  exports.isNoUnitNumericStyleProp = isNoUnitNumericStyleProp;
-  exports.isObject = isObject;
-  exports.isOn = isOn;
-  exports.isPlainObject = isPlainObject;
-  exports.isPromise = isPromise;
-  exports.isReservedProp = isReservedProp;
-  exports.isSSRSafeAttrName = isSSRSafeAttrName;
-  exports.isSVGTag = isSVGTag;
-  exports.isSet = isSet;
-  exports.isSpecialBooleanAttr = isSpecialBooleanAttr;
-  exports.isString = isString;
-  exports.isSymbol = isSymbol;
-  exports.isVoidTag = isVoidTag;
-  exports.looseEqual = looseEqual;
-  exports.looseIndexOf = looseIndexOf;
-  exports.makeMap = makeMap;
-  exports.normalizeClass = normalizeClass;
-  exports.normalizeStyle = normalizeStyle;
-  exports.objectToString = objectToString;
-  exports.parseStringStyle = parseStringStyle;
-  exports.propsToAttrMap = propsToAttrMap;
-  exports.remove = remove;
-  exports.slotFlagsText = slotFlagsText;
-  exports.stringifyStyle = stringifyStyle;
-  exports.toDisplayString = toDisplayString;
-  exports.toHandlerKey = toHandlerKey;
-  exports.toNumber = toNumber;
-  exports.toRawType = toRawType;
-  exports.toTypeString = toTypeString;
-});
-
-// node_modules/@vue/shared/index.js
-var require_shared = __commonJS((exports, module) => {
-  "use strict";
-  if (false) {} else {
-    module.exports = require_shared_cjs();
-  }
-});
-
-// node_modules/@vue/reactivity/dist/reactivity.cjs.js
-var require_reactivity_cjs = __commonJS((exports) => {
-  "use strict";
-  Object.defineProperty(exports, "__esModule", {value: true});
-  var shared = require_shared();
-  var targetMap = new WeakMap();
-  var effectStack = [];
-  var activeEffect;
-  var ITERATE_KEY = Symbol("iterate");
-  var MAP_KEY_ITERATE_KEY = Symbol("Map key iterate");
-  function isEffect(fn) {
-    return fn && fn._isEffect === true;
-  }
-  function effect3(fn, options = shared.EMPTY_OBJ) {
-    if (isEffect(fn)) {
-      fn = fn.raw;
-    }
-    const effect4 = createReactiveEffect(fn, options);
-    if (!options.lazy) {
-      effect4();
-    }
-    return effect4;
-  }
-  function stop2(effect4) {
-    if (effect4.active) {
-      cleanup(effect4);
-      if (effect4.options.onStop) {
-        effect4.options.onStop();
-      }
-      effect4.active = false;
-    }
-  }
-  var uid = 0;
-  function createReactiveEffect(fn, options) {
-    const effect4 = function reactiveEffect() {
-      if (!effect4.active) {
-        return fn();
-      }
-      if (!effectStack.includes(effect4)) {
-        cleanup(effect4);
-        try {
-          enableTracking();
-          effectStack.push(effect4);
-          activeEffect = effect4;
-          return fn();
-        } finally {
-          effectStack.pop();
-          resetTracking();
-          activeEffect = effectStack[effectStack.length - 1];
-        }
-      }
-    };
-    effect4.id = uid++;
-    effect4.allowRecurse = !!options.allowRecurse;
-    effect4._isEffect = true;
-    effect4.active = true;
-    effect4.raw = fn;
-    effect4.deps = [];
-    effect4.options = options;
-    return effect4;
-  }
-  function cleanup(effect4) {
-    const {deps} = effect4;
-    if (deps.length) {
-      for (let i = 0; i < deps.length; i++) {
-        deps[i].delete(effect4);
-      }
-      deps.length = 0;
-    }
-  }
-  var shouldTrack = true;
-  var trackStack = [];
-  function pauseTracking() {
-    trackStack.push(shouldTrack);
-    shouldTrack = false;
-  }
-  function enableTracking() {
-    trackStack.push(shouldTrack);
-    shouldTrack = true;
-  }
-  function resetTracking() {
-    const last = trackStack.pop();
-    shouldTrack = last === void 0 ? true : last;
-  }
-  function track(target, type, key) {
-    if (!shouldTrack || activeEffect === void 0) {
-      return;
-    }
-    let depsMap = targetMap.get(target);
-    if (!depsMap) {
-      targetMap.set(target, depsMap = new Map());
-    }
-    let dep = depsMap.get(key);
-    if (!dep) {
-      depsMap.set(key, dep = new Set());
-    }
-    if (!dep.has(activeEffect)) {
-      dep.add(activeEffect);
-      activeEffect.deps.push(dep);
-      if (activeEffect.options.onTrack) {
-        activeEffect.options.onTrack({
-          effect: activeEffect,
-          target,
-          type,
-          key
-        });
-      }
-    }
-  }
-  function trigger(target, type, key, newValue, oldValue, oldTarget) {
-    const depsMap = targetMap.get(target);
-    if (!depsMap) {
-      return;
-    }
-    const effects = new Set();
-    const add2 = (effectsToAdd) => {
-      if (effectsToAdd) {
-        effectsToAdd.forEach((effect4) => {
-          if (effect4 !== activeEffect || effect4.allowRecurse) {
-            effects.add(effect4);
-          }
-        });
-      }
-    };
-    if (type === "clear") {
-      depsMap.forEach(add2);
-    } else if (key === "length" && shared.isArray(target)) {
-      depsMap.forEach((dep, key2) => {
-        if (key2 === "length" || key2 >= newValue) {
-          add2(dep);
-        }
+  function _defineProperty(obj, key, value) {
+    if (key in obj) {
+      Object.defineProperty(obj, key, {
+        value: value,
+        enumerable: true,
+        configurable: true,
+        writable: true
       });
     } else {
-      if (key !== void 0) {
-        add2(depsMap.get(key));
-      }
-      switch (type) {
-        case "add":
-          if (!shared.isArray(target)) {
-            add2(depsMap.get(ITERATE_KEY));
-            if (shared.isMap(target)) {
-              add2(depsMap.get(MAP_KEY_ITERATE_KEY));
-            }
-          } else if (shared.isIntegerKey(key)) {
-            add2(depsMap.get("length"));
-          }
-          break;
-        case "delete":
-          if (!shared.isArray(target)) {
-            add2(depsMap.get(ITERATE_KEY));
-            if (shared.isMap(target)) {
-              add2(depsMap.get(MAP_KEY_ITERATE_KEY));
-            }
-          }
-          break;
-        case "set":
-          if (shared.isMap(target)) {
-            add2(depsMap.get(ITERATE_KEY));
-          }
-          break;
-      }
+      obj[key] = value;
     }
-    const run = (effect4) => {
-      if (effect4.options.onTrigger) {
-        effect4.options.onTrigger({
-          effect: effect4,
-          target,
-          key,
-          type,
-          newValue,
-          oldValue,
-          oldTarget
-        });
-      }
-      if (effect4.options.scheduler) {
-        effect4.options.scheduler(effect4);
-      } else {
-        effect4();
-      }
-    };
-    effects.forEach(run);
-  }
-  var isNonTrackableKeys = /* @__PURE__ */ shared.makeMap(`__proto__,__v_isRef,__isVue`);
-  var builtInSymbols = new Set(Object.getOwnPropertyNames(Symbol).map((key) => Symbol[key]).filter(shared.isSymbol));
-  var get2 = /* @__PURE__ */ createGetter();
-  var shallowGet = /* @__PURE__ */ createGetter(false, true);
-  var readonlyGet = /* @__PURE__ */ createGetter(true);
-  var shallowReadonlyGet = /* @__PURE__ */ createGetter(true, true);
-  var arrayInstrumentations = {};
-  ["includes", "indexOf", "lastIndexOf"].forEach((key) => {
-    const method = Array.prototype[key];
-    arrayInstrumentations[key] = function(...args) {
-      const arr = toRaw2(this);
-      for (let i = 0, l = this.length; i < l; i++) {
-        track(arr, "get", i + "");
-      }
-      const res = method.apply(arr, args);
-      if (res === -1 || res === false) {
-        return method.apply(arr, args.map(toRaw2));
-      } else {
-        return res;
-      }
-    };
-  });
-  ["push", "pop", "shift", "unshift", "splice"].forEach((key) => {
-    const method = Array.prototype[key];
-    arrayInstrumentations[key] = function(...args) {
-      pauseTracking();
-      const res = method.apply(this, args);
-      resetTracking();
-      return res;
-    };
-  });
-  function createGetter(isReadonly2 = false, shallow = false) {
-    return function get3(target, key, receiver) {
-      if (key === "__v_isReactive") {
-        return !isReadonly2;
-      } else if (key === "__v_isReadonly") {
-        return isReadonly2;
-      } else if (key === "__v_raw" && receiver === (isReadonly2 ? shallow ? shallowReadonlyMap : readonlyMap : shallow ? shallowReactiveMap : reactiveMap).get(target)) {
-        return target;
-      }
-      const targetIsArray = shared.isArray(target);
-      if (!isReadonly2 && targetIsArray && shared.hasOwn(arrayInstrumentations, key)) {
-        return Reflect.get(arrayInstrumentations, key, receiver);
-      }
-      const res = Reflect.get(target, key, receiver);
-      if (shared.isSymbol(key) ? builtInSymbols.has(key) : isNonTrackableKeys(key)) {
-        return res;
-      }
-      if (!isReadonly2) {
-        track(target, "get", key);
-      }
-      if (shallow) {
-        return res;
-      }
-      if (isRef(res)) {
-        const shouldUnwrap = !targetIsArray || !shared.isIntegerKey(key);
-        return shouldUnwrap ? res.value : res;
-      }
-      if (shared.isObject(res)) {
-        return isReadonly2 ? readonly(res) : reactive3(res);
-      }
-      return res;
-    };
-  }
-  var set2 = /* @__PURE__ */ createSetter();
-  var shallowSet = /* @__PURE__ */ createSetter(true);
-  function createSetter(shallow = false) {
-    return function set3(target, key, value, receiver) {
-      let oldValue = target[key];
-      if (!shallow) {
-        value = toRaw2(value);
-        oldValue = toRaw2(oldValue);
-        if (!shared.isArray(target) && isRef(oldValue) && !isRef(value)) {
-          oldValue.value = value;
-          return true;
-        }
-      }
-      const hadKey = shared.isArray(target) && shared.isIntegerKey(key) ? Number(key) < target.length : shared.hasOwn(target, key);
-      const result = Reflect.set(target, key, value, receiver);
-      if (target === toRaw2(receiver)) {
-        if (!hadKey) {
-          trigger(target, "add", key, value);
-        } else if (shared.hasChanged(value, oldValue)) {
-          trigger(target, "set", key, value, oldValue);
-        }
-      }
-      return result;
-    };
-  }
-  function deleteProperty(target, key) {
-    const hadKey = shared.hasOwn(target, key);
-    const oldValue = target[key];
-    const result = Reflect.deleteProperty(target, key);
-    if (result && hadKey) {
-      trigger(target, "delete", key, void 0, oldValue);
-    }
-    return result;
-  }
-  function has(target, key) {
-    const result = Reflect.has(target, key);
-    if (!shared.isSymbol(key) || !builtInSymbols.has(key)) {
-      track(target, "has", key);
-    }
-    return result;
-  }
-  function ownKeys(target) {
-    track(target, "iterate", shared.isArray(target) ? "length" : ITERATE_KEY);
-    return Reflect.ownKeys(target);
-  }
-  var mutableHandlers = {
-    get: get2,
-    set: set2,
-    deleteProperty,
-    has,
-    ownKeys
-  };
-  var readonlyHandlers = {
-    get: readonlyGet,
-    set(target, key) {
-      {
-        console.warn(`Set operation on key "${String(key)}" failed: target is readonly.`, target);
-      }
-      return true;
-    },
-    deleteProperty(target, key) {
-      {
-        console.warn(`Delete operation on key "${String(key)}" failed: target is readonly.`, target);
-      }
-      return true;
-    }
-  };
-  var shallowReactiveHandlers = shared.extend({}, mutableHandlers, {
-    get: shallowGet,
-    set: shallowSet
-  });
-  var shallowReadonlyHandlers = shared.extend({}, readonlyHandlers, {
-    get: shallowReadonlyGet
-  });
-  var toReactive = (value) => shared.isObject(value) ? reactive3(value) : value;
-  var toReadonly = (value) => shared.isObject(value) ? readonly(value) : value;
-  var toShallow = (value) => value;
-  var getProto = (v) => Reflect.getPrototypeOf(v);
-  function get$1(target, key, isReadonly2 = false, isShallow = false) {
-    target = target["__v_raw"];
-    const rawTarget = toRaw2(target);
-    const rawKey = toRaw2(key);
-    if (key !== rawKey) {
-      !isReadonly2 && track(rawTarget, "get", key);
-    }
-    !isReadonly2 && track(rawTarget, "get", rawKey);
-    const {has: has2} = getProto(rawTarget);
-    const wrap = isShallow ? toShallow : isReadonly2 ? toReadonly : toReactive;
-    if (has2.call(rawTarget, key)) {
-      return wrap(target.get(key));
-    } else if (has2.call(rawTarget, rawKey)) {
-      return wrap(target.get(rawKey));
-    } else if (target !== rawTarget) {
-      target.get(key);
-    }
-  }
-  function has$1(key, isReadonly2 = false) {
-    const target = this["__v_raw"];
-    const rawTarget = toRaw2(target);
-    const rawKey = toRaw2(key);
-    if (key !== rawKey) {
-      !isReadonly2 && track(rawTarget, "has", key);
-    }
-    !isReadonly2 && track(rawTarget, "has", rawKey);
-    return key === rawKey ? target.has(key) : target.has(key) || target.has(rawKey);
-  }
-  function size(target, isReadonly2 = false) {
-    target = target["__v_raw"];
-    !isReadonly2 && track(toRaw2(target), "iterate", ITERATE_KEY);
-    return Reflect.get(target, "size", target);
-  }
-  function add(value) {
-    value = toRaw2(value);
-    const target = toRaw2(this);
-    const proto = getProto(target);
-    const hadKey = proto.has.call(target, value);
-    if (!hadKey) {
-      target.add(value);
-      trigger(target, "add", value, value);
-    }
-    return this;
-  }
-  function set$1(key, value) {
-    value = toRaw2(value);
-    const target = toRaw2(this);
-    const {has: has2, get: get3} = getProto(target);
-    let hadKey = has2.call(target, key);
-    if (!hadKey) {
-      key = toRaw2(key);
-      hadKey = has2.call(target, key);
-    } else {
-      checkIdentityKeys(target, has2, key);
-    }
-    const oldValue = get3.call(target, key);
-    target.set(key, value);
-    if (!hadKey) {
-      trigger(target, "add", key, value);
-    } else if (shared.hasChanged(value, oldValue)) {
-      trigger(target, "set", key, value, oldValue);
-    }
-    return this;
-  }
-  function deleteEntry(key) {
-    const target = toRaw2(this);
-    const {has: has2, get: get3} = getProto(target);
-    let hadKey = has2.call(target, key);
-    if (!hadKey) {
-      key = toRaw2(key);
-      hadKey = has2.call(target, key);
-    } else {
-      checkIdentityKeys(target, has2, key);
-    }
-    const oldValue = get3 ? get3.call(target, key) : void 0;
-    const result = target.delete(key);
-    if (hadKey) {
-      trigger(target, "delete", key, void 0, oldValue);
-    }
-    return result;
-  }
-  function clear() {
-    const target = toRaw2(this);
-    const hadItems = target.size !== 0;
-    const oldTarget = shared.isMap(target) ? new Map(target) : new Set(target);
-    const result = target.clear();
-    if (hadItems) {
-      trigger(target, "clear", void 0, void 0, oldTarget);
-    }
-    return result;
-  }
-  function createForEach(isReadonly2, isShallow) {
-    return function forEach(callback, thisArg) {
-      const observed = this;
-      const target = observed["__v_raw"];
-      const rawTarget = toRaw2(target);
-      const wrap = isShallow ? toShallow : isReadonly2 ? toReadonly : toReactive;
-      !isReadonly2 && track(rawTarget, "iterate", ITERATE_KEY);
-      return target.forEach((value, key) => {
-        return callback.call(thisArg, wrap(value), wrap(key), observed);
-      });
-    };
-  }
-  function createIterableMethod(method, isReadonly2, isShallow) {
-    return function(...args) {
-      const target = this["__v_raw"];
-      const rawTarget = toRaw2(target);
-      const targetIsMap = shared.isMap(rawTarget);
-      const isPair = method === "entries" || method === Symbol.iterator && targetIsMap;
-      const isKeyOnly = method === "keys" && targetIsMap;
-      const innerIterator = target[method](...args);
-      const wrap = isShallow ? toShallow : isReadonly2 ? toReadonly : toReactive;
-      !isReadonly2 && track(rawTarget, "iterate", isKeyOnly ? MAP_KEY_ITERATE_KEY : ITERATE_KEY);
-      return {
-        next() {
-          const {value, done} = innerIterator.next();
-          return done ? {value, done} : {
-            value: isPair ? [wrap(value[0]), wrap(value[1])] : wrap(value),
-            done
-          };
-        },
-        [Symbol.iterator]() {
-          return this;
-        }
-      };
-    };
-  }
-  function createReadonlyMethod(type) {
-    return function(...args) {
-      {
-        const key = args[0] ? `on key "${args[0]}" ` : ``;
-        console.warn(`${shared.capitalize(type)} operation ${key}failed: target is readonly.`, toRaw2(this));
-      }
-      return type === "delete" ? false : this;
-    };
-  }
-  var mutableInstrumentations = {
-    get(key) {
-      return get$1(this, key);
-    },
-    get size() {
-      return size(this);
-    },
-    has: has$1,
-    add,
-    set: set$1,
-    delete: deleteEntry,
-    clear,
-    forEach: createForEach(false, false)
-  };
-  var shallowInstrumentations = {
-    get(key) {
-      return get$1(this, key, false, true);
-    },
-    get size() {
-      return size(this);
-    },
-    has: has$1,
-    add,
-    set: set$1,
-    delete: deleteEntry,
-    clear,
-    forEach: createForEach(false, true)
-  };
-  var readonlyInstrumentations = {
-    get(key) {
-      return get$1(this, key, true);
-    },
-    get size() {
-      return size(this, true);
-    },
-    has(key) {
-      return has$1.call(this, key, true);
-    },
-    add: createReadonlyMethod("add"),
-    set: createReadonlyMethod("set"),
-    delete: createReadonlyMethod("delete"),
-    clear: createReadonlyMethod("clear"),
-    forEach: createForEach(true, false)
-  };
-  var shallowReadonlyInstrumentations = {
-    get(key) {
-      return get$1(this, key, true, true);
-    },
-    get size() {
-      return size(this, true);
-    },
-    has(key) {
-      return has$1.call(this, key, true);
-    },
-    add: createReadonlyMethod("add"),
-    set: createReadonlyMethod("set"),
-    delete: createReadonlyMethod("delete"),
-    clear: createReadonlyMethod("clear"),
-    forEach: createForEach(true, true)
-  };
-  var iteratorMethods = ["keys", "values", "entries", Symbol.iterator];
-  iteratorMethods.forEach((method) => {
-    mutableInstrumentations[method] = createIterableMethod(method, false, false);
-    readonlyInstrumentations[method] = createIterableMethod(method, true, false);
-    shallowInstrumentations[method] = createIterableMethod(method, false, true);
-    shallowReadonlyInstrumentations[method] = createIterableMethod(method, true, true);
-  });
-  function createInstrumentationGetter(isReadonly2, shallow) {
-    const instrumentations = shallow ? isReadonly2 ? shallowReadonlyInstrumentations : shallowInstrumentations : isReadonly2 ? readonlyInstrumentations : mutableInstrumentations;
-    return (target, key, receiver) => {
-      if (key === "__v_isReactive") {
-        return !isReadonly2;
-      } else if (key === "__v_isReadonly") {
-        return isReadonly2;
-      } else if (key === "__v_raw") {
-        return target;
-      }
-      return Reflect.get(shared.hasOwn(instrumentations, key) && key in target ? instrumentations : target, key, receiver);
-    };
-  }
-  var mutableCollectionHandlers = {
-    get: createInstrumentationGetter(false, false)
-  };
-  var shallowCollectionHandlers = {
-    get: createInstrumentationGetter(false, true)
-  };
-  var readonlyCollectionHandlers = {
-    get: createInstrumentationGetter(true, false)
-  };
-  var shallowReadonlyCollectionHandlers = {
-    get: createInstrumentationGetter(true, true)
-  };
-  function checkIdentityKeys(target, has2, key) {
-    const rawKey = toRaw2(key);
-    if (rawKey !== key && has2.call(target, rawKey)) {
-      const type = shared.toRawType(target);
-      console.warn(`Reactive ${type} contains both the raw and reactive versions of the same object${type === `Map` ? ` as keys` : ``}, which can lead to inconsistencies. Avoid differentiating between the raw and reactive versions of an object and only use the reactive version if possible.`);
-    }
-  }
-  var reactiveMap = new WeakMap();
-  var shallowReactiveMap = new WeakMap();
-  var readonlyMap = new WeakMap();
-  var shallowReadonlyMap = new WeakMap();
-  function targetTypeMap(rawType) {
-    switch (rawType) {
-      case "Object":
-      case "Array":
-        return 1;
-      case "Map":
-      case "Set":
-      case "WeakMap":
-      case "WeakSet":
-        return 2;
-      default:
-        return 0;
-    }
-  }
-  function getTargetType(value) {
-    return value["__v_skip"] || !Object.isExtensible(value) ? 0 : targetTypeMap(shared.toRawType(value));
-  }
-  function reactive3(target) {
-    if (target && target["__v_isReadonly"]) {
-      return target;
-    }
-    return createReactiveObject(target, false, mutableHandlers, mutableCollectionHandlers, reactiveMap);
-  }
-  function shallowReactive(target) {
-    return createReactiveObject(target, false, shallowReactiveHandlers, shallowCollectionHandlers, shallowReactiveMap);
-  }
-  function readonly(target) {
-    return createReactiveObject(target, true, readonlyHandlers, readonlyCollectionHandlers, readonlyMap);
-  }
-  function shallowReadonly(target) {
-    return createReactiveObject(target, true, shallowReadonlyHandlers, shallowReadonlyCollectionHandlers, shallowReadonlyMap);
-  }
-  function createReactiveObject(target, isReadonly2, baseHandlers, collectionHandlers, proxyMap) {
-    if (!shared.isObject(target)) {
-      {
-        console.warn(`value cannot be made reactive: ${String(target)}`);
-      }
-      return target;
-    }
-    if (target["__v_raw"] && !(isReadonly2 && target["__v_isReactive"])) {
-      return target;
-    }
-    const existingProxy = proxyMap.get(target);
-    if (existingProxy) {
-      return existingProxy;
-    }
-    const targetType = getTargetType(target);
-    if (targetType === 0) {
-      return target;
-    }
-    const proxy = new Proxy(target, targetType === 2 ? collectionHandlers : baseHandlers);
-    proxyMap.set(target, proxy);
-    return proxy;
-  }
-  function isReactive2(value) {
-    if (isReadonly(value)) {
-      return isReactive2(value["__v_raw"]);
-    }
-    return !!(value && value["__v_isReactive"]);
-  }
-  function isReadonly(value) {
-    return !!(value && value["__v_isReadonly"]);
-  }
-  function isProxy(value) {
-    return isReactive2(value) || isReadonly(value);
-  }
-  function toRaw2(observed) {
-    return observed && toRaw2(observed["__v_raw"]) || observed;
-  }
-  function markRaw(value) {
-    shared.def(value, "__v_skip", true);
-    return value;
-  }
-  var convert = (val) => shared.isObject(val) ? reactive3(val) : val;
-  function isRef(r) {
-    return Boolean(r && r.__v_isRef === true);
-  }
-  function ref(value) {
-    return createRef(value);
-  }
-  function shallowRef(value) {
-    return createRef(value, true);
-  }
-  var RefImpl = class {
-    constructor(_rawValue, _shallow = false) {
-      this._rawValue = _rawValue;
-      this._shallow = _shallow;
-      this.__v_isRef = true;
-      this._value = _shallow ? _rawValue : convert(_rawValue);
-    }
-    get value() {
-      track(toRaw2(this), "get", "value");
-      return this._value;
-    }
-    set value(newVal) {
-      if (shared.hasChanged(toRaw2(newVal), this._rawValue)) {
-        this._rawValue = newVal;
-        this._value = this._shallow ? newVal : convert(newVal);
-        trigger(toRaw2(this), "set", "value", newVal);
-      }
-    }
-  };
-  function createRef(rawValue, shallow = false) {
-    if (isRef(rawValue)) {
-      return rawValue;
-    }
-    return new RefImpl(rawValue, shallow);
-  }
-  function triggerRef(ref2) {
-    trigger(toRaw2(ref2), "set", "value", ref2.value);
-  }
-  function unref(ref2) {
-    return isRef(ref2) ? ref2.value : ref2;
-  }
-  var shallowUnwrapHandlers = {
-    get: (target, key, receiver) => unref(Reflect.get(target, key, receiver)),
-    set: (target, key, value, receiver) => {
-      const oldValue = target[key];
-      if (isRef(oldValue) && !isRef(value)) {
-        oldValue.value = value;
-        return true;
-      } else {
-        return Reflect.set(target, key, value, receiver);
-      }
-    }
-  };
-  function proxyRefs(objectWithRefs) {
-    return isReactive2(objectWithRefs) ? objectWithRefs : new Proxy(objectWithRefs, shallowUnwrapHandlers);
-  }
-  var CustomRefImpl = class {
-    constructor(factory) {
-      this.__v_isRef = true;
-      const {get: get3, set: set3} = factory(() => track(this, "get", "value"), () => trigger(this, "set", "value"));
-      this._get = get3;
-      this._set = set3;
-    }
-    get value() {
-      return this._get();
-    }
-    set value(newVal) {
-      this._set(newVal);
-    }
-  };
-  function customRef(factory) {
-    return new CustomRefImpl(factory);
-  }
-  function toRefs(object) {
-    if (!isProxy(object)) {
-      console.warn(`toRefs() expects a reactive object but received a plain one.`);
-    }
-    const ret = shared.isArray(object) ? new Array(object.length) : {};
-    for (const key in object) {
-      ret[key] = toRef(object, key);
-    }
-    return ret;
-  }
-  var ObjectRefImpl = class {
-    constructor(_object, _key) {
-      this._object = _object;
-      this._key = _key;
-      this.__v_isRef = true;
-    }
-    get value() {
-      return this._object[this._key];
-    }
-    set value(newVal) {
-      this._object[this._key] = newVal;
-    }
-  };
-  function toRef(object, key) {
-    return isRef(object[key]) ? object[key] : new ObjectRefImpl(object, key);
-  }
-  var ComputedRefImpl = class {
-    constructor(getter, _setter, isReadonly2) {
-      this._setter = _setter;
-      this._dirty = true;
-      this.__v_isRef = true;
-      this.effect = effect3(getter, {
-        lazy: true,
-        scheduler: () => {
-          if (!this._dirty) {
-            this._dirty = true;
-            trigger(toRaw2(this), "set", "value");
-          }
-        }
-      });
-      this["__v_isReadonly"] = isReadonly2;
-    }
-    get value() {
-      const self2 = toRaw2(this);
-      if (self2._dirty) {
-        self2._value = this.effect();
-        self2._dirty = false;
-      }
-      track(self2, "get", "value");
-      return self2._value;
-    }
-    set value(newValue) {
-      this._setter(newValue);
-    }
-  };
-  function computed(getterOrOptions) {
-    let getter;
-    let setter;
-    if (shared.isFunction(getterOrOptions)) {
-      getter = getterOrOptions;
-      setter = () => {
-        console.warn("Write operation failed: computed value is readonly");
-      };
-    } else {
-      getter = getterOrOptions.get;
-      setter = getterOrOptions.set;
-    }
-    return new ComputedRefImpl(getter, setter, shared.isFunction(getterOrOptions) || !getterOrOptions.set);
-  }
-  exports.ITERATE_KEY = ITERATE_KEY;
-  exports.computed = computed;
-  exports.customRef = customRef;
-  exports.effect = effect3;
-  exports.enableTracking = enableTracking;
-  exports.isProxy = isProxy;
-  exports.isReactive = isReactive2;
-  exports.isReadonly = isReadonly;
-  exports.isRef = isRef;
-  exports.markRaw = markRaw;
-  exports.pauseTracking = pauseTracking;
-  exports.proxyRefs = proxyRefs;
-  exports.reactive = reactive3;
-  exports.readonly = readonly;
-  exports.ref = ref;
-  exports.resetTracking = resetTracking;
-  exports.shallowReactive = shallowReactive;
-  exports.shallowReadonly = shallowReadonly;
-  exports.shallowRef = shallowRef;
-  exports.stop = stop2;
-  exports.toRaw = toRaw2;
-  exports.toRef = toRef;
-  exports.toRefs = toRefs;
-  exports.track = track;
-  exports.trigger = trigger;
-  exports.triggerRef = triggerRef;
-  exports.unref = unref;
-});
 
-// node_modules/@vue/reactivity/index.js
-var require_reactivity = __commonJS((exports, module) => {
-  "use strict";
-  if (false) {} else {
-    module.exports = require_reactivity_cjs();
-  }
-});
-
-// packages/alpinejs/src/scheduler.js
-var flushPending = false;
-var flushing = false;
-var queue = [];
-function scheduler(callback) {
-  queueJob(callback);
-}
-function queueJob(job) {
-  if (!queue.includes(job))
-    queue.push(job);
-  queueFlush();
-}
-function queueFlush() {
-  if (!flushing && !flushPending) {
-    flushPending = true;
-    queueMicrotask(flushJobs);
-  }
-}
-function flushJobs() {
-  flushPending = false;
-  flushing = true;
-  for (let i = 0; i < queue.length; i++) {
-    queue[i]();
-  }
-  queue.length = 0;
-  flushing = false;
-}
-
-// packages/alpinejs/src/reactivity.js
-var reactive;
-var effect;
-var release;
-var raw;
-var shouldSchedule = true;
-function disableEffectScheduling(callback) {
-  shouldSchedule = false;
-  callback();
-  shouldSchedule = true;
-}
-function setReactivityEngine(engine) {
-  reactive = engine.reactive;
-  release = engine.release;
-  effect = (callback) => engine.effect(callback, {scheduler: (task) => {
-    if (shouldSchedule) {
-      scheduler(task);
-    } else {
-      task();
-    }
-  }});
-  raw = engine.raw;
-}
-function overrideEffect(override) {
-  effect = override;
-}
-function elementBoundEffect(el) {
-  let cleanup = () => {
-  };
-  let wrappedEffect = (callback) => {
-    let effectReference = effect(callback);
-    if (!el._x_effects) {
-      el._x_effects = new Set();
-      el._x_runEffects = () => {
-        el._x_effects.forEach((i) => i());
-      };
-    }
-    el._x_effects.add(effectReference);
-    cleanup = () => {
-      if (effectReference === void 0)
-        return;
-      el._x_effects.delete(effectReference);
-      release(effectReference);
-    };
-  };
-  return [wrappedEffect, () => {
-    cleanup();
-  }];
-}
-
-// packages/alpinejs/src/mutation.js
-var onAttributeAddeds = [];
-var onElRemoveds = [];
-var onElAddeds = [];
-function onElAdded(callback) {
-  onElAddeds.push(callback);
-}
-function onElRemoved(callback) {
-  onElRemoveds.push(callback);
-}
-function onAttributesAdded(callback) {
-  onAttributeAddeds.push(callback);
-}
-function onAttributeRemoved(el, name, callback) {
-  if (!el._x_attributeCleanups)
-    el._x_attributeCleanups = {};
-  if (!el._x_attributeCleanups[name])
-    el._x_attributeCleanups[name] = [];
-  el._x_attributeCleanups[name].push(callback);
-}
-function cleanupAttributes(el, names) {
-  if (!el._x_attributeCleanups)
-    return;
-  Object.entries(el._x_attributeCleanups).forEach(([name, value]) => {
-    if (names === void 0 || names.includes(name)) {
-      value.forEach((i) => i());
-      delete el._x_attributeCleanups[name];
-    }
-  });
-}
-var observer = new MutationObserver(onMutate);
-var currentlyObserving = false;
-function startObservingMutations() {
-  observer.observe(document, {subtree: true, childList: true, attributes: true, attributeOldValue: true});
-  currentlyObserving = true;
-}
-function stopObservingMutations() {
-  flushObserver();
-  observer.disconnect();
-  currentlyObserving = false;
-}
-var recordQueue = [];
-var willProcessRecordQueue = false;
-function flushObserver() {
-  recordQueue = recordQueue.concat(observer.takeRecords());
-  if (recordQueue.length && !willProcessRecordQueue) {
-    willProcessRecordQueue = true;
-    queueMicrotask(() => {
-      processRecordQueue();
-      willProcessRecordQueue = false;
-    });
-  }
-}
-function processRecordQueue() {
-  onMutate(recordQueue);
-  recordQueue.length = 0;
-}
-function mutateDom(callback) {
-  if (!currentlyObserving)
-    return callback();
-  stopObservingMutations();
-  let result = callback();
-  startObservingMutations();
-  return result;
-}
-var isCollecting = false;
-var deferredMutations = [];
-function deferMutations() {
-  isCollecting = true;
-}
-function flushAndStopDeferringMutations() {
-  isCollecting = false;
-  onMutate(deferredMutations);
-  deferredMutations = [];
-}
-function onMutate(mutations) {
-  if (isCollecting) {
-    deferredMutations = deferredMutations.concat(mutations);
-    return;
-  }
-  let addedNodes = [];
-  let removedNodes = [];
-  let addedAttributes = new Map();
-  let removedAttributes = new Map();
-  for (let i = 0; i < mutations.length; i++) {
-    if (mutations[i].target._x_ignoreMutationObserver)
-      continue;
-    if (mutations[i].type === "childList") {
-      mutations[i].addedNodes.forEach((node) => node.nodeType === 1 && addedNodes.push(node));
-      mutations[i].removedNodes.forEach((node) => node.nodeType === 1 && removedNodes.push(node));
-    }
-    if (mutations[i].type === "attributes") {
-      let el = mutations[i].target;
-      let name = mutations[i].attributeName;
-      let oldValue = mutations[i].oldValue;
-      let add = () => {
-        if (!addedAttributes.has(el))
-          addedAttributes.set(el, []);
-        addedAttributes.get(el).push({name, value: el.getAttribute(name)});
-      };
-      let remove = () => {
-        if (!removedAttributes.has(el))
-          removedAttributes.set(el, []);
-        removedAttributes.get(el).push(name);
-      };
-      if (el.hasAttribute(name) && oldValue === null) {
-        add();
-      } else if (el.hasAttribute(name)) {
-        remove();
-        add();
-      } else {
-        remove();
-      }
-    }
-  }
-  removedAttributes.forEach((attrs, el) => {
-    cleanupAttributes(el, attrs);
-  });
-  addedAttributes.forEach((attrs, el) => {
-    onAttributeAddeds.forEach((i) => i(el, attrs));
-  });
-  for (let node of addedNodes) {
-    if (removedNodes.includes(node))
-      continue;
-    onElAddeds.forEach((i) => i(node));
-  }
-  for (let node of removedNodes) {
-    if (addedNodes.includes(node))
-      continue;
-    onElRemoveds.forEach((i) => i(node));
-  }
-  addedNodes = null;
-  removedNodes = null;
-  addedAttributes = null;
-  removedAttributes = null;
-}
-
-// packages/alpinejs/src/scope.js
-function addScopeToNode(node, data2, referenceNode) {
-  node._x_dataStack = [data2, ...closestDataStack(referenceNode || node)];
-  return () => {
-    node._x_dataStack = node._x_dataStack.filter((i) => i !== data2);
-  };
-}
-function refreshScope(element, scope) {
-  let existingScope = element._x_dataStack[0];
-  Object.entries(scope).forEach(([key, value]) => {
-    existingScope[key] = value;
-  });
-}
-function closestDataStack(node) {
-  if (node._x_dataStack)
-    return node._x_dataStack;
-  if (typeof ShadowRoot === "function" && node instanceof ShadowRoot) {
-    return closestDataStack(node.host);
-  }
-  if (!node.parentNode) {
-    return [];
-  }
-  return closestDataStack(node.parentNode);
-}
-function mergeProxies(objects) {
-  let thisProxy = new Proxy({}, {
-    ownKeys: () => {
-      return Array.from(new Set(objects.flatMap((i) => Object.keys(i))));
-    },
-    has: (target, name) => {
-      return objects.some((obj) => obj.hasOwnProperty(name));
-    },
-    get: (target, name) => {
-      return (objects.find((obj) => {
-        if (obj.hasOwnProperty(name)) {
-          let descriptor = Object.getOwnPropertyDescriptor(obj, name);
-          if (descriptor.get && descriptor.get._x_alreadyBound || descriptor.set && descriptor.set._x_alreadyBound) {
-            return true;
-          }
-          if ((descriptor.get || descriptor.set) && descriptor.enumerable) {
-            let getter = descriptor.get;
-            let setter = descriptor.set;
-            let property = descriptor;
-            getter = getter && getter.bind(thisProxy);
-            setter = setter && setter.bind(thisProxy);
-            if (getter)
-              getter._x_alreadyBound = true;
-            if (setter)
-              setter._x_alreadyBound = true;
-            Object.defineProperty(obj, name, {
-              ...property,
-              get: getter,
-              set: setter
-            });
-          }
-          return true;
-        }
-        return false;
-      }) || {})[name];
-    },
-    set: (target, name, value) => {
-      let closestObjectWithKey = objects.find((obj) => obj.hasOwnProperty(name));
-      if (closestObjectWithKey) {
-        closestObjectWithKey[name] = value;
-      } else {
-        objects[objects.length - 1][name] = value;
-      }
-      return true;
-    }
-  });
-  return thisProxy;
-}
-
-// packages/alpinejs/src/interceptor.js
-function initInterceptors(data2) {
-  let isObject = (val) => typeof val === "object" && !Array.isArray(val) && val !== null;
-  let recurse = (obj, basePath = "") => {
-    Object.entries(Object.getOwnPropertyDescriptors(obj)).forEach(([key, {value, enumerable}]) => {
-      if (enumerable === false || value === void 0)
-        return;
-      let path = basePath === "" ? key : `${basePath}.${key}`;
-      if (typeof value === "object" && value !== null && value._x_interceptor) {
-        obj[key] = value.initialize(data2, path, key);
-      } else {
-        if (isObject(value) && value !== obj && !(value instanceof Element)) {
-          recurse(value, path);
-        }
-      }
-    });
-  };
-  return recurse(data2);
-}
-function interceptor(callback, mutateObj = () => {
-}) {
-  let obj = {
-    initialValue: void 0,
-    _x_interceptor: true,
-    initialize(data2, path, key) {
-      return callback(this.initialValue, () => get(data2, path), (value) => set(data2, path, value), path, key);
-    }
-  };
-  mutateObj(obj);
-  return (initialValue) => {
-    if (typeof initialValue === "object" && initialValue !== null && initialValue._x_interceptor) {
-      let initialize = obj.initialize.bind(obj);
-      obj.initialize = (data2, path, key) => {
-        let innerValue = initialValue.initialize(data2, path, key);
-        obj.initialValue = innerValue;
-        return initialize(data2, path, key);
-      };
-    } else {
-      obj.initialValue = initialValue;
-    }
     return obj;
-  };
-}
-function get(obj, path) {
-  return path.split(".").reduce((carry, segment) => carry[segment], obj);
-}
-function set(obj, path, value) {
-  if (typeof path === "string")
-    path = path.split(".");
-  if (path.length === 1)
-    obj[path[0]] = value;
-  else if (path.length === 0)
-    throw error;
-  else {
-    if (obj[path[0]])
-      return set(obj[path[0]], path.slice(1), value);
-    else {
-      obj[path[0]] = {};
-      return set(obj[path[0]], path.slice(1), value);
+  }
+
+  function ownKeys(object, enumerableOnly) {
+    var keys = Object.keys(object);
+
+    if (Object.getOwnPropertySymbols) {
+      var symbols = Object.getOwnPropertySymbols(object);
+      if (enumerableOnly) symbols = symbols.filter(function (sym) {
+        return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+      });
+      keys.push.apply(keys, symbols);
     }
-  }
-}
 
-// packages/alpinejs/src/magics.js
-var magics = {};
-function magic(name, callback) {
-  magics[name] = callback;
-}
-function injectMagics(obj, el) {
-  Object.entries(magics).forEach(([name, callback]) => {
-    Object.defineProperty(obj, `$${name}`, {
-      get() {
-        return callback(el, {Alpine: alpine_default, interceptor});
-      },
-      enumerable: false
-    });
-  });
-  return obj;
-}
-
-// packages/alpinejs/src/utils/error.js
-function tryCatch(el, expression, callback, ...args) {
-  try {
-    return callback(...args);
-  } catch (e) {
-    handleError(e, el, expression);
+    return keys;
   }
-}
-function handleError(error2, el, expression = void 0) {
-  Object.assign(error2, {el, expression});
-  console.warn(`Alpine Expression Error: ${error2.message}
 
-${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
-  setTimeout(() => {
-    throw error2;
-  }, 0);
-}
+  function _objectSpread2(target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i] != null ? arguments[i] : {};
 
-// packages/alpinejs/src/evaluator.js
-function evaluate(el, expression, extras = {}) {
-  let result;
-  evaluateLater(el, expression)((value) => result = value, extras);
-  return result;
-}
-function evaluateLater(...args) {
-  return theEvaluatorFunction(...args);
-}
-var theEvaluatorFunction = normalEvaluator;
-function setEvaluator(newEvaluator) {
-  theEvaluatorFunction = newEvaluator;
-}
-function normalEvaluator(el, expression) {
-  let overriddenMagics = {};
-  injectMagics(overriddenMagics, el);
-  let dataStack = [overriddenMagics, ...closestDataStack(el)];
-  if (typeof expression === "function") {
-    return generateEvaluatorFromFunction(dataStack, expression);
-  }
-  let evaluator = generateEvaluatorFromString(dataStack, expression, el);
-  return tryCatch.bind(null, el, expression, evaluator);
-}
-function generateEvaluatorFromFunction(dataStack, func) {
-  return (receiver = () => {
-  }, {scope = {}, params = []} = {}) => {
-    let result = func.apply(mergeProxies([scope, ...dataStack]), params);
-    runIfTypeOfFunction(receiver, result);
-  };
-}
-var evaluatorMemo = {};
-function generateFunctionFromString(expression, el) {
-  if (evaluatorMemo[expression]) {
-    return evaluatorMemo[expression];
-  }
-  let AsyncFunction = Object.getPrototypeOf(async function() {
-  }).constructor;
-  let rightSideSafeExpression = /^[\n\s]*if.*\(.*\)/.test(expression) || /^(let|const)\s/.test(expression) ? `(() => { ${expression} })()` : expression;
-  const safeAsyncFunction = () => {
-    try {
-      return new AsyncFunction(["__self", "scope"], `with (scope) { __self.result = ${rightSideSafeExpression} }; __self.finished = true; return __self.result;`);
-    } catch (error2) {
-      handleError(error2, el, expression);
-      return Promise.resolve();
-    }
-  };
-  let func = safeAsyncFunction();
-  evaluatorMemo[expression] = func;
-  return func;
-}
-function generateEvaluatorFromString(dataStack, expression, el) {
-  let func = generateFunctionFromString(expression, el);
-  return (receiver = () => {
-  }, {scope = {}, params = []} = {}) => {
-    func.result = void 0;
-    func.finished = false;
-    let completeScope = mergeProxies([scope, ...dataStack]);
-    if (typeof func === "function") {
-      let promise = func(func, completeScope).catch((error2) => handleError(error2, el, expression));
-      if (func.finished) {
-        runIfTypeOfFunction(receiver, func.result, completeScope, params, el);
+      if (i % 2) {
+        ownKeys(Object(source), true).forEach(function (key) {
+          _defineProperty(target, key, source[key]);
+        });
+      } else if (Object.getOwnPropertyDescriptors) {
+        Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
       } else {
-        promise.then((result) => {
-          runIfTypeOfFunction(receiver, result, completeScope, params, el);
-        }).catch((error2) => handleError(error2, el, expression));
+        ownKeys(Object(source)).forEach(function (key) {
+          Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+        });
       }
     }
-  };
-}
-function runIfTypeOfFunction(receiver, value, scope, params, el) {
-  if (typeof value === "function") {
-    let result = value.apply(scope, params);
-    if (result instanceof Promise) {
-      result.then((i) => runIfTypeOfFunction(receiver, i, scope, params)).catch((error2) => handleError(error2, el, value));
-    } else {
-      receiver(result);
-    }
-  } else {
-    receiver(value);
-  }
-}
 
-// packages/alpinejs/src/directives.js
-var prefixAsString = "x-";
-function prefix(subject = "") {
-  return prefixAsString + subject;
-}
-function setPrefix(newPrefix) {
-  prefixAsString = newPrefix;
-}
-var directiveHandlers = {};
-function directive(name, callback) {
-  directiveHandlers[name] = callback;
-}
-function directives(el, attributes, originalAttributeOverride) {
-  let transformedAttributeMap = {};
-  let directives2 = Array.from(attributes).map(toTransformedAttributes((newName, oldName) => transformedAttributeMap[newName] = oldName)).filter(outNonAlpineAttributes).map(toParsedDirectives(transformedAttributeMap, originalAttributeOverride)).sort(byPriority);
-  return directives2.map((directive2) => {
-    return getDirectiveHandler(el, directive2);
-  });
-}
-function attributesOnly(attributes) {
-  return Array.from(attributes).map(toTransformedAttributes()).filter((attr) => !outNonAlpineAttributes(attr));
-}
-var isDeferringHandlers = false;
-var directiveHandlerStacks = new Map();
-var currentHandlerStackKey = Symbol();
-function deferHandlingDirectives(callback) {
-  isDeferringHandlers = true;
-  let key = Symbol();
-  currentHandlerStackKey = key;
-  directiveHandlerStacks.set(key, []);
-  let flushHandlers = () => {
-    while (directiveHandlerStacks.get(key).length)
-      directiveHandlerStacks.get(key).shift()();
-    directiveHandlerStacks.delete(key);
+    return target;
+  }
+
+  // Thanks @stimulus:
+  // https://github.com/stimulusjs/stimulus/blob/master/packages/%40stimulus/core/src/application.ts
+  function domReady() {
+    return new Promise(resolve => {
+      if (document.readyState == "loading") {
+        document.addEventListener("DOMContentLoaded", resolve);
+      } else {
+        resolve();
+      }
+    });
+  }
+  function arrayUnique(array) {
+    return Array.from(new Set(array));
+  }
+  function isTesting() {
+    return navigator.userAgent.includes("Node.js") || navigator.userAgent.includes("jsdom");
+  }
+  function checkedAttrLooseCompare(valueA, valueB) {
+    return valueA == valueB;
+  }
+  function warnIfMalformedTemplate(el, directive) {
+    if (el.tagName.toLowerCase() !== 'template') {
+      console.warn(`Alpine: [${directive}] directive should only be added to <template> tags. See https://github.com/alpinejs/alpine#${directive}`);
+    } else if (el.content.childElementCount !== 1) {
+      console.warn(`Alpine: <template> tag with [${directive}] encountered with an unexpected number of root elements. Make sure <template> has a single root element. `);
+    }
+  }
+  function kebabCase(subject) {
+    return subject.replace(/([a-z])([A-Z])/g, '$1-$2').replace(/[_\s]/, '-').toLowerCase();
+  }
+  function camelCase(subject) {
+    return subject.toLowerCase().replace(/-(\w)/g, (match, char) => char.toUpperCase());
+  }
+  function walk(el, callback) {
+    if (callback(el) === false) return;
+    let node = el.firstElementChild;
+
+    while (node) {
+      walk(node, callback);
+      node = node.nextElementSibling;
+    }
+  }
+  function debounce(func, wait) {
+    var timeout;
+    return function () {
+      var context = this,
+          args = arguments;
+
+      var later = function later() {
+        timeout = null;
+        func.apply(context, args);
+      };
+
+      clearTimeout(timeout);
+      timeout = setTimeout(later, wait);
+    };
+  }
+
+  const handleError = (el, expression, error) => {
+    console.warn(`Alpine Error: "${error}"\n\nExpression: "${expression}"\nElement:`, el);
+
+    if (!isTesting()) {
+      Object.assign(error, {
+        el,
+        expression
+      });
+      throw error;
+    }
   };
-  let stopDeferring = () => {
-    isDeferringHandlers = false;
-    flushHandlers();
-  };
-  callback(flushHandlers);
-  stopDeferring();
-}
-function getDirectiveHandler(el, directive2) {
-  let noop = () => {
-  };
-  let handler3 = directiveHandlers[directive2.type] || noop;
-  let cleanups = [];
-  let cleanup = (callback) => cleanups.push(callback);
-  let [effect3, cleanupEffect] = elementBoundEffect(el);
-  cleanups.push(cleanupEffect);
-  let utilities = {
-    Alpine: alpine_default,
-    effect: effect3,
-    cleanup,
-    evaluateLater: evaluateLater.bind(evaluateLater, el),
-    evaluate: evaluate.bind(evaluate, el)
-  };
-  let doCleanup = () => cleanups.forEach((i) => i());
-  onAttributeRemoved(el, directive2.original, doCleanup);
-  let fullHandler = () => {
-    if (el._x_ignore || el._x_ignoreSelf)
-      return;
-    handler3.inline && handler3.inline(el, directive2, utilities);
-    handler3 = handler3.bind(handler3, el, directive2, utilities);
-    isDeferringHandlers ? directiveHandlerStacks.get(currentHandlerStackKey).push(handler3) : handler3();
-  };
-  fullHandler.runCleanups = doCleanup;
-  return fullHandler;
-}
-var startingWith = (subject, replacement) => ({name, value}) => {
-  if (name.startsWith(subject))
-    name = name.replace(subject, replacement);
-  return {name, value};
-};
-var into = (i) => i;
-function toTransformedAttributes(callback = () => {
-}) {
-  return ({name, value}) => {
-    let {name: newName, value: newValue} = attributeTransformers.reduce((carry, transform) => {
-      return transform(carry);
-    }, {name, value});
-    if (newName !== name)
-      callback(newName, name);
-    return {name: newName, value: newValue};
-  };
-}
-var attributeTransformers = [];
-function mapAttributes(callback) {
-  attributeTransformers.push(callback);
-}
-function outNonAlpineAttributes({name}) {
-  return alpineAttributeRegex().test(name);
-}
-var alpineAttributeRegex = () => new RegExp(`^${prefixAsString}([^:^.]+)\\b`);
-function toParsedDirectives(transformedAttributeMap, originalAttributeOverride) {
-  return ({name, value}) => {
-    let typeMatch = name.match(alpineAttributeRegex());
-    let valueMatch = name.match(/:([a-zA-Z0-9\-:]+)/);
-    let modifiers = name.match(/\.[^.\]]+(?=[^\]]*$)/g) || [];
-    let original = originalAttributeOverride || transformedAttributeMap[name] || name;
+
+  function tryCatch(cb, {
+    el,
+    expression
+  }) {
+    try {
+      const value = cb();
+      return value instanceof Promise ? value.catch(e => handleError(el, expression, e)) : value;
+    } catch (e) {
+      handleError(el, expression, e);
+    }
+  }
+
+  function saferEval(el, expression, dataContext, additionalHelperVariables = {}) {
+    return tryCatch(() => {
+      if (typeof expression === 'function') {
+        return expression.call(dataContext);
+      }
+
+      return new Function(['$data', ...Object.keys(additionalHelperVariables)], `var __alpine_result; with($data) { __alpine_result = ${expression} }; return __alpine_result`)(dataContext, ...Object.values(additionalHelperVariables));
+    }, {
+      el,
+      expression
+    });
+  }
+  function saferEvalNoReturn(el, expression, dataContext, additionalHelperVariables = {}) {
+    return tryCatch(() => {
+      if (typeof expression === 'function') {
+        return Promise.resolve(expression.call(dataContext, additionalHelperVariables['$event']));
+      }
+
+      let AsyncFunction = Function;
+      /* MODERN-ONLY:START */
+
+      AsyncFunction = Object.getPrototypeOf(async function () {}).constructor;
+      /* MODERN-ONLY:END */
+      // For the cases when users pass only a function reference to the caller: `x-on:click="foo"`
+      // Where "foo" is a function. Also, we'll pass the function the event instance when we call it.
+
+      if (Object.keys(dataContext).includes(expression)) {
+        let methodReference = new Function(['dataContext', ...Object.keys(additionalHelperVariables)], `with(dataContext) { return ${expression} }`)(dataContext, ...Object.values(additionalHelperVariables));
+
+        if (typeof methodReference === 'function') {
+          return Promise.resolve(methodReference.call(dataContext, additionalHelperVariables['$event']));
+        } else {
+          return Promise.resolve();
+        }
+      }
+
+      return Promise.resolve(new AsyncFunction(['dataContext', ...Object.keys(additionalHelperVariables)], `with(dataContext) { ${expression} }`)(dataContext, ...Object.values(additionalHelperVariables)));
+    }, {
+      el,
+      expression
+    });
+  }
+  const xAttrRE = /^x-(on|bind|data|text|html|model|if|for|show|cloak|transition|ref|spread)\b/;
+  function isXAttr(attr) {
+    const name = replaceAtAndColonWithStandardSyntax(attr.name);
+    return xAttrRE.test(name);
+  }
+  function getXAttrs(el, component, type) {
+    let directives = Array.from(el.attributes).filter(isXAttr).map(parseHtmlAttribute); // Get an object of directives from x-spread.
+
+    let spreadDirective = directives.filter(directive => directive.type === 'spread')[0];
+
+    if (spreadDirective) {
+      let spreadObject = saferEval(el, spreadDirective.expression, component.$data); // Add x-spread directives to the pile of existing directives.
+
+      directives = directives.concat(Object.entries(spreadObject).map(([name, value]) => parseHtmlAttribute({
+        name,
+        value
+      })));
+    }
+
+    if (type) return directives.filter(i => i.type === type);
+    return sortDirectives(directives);
+  }
+
+  function sortDirectives(directives) {
+    let directiveOrder = ['bind', 'model', 'show', 'catch-all'];
+    return directives.sort((a, b) => {
+      let typeA = directiveOrder.indexOf(a.type) === -1 ? 'catch-all' : a.type;
+      let typeB = directiveOrder.indexOf(b.type) === -1 ? 'catch-all' : b.type;
+      return directiveOrder.indexOf(typeA) - directiveOrder.indexOf(typeB);
+    });
+  }
+
+  function parseHtmlAttribute({
+    name,
+    value
+  }) {
+    const normalizedName = replaceAtAndColonWithStandardSyntax(name);
+    const typeMatch = normalizedName.match(xAttrRE);
+    const valueMatch = normalizedName.match(/:([a-zA-Z0-9\-:]+)/);
+    const modifiers = normalizedName.match(/\.[^.\]]+(?=[^\]]*$)/g) || [];
     return {
       type: typeMatch ? typeMatch[1] : null,
       value: valueMatch ? valueMatch[1] : null,
-      modifiers: modifiers.map((i) => i.replace(".", "")),
-      expression: value,
-      original
+      modifiers: modifiers.map(i => i.replace('.', '')),
+      expression: value
     };
-  };
-}
-var DEFAULT = "DEFAULT";
-var directiveOrder = [
-  "ignore",
-  "ref",
-  "data",
-  "bind",
-  "init",
-  "for",
-  "model",
-  "transition",
-  "show",
-  "if",
-  DEFAULT,
-  "element"
-];
-function byPriority(a, b) {
-  let typeA = directiveOrder.indexOf(a.type) === -1 ? DEFAULT : a.type;
-  let typeB = directiveOrder.indexOf(b.type) === -1 ? DEFAULT : b.type;
-  return directiveOrder.indexOf(typeA) - directiveOrder.indexOf(typeB);
-}
-
-// packages/alpinejs/src/utils/dispatch.js
-function dispatch(el, name, detail = {}) {
-  el.dispatchEvent(new CustomEvent(name, {
-    detail,
-    bubbles: true,
-    composed: true,
-    cancelable: true
-  }));
-}
-
-// packages/alpinejs/src/nextTick.js
-var tickStack = [];
-var isHolding = false;
-function nextTick(callback) {
-  tickStack.push(callback);
-  queueMicrotask(() => {
-    isHolding || setTimeout(() => {
-      releaseNextTicks();
-    });
-  });
-}
-function releaseNextTicks() {
-  isHolding = false;
-  while (tickStack.length)
-    tickStack.shift()();
-}
-function holdNextTicks() {
-  isHolding = true;
-}
-
-// packages/alpinejs/src/utils/walk.js
-function walk(el, callback) {
-  if (typeof ShadowRoot === "function" && el instanceof ShadowRoot) {
-    Array.from(el.children).forEach((el2) => walk(el2, callback));
-    return;
   }
-  let skip = false;
-  callback(el, () => skip = true);
-  if (skip)
-    return;
-  let node = el.firstElementChild;
-  while (node) {
-    walk(node, callback, false);
-    node = node.nextElementSibling;
+  function isBooleanAttr(attrName) {
+    // As per HTML spec table https://html.spec.whatwg.org/multipage/indices.html#attributes-3:boolean-attribute
+    // Array roughly ordered by estimated usage
+    const booleanAttributes = ['disabled', 'checked', 'required', 'readonly', 'hidden', 'open', 'selected', 'autofocus', 'itemscope', 'multiple', 'novalidate', 'allowfullscreen', 'allowpaymentrequest', 'formnovalidate', 'autoplay', 'controls', 'loop', 'muted', 'playsinline', 'default', 'ismap', 'reversed', 'async', 'defer', 'nomodule'];
+    return booleanAttributes.includes(attrName);
   }
-}
-
-// packages/alpinejs/src/utils/warn.js
-function warn(message, ...args) {
-  console.warn(`Alpine Warning: ${message}`, ...args);
-}
-
-// packages/alpinejs/src/lifecycle.js
-function start() {
-  if (!document.body)
-    warn("Unable to initialize. Trying to load Alpine before `<body>` is available. Did you forget to add `defer` in Alpine's `<script>` tag?");
-  dispatch(document, "alpine:init");
-  dispatch(document, "alpine:initializing");
-  startObservingMutations();
-  onElAdded((el) => initTree(el, walk));
-  onElRemoved((el) => nextTick(() => destroyTree(el)));
-  onAttributesAdded((el, attrs) => {
-    directives(el, attrs).forEach((handle) => handle());
-  });
-  let outNestedComponents = (el) => !closestRoot(el.parentElement, true);
-  Array.from(document.querySelectorAll(allSelectors())).filter(outNestedComponents).forEach((el) => {
-    initTree(el);
-  });
-  dispatch(document, "alpine:initialized");
-}
-var rootSelectorCallbacks = [];
-var initSelectorCallbacks = [];
-function rootSelectors() {
-  return rootSelectorCallbacks.map((fn) => fn());
-}
-function allSelectors() {
-  return rootSelectorCallbacks.concat(initSelectorCallbacks).map((fn) => fn());
-}
-function addRootSelector(selectorCallback) {
-  rootSelectorCallbacks.push(selectorCallback);
-}
-function addInitSelector(selectorCallback) {
-  initSelectorCallbacks.push(selectorCallback);
-}
-function closestRoot(el, includeInitSelectors = false) {
-  if (!el)
-    return;
-  const selectors = includeInitSelectors ? allSelectors() : rootSelectors();
-  if (selectors.some((selector) => el.matches(selector)))
-    return el;
-  if (!el.parentElement)
-    return;
-  return closestRoot(el.parentElement, includeInitSelectors);
-}
-function isRoot(el) {
-  return rootSelectors().some((selector) => el.matches(selector));
-}
-function initTree(el, walker = walk) {
-  deferHandlingDirectives(() => {
-    walker(el, (el2, skip) => {
-      directives(el2, el2.attributes).forEach((handle) => handle());
-      el2._x_ignore && skip();
-    });
-  });
-}
-function destroyTree(root) {
-  walk(root, (el) => cleanupAttributes(el));
-}
-
-// packages/alpinejs/src/utils/classes.js
-function setClasses(el, value) {
-  if (Array.isArray(value)) {
-    return setClassesFromString(el, value.join(" "));
-  } else if (typeof value === "object" && value !== null) {
-    return setClassesFromObject(el, value);
-  } else if (typeof value === "function") {
-    return setClasses(el, value());
-  }
-  return setClassesFromString(el, value);
-}
-function setClassesFromString(el, classString) {
-  let split = (classString2) => classString2.split(" ").filter(Boolean);
-  let missingClasses = (classString2) => classString2.split(" ").filter((i) => !el.classList.contains(i)).filter(Boolean);
-  let addClassesAndReturnUndo = (classes) => {
-    el.classList.add(...classes);
-    return () => {
-      el.classList.remove(...classes);
-    };
-  };
-  classString = classString === true ? classString = "" : classString || "";
-  return addClassesAndReturnUndo(missingClasses(classString));
-}
-function setClassesFromObject(el, classObject) {
-  let split = (classString) => classString.split(" ").filter(Boolean);
-  let forAdd = Object.entries(classObject).flatMap(([classString, bool]) => bool ? split(classString) : false).filter(Boolean);
-  let forRemove = Object.entries(classObject).flatMap(([classString, bool]) => !bool ? split(classString) : false).filter(Boolean);
-  let added = [];
-  let removed = [];
-  forRemove.forEach((i) => {
-    if (el.classList.contains(i)) {
-      el.classList.remove(i);
-      removed.push(i);
+  function replaceAtAndColonWithStandardSyntax(name) {
+    if (name.startsWith('@')) {
+      return name.replace('@', 'x-on:');
+    } else if (name.startsWith(':')) {
+      return name.replace(':', 'x-bind:');
     }
-  });
-  forAdd.forEach((i) => {
-    if (!el.classList.contains(i)) {
-      el.classList.add(i);
-      added.push(i);
-    }
-  });
-  return () => {
-    removed.forEach((i) => el.classList.add(i));
-    added.forEach((i) => el.classList.remove(i));
-  };
-}
 
-// packages/alpinejs/src/utils/styles.js
-function setStyles(el, value) {
-  if (typeof value === "object" && value !== null) {
-    return setStylesFromObject(el, value);
+    return name;
   }
-  return setStylesFromString(el, value);
-}
-function setStylesFromObject(el, value) {
-  let previousStyles = {};
-  Object.entries(value).forEach(([key, value2]) => {
-    previousStyles[key] = el.style[key];
-    el.style.setProperty(kebabCase(key), value2);
-  });
-  setTimeout(() => {
-    if (el.style.length === 0) {
-      el.removeAttribute("style");
-    }
-  });
-  return () => {
-    setStyles(el, previousStyles);
-  };
-}
-function setStylesFromString(el, value) {
-  let cache = el.getAttribute("style", value);
-  el.setAttribute("style", value);
-  return () => {
-    el.setAttribute("style", cache);
-  };
-}
-function kebabCase(subject) {
-  return subject.replace(/([a-z])([A-Z])/g, "$1-$2").toLowerCase();
-}
+  function convertClassStringToArray(classList, filterFn = Boolean) {
+    return classList.split(' ').filter(filterFn);
+  }
+  const TRANSITION_TYPE_IN = 'in';
+  const TRANSITION_TYPE_OUT = 'out';
+  const TRANSITION_CANCELLED = 'cancelled';
+  function transitionIn(el, show, reject, component, forceSkip = false) {
+    // We don't want to transition on the initial page load.
+    if (forceSkip) return show();
 
-// packages/alpinejs/src/utils/once.js
-function once(callback, fallback = () => {
-}) {
-  let called = false;
-  return function() {
-    if (!called) {
-      called = true;
-      callback.apply(this, arguments);
+    if (el.__x_transition && el.__x_transition.type === TRANSITION_TYPE_IN) {
+      // there is already a similar transition going on, this was probably triggered by
+      // a change in a different property, let's just leave the previous one doing its job
+      return;
+    }
+
+    const attrs = getXAttrs(el, component, 'transition');
+    const showAttr = getXAttrs(el, component, 'show')[0]; // If this is triggered by a x-show.transition.
+
+    if (showAttr && showAttr.modifiers.includes('transition')) {
+      let modifiers = showAttr.modifiers; // If x-show.transition.out, we'll skip the "in" transition.
+
+      if (modifiers.includes('out') && !modifiers.includes('in')) return show();
+      const settingBothSidesOfTransition = modifiers.includes('in') && modifiers.includes('out'); // If x-show.transition.in...out... only use "in" related modifiers for this transition.
+
+      modifiers = settingBothSidesOfTransition ? modifiers.filter((i, index) => index < modifiers.indexOf('out')) : modifiers;
+      transitionHelperIn(el, modifiers, show, reject); // Otherwise, we can assume x-transition:enter.
+    } else if (attrs.some(attr => ['enter', 'enter-start', 'enter-end'].includes(attr.value))) {
+      transitionClassesIn(el, component, attrs, show, reject);
     } else {
-      fallback.apply(this, arguments);
+      // If neither, just show that damn thing.
+      show();
     }
-  };
-}
+  }
+  function transitionOut(el, hide, reject, component, forceSkip = false) {
+    // We don't want to transition on the initial page load.
+    if (forceSkip) return hide();
 
-// packages/alpinejs/src/directives/x-transition.js
-directive("transition", (el, {value, modifiers, expression}, {evaluate: evaluate2}) => {
-  if (typeof expression === "function")
-    expression = evaluate2(expression);
-  if (!expression) {
-    registerTransitionsFromHelper(el, modifiers, value);
-  } else {
-    registerTransitionsFromClassString(el, expression, value);
-  }
-});
-function registerTransitionsFromClassString(el, classString, stage) {
-  registerTransitionObject(el, setClasses, "");
-  let directiveStorageMap = {
-    enter: (classes) => {
-      el._x_transition.enter.during = classes;
-    },
-    "enter-start": (classes) => {
-      el._x_transition.enter.start = classes;
-    },
-    "enter-end": (classes) => {
-      el._x_transition.enter.end = classes;
-    },
-    leave: (classes) => {
-      el._x_transition.leave.during = classes;
-    },
-    "leave-start": (classes) => {
-      el._x_transition.leave.start = classes;
-    },
-    "leave-end": (classes) => {
-      el._x_transition.leave.end = classes;
+    if (el.__x_transition && el.__x_transition.type === TRANSITION_TYPE_OUT) {
+      // there is already a similar transition going on, this was probably triggered by
+      // a change in a different property, let's just leave the previous one doing its job
+      return;
     }
-  };
-  directiveStorageMap[stage](classString);
-}
-function registerTransitionsFromHelper(el, modifiers, stage) {
-  registerTransitionObject(el, setStyles);
-  let doesntSpecify = !modifiers.includes("in") && !modifiers.includes("out") && !stage;
-  let transitioningIn = doesntSpecify || modifiers.includes("in") || ["enter"].includes(stage);
-  let transitioningOut = doesntSpecify || modifiers.includes("out") || ["leave"].includes(stage);
-  if (modifiers.includes("in") && !doesntSpecify) {
-    modifiers = modifiers.filter((i, index) => index < modifiers.indexOf("out"));
+
+    const attrs = getXAttrs(el, component, 'transition');
+    const showAttr = getXAttrs(el, component, 'show')[0];
+
+    if (showAttr && showAttr.modifiers.includes('transition')) {
+      let modifiers = showAttr.modifiers;
+      if (modifiers.includes('in') && !modifiers.includes('out')) return hide();
+      const settingBothSidesOfTransition = modifiers.includes('in') && modifiers.includes('out');
+      modifiers = settingBothSidesOfTransition ? modifiers.filter((i, index) => index > modifiers.indexOf('out')) : modifiers;
+      transitionHelperOut(el, modifiers, settingBothSidesOfTransition, hide, reject);
+    } else if (attrs.some(attr => ['leave', 'leave-start', 'leave-end'].includes(attr.value))) {
+      transitionClassesOut(el, component, attrs, hide, reject);
+    } else {
+      hide();
+    }
   }
-  if (modifiers.includes("out") && !doesntSpecify) {
-    modifiers = modifiers.filter((i, index) => index > modifiers.indexOf("out"));
-  }
-  let wantsAll = !modifiers.includes("opacity") && !modifiers.includes("scale");
-  let wantsOpacity = wantsAll || modifiers.includes("opacity");
-  let wantsScale = wantsAll || modifiers.includes("scale");
-  let opacityValue = wantsOpacity ? 0 : 1;
-  let scaleValue = wantsScale ? modifierValue(modifiers, "scale", 95) / 100 : 1;
-  let delay = modifierValue(modifiers, "delay", 0);
-  let origin = modifierValue(modifiers, "origin", "center");
-  let property = "opacity, transform";
-  let durationIn = modifierValue(modifiers, "duration", 150) / 1e3;
-  let durationOut = modifierValue(modifiers, "duration", 75) / 1e3;
-  let easing = `cubic-bezier(0.4, 0.0, 0.2, 1)`;
-  if (transitioningIn) {
-    el._x_transition.enter.during = {
-      transformOrigin: origin,
-      transitionDelay: delay,
-      transitionProperty: property,
-      transitionDuration: `${durationIn}s`,
-      transitionTimingFunction: easing
-    };
-    el._x_transition.enter.start = {
-      opacity: opacityValue,
-      transform: `scale(${scaleValue})`
-    };
-    el._x_transition.enter.end = {
-      opacity: 1,
-      transform: `scale(1)`
-    };
-  }
-  if (transitioningOut) {
-    el._x_transition.leave.during = {
-      transformOrigin: origin,
-      transitionDelay: delay,
-      transitionProperty: property,
-      transitionDuration: `${durationOut}s`,
-      transitionTimingFunction: easing
-    };
-    el._x_transition.leave.start = {
-      opacity: 1,
-      transform: `scale(1)`
-    };
-    el._x_transition.leave.end = {
-      opacity: opacityValue,
-      transform: `scale(${scaleValue})`
-    };
-  }
-}
-function registerTransitionObject(el, setFunction, defaultValue = {}) {
-  if (!el._x_transition)
-    el._x_transition = {
-      enter: {during: defaultValue, start: defaultValue, end: defaultValue},
-      leave: {during: defaultValue, start: defaultValue, end: defaultValue},
-      in(before = () => {
-      }, after = () => {
-      }) {
-        transition(el, setFunction, {
-          during: this.enter.during,
-          start: this.enter.start,
-          end: this.enter.end
-        }, before, after);
+  function transitionHelperIn(el, modifiers, showCallback, reject) {
+    // Default values inspired by: https://material.io/design/motion/speed.html#duration
+    const styleValues = {
+      duration: modifierValue(modifiers, 'duration', 150),
+      origin: modifierValue(modifiers, 'origin', 'center'),
+      first: {
+        opacity: 0,
+        scale: modifierValue(modifiers, 'scale', 95)
       },
-      out(before = () => {
-      }, after = () => {
-      }) {
-        transition(el, setFunction, {
-          during: this.leave.during,
-          start: this.leave.start,
-          end: this.leave.end
-        }, before, after);
+      second: {
+        opacity: 1,
+        scale: 100
       }
     };
-}
-window.Element.prototype._x_toggleAndCascadeWithTransitions = function(el, value, show, hide) {
-  let clickAwayCompatibleShow = () => {
-    document.visibilityState === "visible" ? requestAnimationFrame(show) : setTimeout(show);
-  };
-  if (value) {
-    if (el._x_transition && (el._x_transition.enter || el._x_transition.leave)) {
-      el._x_transition.enter && (Object.entries(el._x_transition.enter.during).length || Object.entries(el._x_transition.enter.start).length || Object.entries(el._x_transition.enter.end).length) ? el._x_transition.in(show) : clickAwayCompatibleShow();
-    } else {
-      el._x_transition ? el._x_transition.in(show) : clickAwayCompatibleShow();
-    }
-    return;
+    transitionHelper(el, modifiers, showCallback, () => {}, reject, styleValues, TRANSITION_TYPE_IN);
   }
-  el._x_hidePromise = el._x_transition ? new Promise((resolve, reject) => {
-    el._x_transition.out(() => {
-    }, () => resolve(hide));
-    el._x_transitioning.beforeCancel(() => reject({isFromCancelledTransition: true}));
-  }) : Promise.resolve(hide);
-  queueMicrotask(() => {
-    let closest = closestHide(el);
-    if (closest) {
-      if (!closest._x_hideChildren)
-        closest._x_hideChildren = [];
-      closest._x_hideChildren.push(el);
-    } else {
-      queueMicrotask(() => {
-        let hideAfterChildren = (el2) => {
-          let carry = Promise.all([
-            el2._x_hidePromise,
-            ...(el2._x_hideChildren || []).map(hideAfterChildren)
-          ]).then(([i]) => i());
-          delete el2._x_hidePromise;
-          delete el2._x_hideChildren;
-          return carry;
-        };
-        hideAfterChildren(el).catch((e) => {
-          if (!e.isFromCancelledTransition)
-            throw e;
-        });
-      });
-    }
-  });
-};
-function closestHide(el) {
-  let parent = el.parentNode;
-  if (!parent)
-    return;
-  return parent._x_hidePromise ? parent : closestHide(parent);
-}
-function transition(el, setFunction, {during, start: start2, end} = {}, before = () => {
-}, after = () => {
-}) {
-  if (el._x_transitioning)
-    el._x_transitioning.cancel();
-  if (Object.keys(during).length === 0 && Object.keys(start2).length === 0 && Object.keys(end).length === 0) {
-    before();
-    after();
-    return;
-  }
-  let undoStart, undoDuring, undoEnd;
-  performTransition(el, {
-    start() {
-      undoStart = setFunction(el, start2);
-    },
-    during() {
-      undoDuring = setFunction(el, during);
-    },
-    before,
-    end() {
-      undoStart();
-      undoEnd = setFunction(el, end);
-    },
-    after,
-    cleanup() {
-      undoDuring();
-      undoEnd();
-    }
-  });
-}
-function performTransition(el, stages) {
-  let interrupted, reachedBefore, reachedEnd;
-  let finish = once(() => {
-    mutateDom(() => {
-      interrupted = true;
-      if (!reachedBefore)
-        stages.before();
-      if (!reachedEnd) {
-        stages.end();
-        releaseNextTicks();
+  function transitionHelperOut(el, modifiers, settingBothSidesOfTransition, hideCallback, reject) {
+    // Make the "out" transition .5x slower than the "in". (Visually better)
+    // HOWEVER, if they explicitly set a duration for the "out" transition,
+    // use that.
+    const duration = settingBothSidesOfTransition ? modifierValue(modifiers, 'duration', 150) : modifierValue(modifiers, 'duration', 150) / 2;
+    const styleValues = {
+      duration: duration,
+      origin: modifierValue(modifiers, 'origin', 'center'),
+      first: {
+        opacity: 1,
+        scale: 100
+      },
+      second: {
+        opacity: 0,
+        scale: modifierValue(modifiers, 'scale', 95)
       }
-      stages.after();
-      if (el.isConnected)
+    };
+    transitionHelper(el, modifiers, () => {}, hideCallback, reject, styleValues, TRANSITION_TYPE_OUT);
+  }
+
+  function modifierValue(modifiers, key, fallback) {
+    // If the modifier isn't present, use the default.
+    if (modifiers.indexOf(key) === -1) return fallback; // If it IS present, grab the value after it: x-show.transition.duration.500ms
+
+    const rawValue = modifiers[modifiers.indexOf(key) + 1];
+    if (!rawValue) return fallback;
+
+    if (key === 'scale') {
+      // Check if the very next value is NOT a number and return the fallback.
+      // If x-show.transition.scale, we'll use the default scale value.
+      // That is how a user opts out of the opacity transition.
+      if (!isNumeric(rawValue)) return fallback;
+    }
+
+    if (key === 'duration') {
+      // Support x-show.transition.duration.500ms && duration.500
+      let match = rawValue.match(/([0-9]+)ms/);
+      if (match) return match[1];
+    }
+
+    if (key === 'origin') {
+      // Support chaining origin directions: x-show.transition.top.right
+      if (['top', 'right', 'left', 'center', 'bottom'].includes(modifiers[modifiers.indexOf(key) + 2])) {
+        return [rawValue, modifiers[modifiers.indexOf(key) + 2]].join(' ');
+      }
+    }
+
+    return rawValue;
+  }
+
+  function transitionHelper(el, modifiers, hook1, hook2, reject, styleValues, type) {
+    // clear the previous transition if exists to avoid caching the wrong styles
+    if (el.__x_transition) {
+      el.__x_transition.cancel && el.__x_transition.cancel();
+    } // If the user set these style values, we'll put them back when we're done with them.
+
+
+    const opacityCache = el.style.opacity;
+    const transformCache = el.style.transform;
+    const transformOriginCache = el.style.transformOrigin; // If no modifiers are present: x-show.transition, we'll default to both opacity and scale.
+
+    const noModifiers = !modifiers.includes('opacity') && !modifiers.includes('scale');
+    const transitionOpacity = noModifiers || modifiers.includes('opacity');
+    const transitionScale = noModifiers || modifiers.includes('scale'); // These are the explicit stages of a transition (same stages for in and for out).
+    // This way you can get a birds eye view of the hooks, and the differences
+    // between them.
+
+    const stages = {
+      start() {
+        if (transitionOpacity) el.style.opacity = styleValues.first.opacity;
+        if (transitionScale) el.style.transform = `scale(${styleValues.first.scale / 100})`;
+      },
+
+      during() {
+        if (transitionScale) el.style.transformOrigin = styleValues.origin;
+        el.style.transitionProperty = [transitionOpacity ? `opacity` : ``, transitionScale ? `transform` : ``].join(' ').trim();
+        el.style.transitionDuration = `${styleValues.duration / 1000}s`;
+        el.style.transitionTimingFunction = `cubic-bezier(0.4, 0.0, 0.2, 1)`;
+      },
+
+      show() {
+        hook1();
+      },
+
+      end() {
+        if (transitionOpacity) el.style.opacity = styleValues.second.opacity;
+        if (transitionScale) el.style.transform = `scale(${styleValues.second.scale / 100})`;
+      },
+
+      hide() {
+        hook2();
+      },
+
+      cleanup() {
+        if (transitionOpacity) el.style.opacity = opacityCache;
+        if (transitionScale) el.style.transform = transformCache;
+        if (transitionScale) el.style.transformOrigin = transformOriginCache;
+        el.style.transitionProperty = null;
+        el.style.transitionDuration = null;
+        el.style.transitionTimingFunction = null;
+      }
+
+    };
+    transition(el, stages, type, reject);
+  }
+
+  const ensureStringExpression = (expression, el, component) => {
+    return typeof expression === 'function' ? component.evaluateReturnExpression(el, expression) : expression;
+  };
+
+  function transitionClassesIn(el, component, directives, showCallback, reject) {
+    const enter = convertClassStringToArray(ensureStringExpression((directives.find(i => i.value === 'enter') || {
+      expression: ''
+    }).expression, el, component));
+    const enterStart = convertClassStringToArray(ensureStringExpression((directives.find(i => i.value === 'enter-start') || {
+      expression: ''
+    }).expression, el, component));
+    const enterEnd = convertClassStringToArray(ensureStringExpression((directives.find(i => i.value === 'enter-end') || {
+      expression: ''
+    }).expression, el, component));
+    transitionClasses(el, enter, enterStart, enterEnd, showCallback, () => {}, TRANSITION_TYPE_IN, reject);
+  }
+  function transitionClassesOut(el, component, directives, hideCallback, reject) {
+    const leave = convertClassStringToArray(ensureStringExpression((directives.find(i => i.value === 'leave') || {
+      expression: ''
+    }).expression, el, component));
+    const leaveStart = convertClassStringToArray(ensureStringExpression((directives.find(i => i.value === 'leave-start') || {
+      expression: ''
+    }).expression, el, component));
+    const leaveEnd = convertClassStringToArray(ensureStringExpression((directives.find(i => i.value === 'leave-end') || {
+      expression: ''
+    }).expression, el, component));
+    transitionClasses(el, leave, leaveStart, leaveEnd, () => {}, hideCallback, TRANSITION_TYPE_OUT, reject);
+  }
+  function transitionClasses(el, classesDuring, classesStart, classesEnd, hook1, hook2, type, reject) {
+    // clear the previous transition if exists to avoid caching the wrong classes
+    if (el.__x_transition) {
+      el.__x_transition.cancel && el.__x_transition.cancel();
+    }
+
+    const originalClasses = el.__x_original_classes || [];
+    const stages = {
+      start() {
+        el.classList.add(...classesStart);
+      },
+
+      during() {
+        el.classList.add(...classesDuring);
+      },
+
+      show() {
+        hook1();
+      },
+
+      end() {
+        // Don't remove classes that were in the original class attribute.
+        el.classList.remove(...classesStart.filter(i => !originalClasses.includes(i)));
+        el.classList.add(...classesEnd);
+      },
+
+      hide() {
+        hook2();
+      },
+
+      cleanup() {
+        el.classList.remove(...classesDuring.filter(i => !originalClasses.includes(i)));
+        el.classList.remove(...classesEnd.filter(i => !originalClasses.includes(i)));
+      }
+
+    };
+    transition(el, stages, type, reject);
+  }
+  function transition(el, stages, type, reject) {
+    const finish = once(() => {
+      stages.hide(); // Adding an "isConnected" check, in case the callback
+      // removed the element from the DOM.
+
+      if (el.isConnected) {
         stages.cleanup();
-      delete el._x_transitioning;
-    });
-  });
-  el._x_transitioning = {
-    beforeCancels: [],
-    beforeCancel(callback) {
-      this.beforeCancels.push(callback);
-    },
-    cancel: once(function() {
-      while (this.beforeCancels.length) {
-        this.beforeCancels.shift()();
       }
-      ;
-      finish();
-    }),
-    finish
-  };
-  mutateDom(() => {
+
+      delete el.__x_transition;
+    });
+    el.__x_transition = {
+      // Set transition type so we can avoid clearing transition if the direction is the same
+      type: type,
+      // create a callback for the last stages of the transition so we can call it
+      // from different point and early terminate it. Once will ensure that function
+      // is only called one time.
+      cancel: once(() => {
+        reject(TRANSITION_CANCELLED);
+        finish();
+      }),
+      finish,
+      // This store the next animation frame so we can cancel it
+      nextFrame: null
+    };
     stages.start();
     stages.during();
-  });
-  holdNextTicks();
-  requestAnimationFrame(() => {
-    if (interrupted)
-      return;
-    let duration = Number(getComputedStyle(el).transitionDuration.replace(/,.*/, "").replace("s", "")) * 1e3;
-    let delay = Number(getComputedStyle(el).transitionDelay.replace(/,.*/, "").replace("s", "")) * 1e3;
-    if (duration === 0)
-      duration = Number(getComputedStyle(el).animationDuration.replace("s", "")) * 1e3;
-    mutateDom(() => {
-      stages.before();
-    });
-    reachedBefore = true;
-    requestAnimationFrame(() => {
-      if (interrupted)
-        return;
-      mutateDom(() => {
+    el.__x_transition.nextFrame = requestAnimationFrame(() => {
+      // Note: Safari's transitionDuration property will list out comma separated transition durations
+      // for every single transition property. Let's grab the first one and call it a day.
+      let duration = Number(getComputedStyle(el).transitionDuration.replace(/,.*/, '').replace('s', '')) * 1000;
+
+      if (duration === 0) {
+        duration = Number(getComputedStyle(el).animationDuration.replace('s', '')) * 1000;
+      }
+
+      stages.show();
+      el.__x_transition.nextFrame = requestAnimationFrame(() => {
         stages.end();
+        setTimeout(el.__x_transition.finish, duration);
       });
-      releaseNextTicks();
-      setTimeout(el._x_transitioning.finish, duration + delay);
-      reachedEnd = true;
     });
-  });
-}
-function modifierValue(modifiers, key, fallback) {
-  if (modifiers.indexOf(key) === -1)
-    return fallback;
-  const rawValue = modifiers[modifiers.indexOf(key) + 1];
-  if (!rawValue)
-    return fallback;
-  if (key === "scale") {
-    if (isNaN(rawValue))
-      return fallback;
   }
-  if (key === "duration") {
-    let match = rawValue.match(/([0-9]+)ms/);
-    if (match)
-      return match[1];
-  }
-  if (key === "origin") {
-    if (["top", "right", "left", "center", "bottom"].includes(modifiers[modifiers.indexOf(key) + 2])) {
-      return [rawValue, modifiers[modifiers.indexOf(key) + 2]].join(" ");
-    }
-  }
-  return rawValue;
-}
+  function isNumeric(subject) {
+    return !Array.isArray(subject) && !isNaN(subject);
+  } // Thanks @vuejs
+  // https://github.com/vuejs/vue/blob/4de4649d9637262a9b007720b59f80ac72a5620c/src/shared/util.js
 
-// packages/alpinejs/src/utils/debounce.js
-function debounce(func, wait) {
-  var timeout;
-  return function() {
-    var context = this, args = arguments;
-    var later = function() {
-      timeout = null;
-      func.apply(context, args);
+  function once(callback) {
+    let called = false;
+    return function () {
+      if (!called) {
+        called = true;
+        callback.apply(this, arguments);
+      }
     };
-    clearTimeout(timeout);
-    timeout = setTimeout(later, wait);
-  };
-}
-
-// packages/alpinejs/src/utils/throttle.js
-function throttle(func, limit) {
-  let inThrottle;
-  return function() {
-    let context = this, args = arguments;
-    if (!inThrottle) {
-      func.apply(context, args);
-      inThrottle = true;
-      setTimeout(() => inThrottle = false, limit);
-    }
-  };
-}
-
-// packages/alpinejs/src/plugin.js
-function plugin(callback) {
-  callback(alpine_default);
-}
-
-// packages/alpinejs/src/store.js
-var stores = {};
-var isReactive = false;
-function store(name, value) {
-  if (!isReactive) {
-    stores = reactive(stores);
-    isReactive = true;
   }
-  if (value === void 0) {
-    return stores[name];
-  }
-  stores[name] = value;
-  if (typeof value === "object" && value !== null && value.hasOwnProperty("init") && typeof value.init === "function") {
-    stores[name].init();
-  }
-  initInterceptors(stores[name]);
-}
-function getStores() {
-  return stores;
-}
 
-// packages/alpinejs/src/clone.js
-var isCloning = false;
-function skipDuringClone(callback, fallback = () => {
-}) {
-  return (...args) => isCloning ? fallback(...args) : callback(...args);
-}
-function clone(oldEl, newEl) {
-  newEl._x_dataStack = oldEl._x_dataStack;
-  isCloning = true;
-  dontRegisterReactiveSideEffects(() => {
-    cloneTree(newEl);
-  });
-  isCloning = false;
-}
-function cloneTree(el) {
-  let hasRunThroughFirstEl = false;
-  let shallowWalker = (el2, callback) => {
-    walk(el2, (el3, skip) => {
-      if (hasRunThroughFirstEl && isRoot(el3))
-        return skip();
-      hasRunThroughFirstEl = true;
-      callback(el3, skip);
-    });
-  };
-  initTree(el, shallowWalker);
-}
-function dontRegisterReactiveSideEffects(callback) {
-  let cache = effect;
-  overrideEffect((callback2, el) => {
-    let storedEffect = cache(callback2);
-    release(storedEffect);
-    return () => {
-    };
-  });
-  callback();
-  overrideEffect(cache);
-}
+  function handleForDirective(component, templateEl, expression, initialUpdate, extraVars) {
+    warnIfMalformedTemplate(templateEl, 'x-for');
+    let iteratorNames = typeof expression === 'function' ? parseForExpression(component.evaluateReturnExpression(templateEl, expression)) : parseForExpression(expression);
+    let items = evaluateItemsAndReturnEmptyIfXIfIsPresentAndFalseOnElement(component, templateEl, iteratorNames, extraVars); // As we walk the array, we'll also walk the DOM (updating/creating as we go).
 
-// packages/alpinejs/src/datas.js
-var datas = {};
-function data(name, callback) {
-  datas[name] = callback;
-}
-function injectDataProviders(obj, context) {
-  Object.entries(datas).forEach(([name, callback]) => {
-    Object.defineProperty(obj, name, {
-      get() {
-        return (...args) => {
-          return callback.bind(context)(...args);
-        };
-      },
-      enumerable: false
-    });
-  });
-  return obj;
-}
+    let currentEl = templateEl;
+    items.forEach((item, index) => {
+      let iterationScopeVariables = getIterationScopeVariables(iteratorNames, item, index, items, extraVars());
+      let currentKey = generateKeyForIteration(component, templateEl, index, iterationScopeVariables);
+      let nextEl = lookAheadForMatchingKeyedElementAndMoveItIfFound(currentEl.nextElementSibling, currentKey); // If we haven't found a matching key, insert the element at the current position.
 
-// packages/alpinejs/src/alpine.js
-var Alpine = {
-  get reactive() {
-    return reactive;
-  },
-  get release() {
-    return release;
-  },
-  get effect() {
-    return effect;
-  },
-  get raw() {
-    return raw;
-  },
-  version: "3.5.1",
-  flushAndStopDeferringMutations,
-  disableEffectScheduling,
-  setReactivityEngine,
-  skipDuringClone,
-  addRootSelector,
-  deferMutations,
-  mapAttributes,
-  evaluateLater,
-  setEvaluator,
-  mergeProxies,
-  closestRoot,
-  interceptor,
-  transition,
-  setStyles,
-  mutateDom,
-  directive,
-  throttle,
-  debounce,
-  evaluate,
-  initTree,
-  nextTick,
-  prefix: setPrefix,
-  plugin,
-  magic,
-  store,
-  start,
-  clone,
-  data
-};
-var alpine_default = Alpine;
+      if (!nextEl) {
+        nextEl = addElementInLoopAfterCurrentEl(templateEl, currentEl); // And transition it in if it's not the first page load.
 
-// packages/alpinejs/src/index.js
-var import_reactivity9 = __toModule(require_reactivity());
-
-// packages/alpinejs/src/magics/$nextTick.js
-magic("nextTick", () => nextTick);
-
-// packages/alpinejs/src/magics/$dispatch.js
-magic("dispatch", (el) => dispatch.bind(dispatch, el));
-
-// packages/alpinejs/src/magics/$watch.js
-magic("watch", (el) => (key, callback) => {
-  let evaluate2 = evaluateLater(el, key);
-  let firstTime = true;
-  let oldValue;
-  effect(() => evaluate2((value) => {
-    let div = document.createElement("div");
-    div.dataset.throwAway = value;
-    if (!firstTime) {
-      queueMicrotask(() => {
-        callback(value, oldValue);
-        oldValue = value;
-      });
-    } else {
-      oldValue = value;
-    }
-    firstTime = false;
-  }));
-});
-
-// packages/alpinejs/src/magics/$store.js
-magic("store", getStores);
-
-// packages/alpinejs/src/magics/$data.js
-magic("data", (el) => {
-  return mergeProxies(closestDataStack(el));
-});
-
-// packages/alpinejs/src/magics/$root.js
-magic("root", (el) => closestRoot(el));
-
-// packages/alpinejs/src/magics/$refs.js
-magic("refs", (el) => {
-  if (el._x_refs_proxy)
-    return el._x_refs_proxy;
-  el._x_refs_proxy = mergeProxies(getArrayOfRefObject(el));
-  return el._x_refs_proxy;
-});
-function getArrayOfRefObject(el) {
-  let refObjects = [];
-  let currentEl = el;
-  while (currentEl) {
-    if (currentEl._x_refs)
-      refObjects.push(currentEl._x_refs);
-    currentEl = currentEl.parentNode;
-  }
-  return refObjects;
-}
-
-// packages/alpinejs/src/magics/$el.js
-magic("el", (el) => el);
-
-// packages/alpinejs/src/directives/x-ignore.js
-var handler = () => {
-};
-handler.inline = (el, {modifiers}, {cleanup}) => {
-  modifiers.includes("self") ? el._x_ignoreSelf = true : el._x_ignore = true;
-  cleanup(() => {
-    modifiers.includes("self") ? delete el._x_ignoreSelf : delete el._x_ignore;
-  });
-};
-directive("ignore", handler);
-
-// packages/alpinejs/src/directives/x-effect.js
-directive("effect", (el, {expression}, {effect: effect3}) => effect3(evaluateLater(el, expression)));
-
-// packages/alpinejs/src/utils/bind.js
-function bind(el, name, value, modifiers = []) {
-  if (!el._x_bindings)
-    el._x_bindings = reactive({});
-  el._x_bindings[name] = value;
-  name = modifiers.includes("camel") ? camelCase(name) : name;
-  switch (name) {
-    case "value":
-      bindInputValue(el, value);
-      break;
-    case "style":
-      bindStyles(el, value);
-      break;
-    case "class":
-      bindClasses(el, value);
-      break;
-    default:
-      bindAttribute(el, name, value);
-      break;
-  }
-}
-function bindInputValue(el, value) {
-  if (el.type === "radio") {
-    if (el.attributes.value === void 0) {
-      el.value = value;
-    }
-    if (window.fromModel) {
-      el.checked = checkedAttrLooseCompare(el.value, value);
-    }
-  } else if (el.type === "checkbox") {
-    if (Number.isInteger(value)) {
-      el.value = value;
-    } else if (!Number.isInteger(value) && !Array.isArray(value) && typeof value !== "boolean" && ![null, void 0].includes(value)) {
-      el.value = String(value);
-    } else {
-      if (Array.isArray(value)) {
-        el.checked = value.some((val) => checkedAttrLooseCompare(val, el.value));
+        transitionIn(nextEl, () => {}, () => {}, component, initialUpdate);
+        nextEl.__x_for = iterationScopeVariables;
+        component.initializeElements(nextEl, () => nextEl.__x_for); // Otherwise update the element we found.
       } else {
-        el.checked = !!value;
+        // Temporarily remove the key indicator to allow the normal "updateElements" to work.
+        delete nextEl.__x_for_key;
+        nextEl.__x_for = iterationScopeVariables;
+        component.updateElements(nextEl, () => nextEl.__x_for);
+      }
+
+      currentEl = nextEl;
+      currentEl.__x_for_key = currentKey;
+    });
+    removeAnyLeftOverElementsFromPreviousUpdate(currentEl, component);
+  } // This was taken from VueJS 2.* core. Thanks Vue!
+
+  function parseForExpression(expression) {
+    let forIteratorRE = /,([^,\}\]]*)(?:,([^,\}\]]*))?$/;
+    let stripParensRE = /^\(|\)$/g;
+    let forAliasRE = /([\s\S]*?)\s+(?:in|of)\s+([\s\S]*)/;
+    let inMatch = String(expression).match(forAliasRE);
+    if (!inMatch) return;
+    let res = {};
+    res.items = inMatch[2].trim();
+    let item = inMatch[1].trim().replace(stripParensRE, '');
+    let iteratorMatch = item.match(forIteratorRE);
+
+    if (iteratorMatch) {
+      res.item = item.replace(forIteratorRE, '').trim();
+      res.index = iteratorMatch[1].trim();
+
+      if (iteratorMatch[2]) {
+        res.collection = iteratorMatch[2].trim();
+      }
+    } else {
+      res.item = item;
+    }
+
+    return res;
+  }
+
+  function getIterationScopeVariables(iteratorNames, item, index, items, extraVars) {
+    // We must create a new object, so each iteration has a new scope
+    let scopeVariables = extraVars ? _objectSpread2({}, extraVars) : {};
+    scopeVariables[iteratorNames.item] = item;
+    if (iteratorNames.index) scopeVariables[iteratorNames.index] = index;
+    if (iteratorNames.collection) scopeVariables[iteratorNames.collection] = items;
+    return scopeVariables;
+  }
+
+  function generateKeyForIteration(component, el, index, iterationScopeVariables) {
+    let bindKeyAttribute = getXAttrs(el, component, 'bind').filter(attr => attr.value === 'key')[0]; // If the dev hasn't specified a key, just return the index of the iteration.
+
+    if (!bindKeyAttribute) return index;
+    return component.evaluateReturnExpression(el, bindKeyAttribute.expression, () => iterationScopeVariables);
+  }
+
+  function evaluateItemsAndReturnEmptyIfXIfIsPresentAndFalseOnElement(component, el, iteratorNames, extraVars) {
+    let ifAttribute = getXAttrs(el, component, 'if')[0];
+
+    if (ifAttribute && !component.evaluateReturnExpression(el, ifAttribute.expression)) {
+      return [];
+    }
+
+    let items = component.evaluateReturnExpression(el, iteratorNames.items, extraVars); // This adds support for the `i in n` syntax.
+
+    if (isNumeric(items) && items >= 0) {
+      items = Array.from(Array(items).keys(), i => i + 1);
+    }
+
+    return items;
+  }
+
+  function addElementInLoopAfterCurrentEl(templateEl, currentEl) {
+    let clone = document.importNode(templateEl.content, true);
+    currentEl.parentElement.insertBefore(clone, currentEl.nextElementSibling);
+    return currentEl.nextElementSibling;
+  }
+
+  function lookAheadForMatchingKeyedElementAndMoveItIfFound(nextEl, currentKey) {
+    if (!nextEl) return; // If we are already past the x-for generated elements, we don't need to look ahead.
+
+    if (nextEl.__x_for_key === undefined) return; // If the the key's DO match, no need to look ahead.
+
+    if (nextEl.__x_for_key === currentKey) return nextEl; // If they don't, we'll look ahead for a match.
+    // If we find it, we'll move it to the current position in the loop.
+
+    let tmpNextEl = nextEl;
+
+    while (tmpNextEl) {
+      if (tmpNextEl.__x_for_key === currentKey) {
+        return tmpNextEl.parentElement.insertBefore(tmpNextEl, nextEl);
+      }
+
+      tmpNextEl = tmpNextEl.nextElementSibling && tmpNextEl.nextElementSibling.__x_for_key !== undefined ? tmpNextEl.nextElementSibling : false;
+    }
+  }
+
+  function removeAnyLeftOverElementsFromPreviousUpdate(currentEl, component) {
+    var nextElementFromOldLoop = currentEl.nextElementSibling && currentEl.nextElementSibling.__x_for_key !== undefined ? currentEl.nextElementSibling : false;
+
+    while (nextElementFromOldLoop) {
+      let nextElementFromOldLoopImmutable = nextElementFromOldLoop;
+      let nextSibling = nextElementFromOldLoop.nextElementSibling;
+      transitionOut(nextElementFromOldLoop, () => {
+        nextElementFromOldLoopImmutable.remove();
+      }, () => {}, component);
+      nextElementFromOldLoop = nextSibling && nextSibling.__x_for_key !== undefined ? nextSibling : false;
+    }
+  }
+
+  function handleAttributeBindingDirective(component, el, attrName, expression, extraVars, attrType, modifiers) {
+    var value = component.evaluateReturnExpression(el, expression, extraVars);
+
+    if (attrName === 'value') {
+      if (Alpine.ignoreFocusedForValueBinding && document.activeElement.isSameNode(el)) return; // If nested model key is undefined, set the default value to empty string.
+
+      if (value === undefined && String(expression).match(/\./)) {
+        value = '';
+      }
+
+      if (el.type === 'radio') {
+        // Set radio value from x-bind:value, if no "value" attribute exists.
+        // If there are any initial state values, radio will have a correct
+        // "checked" value since x-bind:value is processed before x-model.
+        if (el.attributes.value === undefined && attrType === 'bind') {
+          el.value = value;
+        } else if (attrType !== 'bind') {
+          el.checked = checkedAttrLooseCompare(el.value, value);
+        }
+      } else if (el.type === 'checkbox') {
+        // If we are explicitly binding a string to the :value, set the string,
+        // If the value is a boolean, leave it alone, it will be set to "on"
+        // automatically.
+        if (typeof value !== 'boolean' && ![null, undefined].includes(value) && attrType === 'bind') {
+          el.value = String(value);
+        } else if (attrType !== 'bind') {
+          if (Array.isArray(value)) {
+            // I'm purposely not using Array.includes here because it's
+            // strict, and because of Numeric/String mis-casting, I
+            // want the "includes" to be "fuzzy".
+            el.checked = value.some(val => checkedAttrLooseCompare(val, el.value));
+          } else {
+            el.checked = !!value;
+          }
+        }
+      } else if (el.tagName === 'SELECT') {
+        updateSelect(el, value);
+      } else {
+        if (el.value === value) return;
+        el.value = value;
+      }
+    } else if (attrName === 'class') {
+      if (Array.isArray(value)) {
+        const originalClasses = el.__x_original_classes || [];
+        el.setAttribute('class', arrayUnique(originalClasses.concat(value)).join(' '));
+      } else if (typeof value === 'object') {
+        // Sorting the keys / class names by their boolean value will ensure that
+        // anything that evaluates to `false` and needs to remove classes is run first.
+        const keysSortedByBooleanValue = Object.keys(value).sort((a, b) => value[a] - value[b]);
+        keysSortedByBooleanValue.forEach(classNames => {
+          if (value[classNames]) {
+            convertClassStringToArray(classNames).forEach(className => el.classList.add(className));
+          } else {
+            convertClassStringToArray(classNames).forEach(className => el.classList.remove(className));
+          }
+        });
+      } else {
+        const originalClasses = el.__x_original_classes || [];
+        const newClasses = value ? convertClassStringToArray(value) : [];
+        el.setAttribute('class', arrayUnique(originalClasses.concat(newClasses)).join(' '));
+      }
+    } else {
+      attrName = modifiers.includes('camel') ? camelCase(attrName) : attrName; // If an attribute's bound value is null, undefined or false, remove the attribute
+
+      if ([null, undefined, false].includes(value)) {
+        el.removeAttribute(attrName);
+      } else {
+        isBooleanAttr(attrName) ? setIfChanged(el, attrName, attrName) : setIfChanged(el, attrName, value);
       }
     }
-  } else if (el.tagName === "SELECT") {
-    updateSelect(el, value);
-  } else {
-    if (el.value === value)
-      return;
-    el.value = value;
   }
-}
-function bindClasses(el, value) {
-  if (el._x_undoAddedClasses)
-    el._x_undoAddedClasses();
-  el._x_undoAddedClasses = setClasses(el, value);
-}
-function bindStyles(el, value) {
-  if (el._x_undoAddedStyles)
-    el._x_undoAddedStyles();
-  el._x_undoAddedStyles = setStyles(el, value);
-}
-function bindAttribute(el, name, value) {
-  if ([null, void 0, false].includes(value) && attributeShouldntBePreservedIfFalsy(name)) {
-    el.removeAttribute(name);
-  } else {
-    if (isBooleanAttr(name))
-      value = name;
-    setIfChanged(el, name, value);
-  }
-}
-function setIfChanged(el, attrName, value) {
-  if (el.getAttribute(attrName) != value) {
-    el.setAttribute(attrName, value);
-  }
-}
-function updateSelect(el, value) {
-  const arrayWrappedValue = [].concat(value).map((value2) => {
-    return value2 + "";
-  });
-  Array.from(el.options).forEach((option) => {
-    option.selected = arrayWrappedValue.includes(option.value);
-  });
-}
-function camelCase(subject) {
-  return subject.toLowerCase().replace(/-(\w)/g, (match, char) => char.toUpperCase());
-}
-function checkedAttrLooseCompare(valueA, valueB) {
-  return valueA == valueB;
-}
-function isBooleanAttr(attrName) {
-  const booleanAttributes = [
-    "disabled",
-    "checked",
-    "required",
-    "readonly",
-    "hidden",
-    "open",
-    "selected",
-    "autofocus",
-    "itemscope",
-    "multiple",
-    "novalidate",
-    "allowfullscreen",
-    "allowpaymentrequest",
-    "formnovalidate",
-    "autoplay",
-    "controls",
-    "loop",
-    "muted",
-    "playsinline",
-    "default",
-    "ismap",
-    "reversed",
-    "async",
-    "defer",
-    "nomodule"
-  ];
-  return booleanAttributes.includes(attrName);
-}
-function attributeShouldntBePreservedIfFalsy(name) {
-  return !["aria-pressed", "aria-checked", "aria-expanded"].includes(name);
-}
 
-// packages/alpinejs/src/utils/on.js
-function on(el, event, modifiers, callback) {
-  let listenerTarget = el;
-  let handler3 = (e) => callback(e);
-  let options = {};
-  let wrapHandler = (callback2, wrapper) => (e) => wrapper(callback2, e);
-  if (modifiers.includes("dot"))
-    event = dotSyntax(event);
-  if (modifiers.includes("camel"))
-    event = camelCase2(event);
-  if (modifiers.includes("passive"))
-    options.passive = true;
-  if (modifiers.includes("capture"))
-    options.capture = true;
-  if (modifiers.includes("window"))
-    listenerTarget = window;
-  if (modifiers.includes("document"))
-    listenerTarget = document;
-  if (modifiers.includes("prevent"))
-    handler3 = wrapHandler(handler3, (next, e) => {
-      e.preventDefault();
-      next(e);
+  function setIfChanged(el, attrName, value) {
+    if (el.getAttribute(attrName) != value) {
+      el.setAttribute(attrName, value);
+    }
+  }
+
+  function updateSelect(el, value) {
+    const arrayWrappedValue = [].concat(value).map(value => {
+      return value + '';
     });
-  if (modifiers.includes("stop"))
-    handler3 = wrapHandler(handler3, (next, e) => {
-      e.stopPropagation();
-      next(e);
-    });
-  if (modifiers.includes("self"))
-    handler3 = wrapHandler(handler3, (next, e) => {
-      e.target === el && next(e);
-    });
-  if (modifiers.includes("away") || modifiers.includes("outside")) {
-    listenerTarget = document;
-    handler3 = wrapHandler(handler3, (next, e) => {
-      if (el.contains(e.target))
-        return;
-      if (el.offsetWidth < 1 && el.offsetHeight < 1)
-        return;
-      if (el._x_isShown === false)
-        return;
-      next(e);
+    Array.from(el.options).forEach(option => {
+      option.selected = arrayWrappedValue.includes(option.value || option.text);
     });
   }
-  handler3 = wrapHandler(handler3, (next, e) => {
-    if (isKeyEvent(event)) {
-      if (isListeningForASpecificKeyThatHasntBeenPressed(e, modifiers)) {
-        return;
+
+  function handleTextDirective(el, output, expression) {
+    // If nested model key is undefined, set the default value to empty string.
+    if (output === undefined && String(expression).match(/\./)) {
+      output = '';
+    }
+
+    el.textContent = output;
+  }
+
+  function handleHtmlDirective(component, el, expression, extraVars) {
+    el.innerHTML = component.evaluateReturnExpression(el, expression, extraVars);
+  }
+
+  function handleShowDirective(component, el, value, modifiers, initialUpdate = false) {
+    const hide = () => {
+      el.style.display = 'none';
+      el.__x_is_shown = false;
+    };
+
+    const show = () => {
+      if (el.style.length === 1 && el.style.display === 'none') {
+        el.removeAttribute('style');
+      } else {
+        el.style.removeProperty('display');
       }
-    }
-    next(e);
-  });
-  if (modifiers.includes("debounce")) {
-    let nextModifier = modifiers[modifiers.indexOf("debounce") + 1] || "invalid-wait";
-    let wait = isNumeric(nextModifier.split("ms")[0]) ? Number(nextModifier.split("ms")[0]) : 250;
-    handler3 = debounce(handler3, wait);
-  }
-  if (modifiers.includes("throttle")) {
-    let nextModifier = modifiers[modifiers.indexOf("throttle") + 1] || "invalid-wait";
-    let wait = isNumeric(nextModifier.split("ms")[0]) ? Number(nextModifier.split("ms")[0]) : 250;
-    handler3 = throttle(handler3, wait);
-  }
-  if (modifiers.includes("once")) {
-    handler3 = wrapHandler(handler3, (next, e) => {
-      next(e);
-      listenerTarget.removeEventListener(event, handler3, options);
-    });
-  }
-  listenerTarget.addEventListener(event, handler3, options);
-  return () => {
-    listenerTarget.removeEventListener(event, handler3, options);
-  };
-}
-function dotSyntax(subject) {
-  return subject.replace(/-/g, ".");
-}
-function camelCase2(subject) {
-  return subject.toLowerCase().replace(/-(\w)/g, (match, char) => char.toUpperCase());
-}
-function isNumeric(subject) {
-  return !Array.isArray(subject) && !isNaN(subject);
-}
-function kebabCase2(subject) {
-  return subject.replace(/([a-z])([A-Z])/g, "$1-$2").replace(/[_\s]/, "-").toLowerCase();
-}
-function isKeyEvent(event) {
-  return ["keydown", "keyup"].includes(event);
-}
-function isListeningForASpecificKeyThatHasntBeenPressed(e, modifiers) {
-  let keyModifiers = modifiers.filter((i) => {
-    return !["window", "document", "prevent", "stop", "once"].includes(i);
-  });
-  if (keyModifiers.includes("debounce")) {
-    let debounceIndex = keyModifiers.indexOf("debounce");
-    keyModifiers.splice(debounceIndex, isNumeric((keyModifiers[debounceIndex + 1] || "invalid-wait").split("ms")[0]) ? 2 : 1);
-  }
-  if (keyModifiers.length === 0)
-    return false;
-  if (keyModifiers.length === 1 && keyToModifiers(e.key).includes(keyModifiers[0]))
-    return false;
-  const systemKeyModifiers = ["ctrl", "shift", "alt", "meta", "cmd", "super"];
-  const selectedSystemKeyModifiers = systemKeyModifiers.filter((modifier) => keyModifiers.includes(modifier));
-  keyModifiers = keyModifiers.filter((i) => !selectedSystemKeyModifiers.includes(i));
-  if (selectedSystemKeyModifiers.length > 0) {
-    const activelyPressedKeyModifiers = selectedSystemKeyModifiers.filter((modifier) => {
-      if (modifier === "cmd" || modifier === "super")
-        modifier = "meta";
-      return e[`${modifier}Key`];
-    });
-    if (activelyPressedKeyModifiers.length === selectedSystemKeyModifiers.length) {
-      if (keyToModifiers(e.key).includes(keyModifiers[0]))
-        return false;
-    }
-  }
-  return true;
-}
-function keyToModifiers(key) {
-  if (!key)
-    return [];
-  key = kebabCase2(key);
-  let modifierToKeyMap = {
-    ctrl: "control",
-    slash: "/",
-    space: "-",
-    spacebar: "-",
-    cmd: "meta",
-    esc: "escape",
-    up: "arrow-up",
-    down: "arrow-down",
-    left: "arrow-left",
-    right: "arrow-right",
-    period: ".",
-    equal: "="
-  };
-  modifierToKeyMap[key] = key;
-  return Object.keys(modifierToKeyMap).map((modifier) => {
-    if (modifierToKeyMap[modifier] === key)
-      return modifier;
-  }).filter((modifier) => modifier);
-}
 
-// packages/alpinejs/src/directives/x-model.js
-directive("model", (el, {modifiers, expression}, {effect: effect3, cleanup}) => {
-  let evaluate2 = evaluateLater(el, expression);
-  let assignmentExpression = `${expression} = rightSideOfExpression($event, ${expression})`;
-  let evaluateAssignment = evaluateLater(el, assignmentExpression);
-  var event = el.tagName.toLowerCase() === "select" || ["checkbox", "radio"].includes(el.type) || modifiers.includes("lazy") ? "change" : "input";
-  let assigmentFunction = generateAssignmentFunction(el, modifiers, expression);
-  let removeListener = on(el, event, modifiers, (e) => {
-    evaluateAssignment(() => {
-    }, {scope: {
-      $event: e,
-      rightSideOfExpression: assigmentFunction
-    }});
-  });
-  cleanup(() => removeListener());
-  let evaluateSetModel = evaluateLater(el, `${expression} = __placeholder`);
-  el._x_model = {
-    get() {
-      let result;
-      evaluate2((value) => result = value);
-      return result;
-    },
-    set(value) {
-      evaluateSetModel(() => {
-      }, {scope: {__placeholder: value}});
-    }
-  };
-  el._x_forceModelUpdate = () => {
-    evaluate2((value) => {
-      if (value === void 0 && expression.match(/\./))
-        value = "";
-      window.fromModel = true;
-      mutateDom(() => bind(el, "value", value));
-      delete window.fromModel;
-    });
-  };
-  effect3(() => {
-    if (modifiers.includes("unintrusive") && document.activeElement.isSameNode(el))
+      el.__x_is_shown = true;
+    };
+
+    if (initialUpdate === true) {
+      if (value) {
+        show();
+      } else {
+        hide();
+      }
+
       return;
-    el._x_forceModelUpdate();
-  });
-});
-function generateAssignmentFunction(el, modifiers, expression) {
-  if (el.type === "radio") {
-    mutateDom(() => {
-      if (!el.hasAttribute("name"))
-        el.setAttribute("name", expression);
+    }
+
+    const handle = (resolve, reject) => {
+      if (value) {
+        if (el.style.display === 'none' || el.__x_transition) {
+          transitionIn(el, () => {
+            show();
+          }, reject, component);
+        }
+
+        resolve(() => {});
+      } else {
+        if (el.style.display !== 'none') {
+          transitionOut(el, () => {
+            resolve(() => {
+              hide();
+            });
+          }, reject, component);
+        } else {
+          resolve(() => {});
+        }
+      }
+    }; // The working of x-show is a bit complex because we need to
+    // wait for any child transitions to finish before hiding
+    // some element. Also, this has to be done recursively.
+    // If x-show.immediate, foregoe the waiting.
+
+
+    if (modifiers.includes('immediate')) {
+      handle(finish => finish(), () => {});
+      return;
+    } // x-show is encountered during a DOM tree walk. If an element
+    // we encounter is NOT a child of another x-show element we
+    // can execute the previous x-show stack (if one exists).
+
+
+    if (component.showDirectiveLastElement && !component.showDirectiveLastElement.contains(el)) {
+      component.executeAndClearRemainingShowDirectiveStack();
+    }
+
+    component.showDirectiveStack.push(handle);
+    component.showDirectiveLastElement = el;
+  }
+
+  function handleIfDirective(component, el, expressionResult, initialUpdate, extraVars) {
+    warnIfMalformedTemplate(el, 'x-if');
+    const elementHasAlreadyBeenAdded = el.nextElementSibling && el.nextElementSibling.__x_inserted_me === true;
+
+    if (expressionResult && (!elementHasAlreadyBeenAdded || el.__x_transition)) {
+      const clone = document.importNode(el.content, true);
+      el.parentElement.insertBefore(clone, el.nextElementSibling);
+      transitionIn(el.nextElementSibling, () => {}, () => {}, component, initialUpdate);
+      component.initializeElements(el.nextElementSibling, extraVars);
+      el.nextElementSibling.__x_inserted_me = true;
+    } else if (!expressionResult && elementHasAlreadyBeenAdded) {
+      transitionOut(el.nextElementSibling, () => {
+        el.nextElementSibling.remove();
+      }, () => {}, component, initialUpdate);
+    }
+  }
+
+  function registerListener(component, el, event, modifiers, expression, extraVars = {}) {
+    const options = {
+      passive: modifiers.includes('passive')
+    };
+
+    if (modifiers.includes('camel')) {
+      event = camelCase(event);
+    }
+
+    let handler, listenerTarget;
+
+    if (modifiers.includes('away')) {
+      listenerTarget = document;
+
+      handler = e => {
+        // Don't do anything if the click came from the element or within it.
+        if (el.contains(e.target)) return; // Don't do anything if this element isn't currently visible.
+
+        if (el.offsetWidth < 1 && el.offsetHeight < 1) return; // Now that we are sure the element is visible, AND the click
+        // is from outside it, let's run the expression.
+
+        runListenerHandler(component, expression, e, extraVars);
+
+        if (modifiers.includes('once')) {
+          document.removeEventListener(event, handler, options);
+        }
+      };
+    } else {
+      listenerTarget = modifiers.includes('window') ? window : modifiers.includes('document') ? document : el;
+
+      handler = e => {
+        // Remove this global event handler if the element that declared it
+        // has been removed. It's now stale.
+        if (listenerTarget === window || listenerTarget === document) {
+          if (!document.body.contains(el)) {
+            listenerTarget.removeEventListener(event, handler, options);
+            return;
+          }
+        }
+
+        if (isKeyEvent(event)) {
+          if (isListeningForASpecificKeyThatHasntBeenPressed(e, modifiers)) {
+            return;
+          }
+        }
+
+        if (modifiers.includes('prevent')) e.preventDefault();
+        if (modifiers.includes('stop')) e.stopPropagation(); // If the .self modifier isn't present, or if it is present and
+        // the target element matches the element we are registering the
+        // event on, run the handler
+
+        if (!modifiers.includes('self') || e.target === el) {
+          const returnValue = runListenerHandler(component, expression, e, extraVars);
+          returnValue.then(value => {
+            if (value === false) {
+              e.preventDefault();
+            } else {
+              if (modifiers.includes('once')) {
+                listenerTarget.removeEventListener(event, handler, options);
+              }
+            }
+          });
+        }
+      };
+    }
+
+    if (modifiers.includes('debounce')) {
+      let nextModifier = modifiers[modifiers.indexOf('debounce') + 1] || 'invalid-wait';
+      let wait = isNumeric(nextModifier.split('ms')[0]) ? Number(nextModifier.split('ms')[0]) : 250;
+      handler = debounce(handler, wait);
+    }
+
+    listenerTarget.addEventListener(event, handler, options);
+  }
+
+  function runListenerHandler(component, expression, e, extraVars) {
+    return component.evaluateCommandExpression(e.target, expression, () => {
+      return _objectSpread2(_objectSpread2({}, extraVars()), {}, {
+        '$event': e
+      });
     });
   }
-  return (event, currentValue) => {
-    return mutateDom(() => {
-      if (event instanceof CustomEvent && event.detail !== void 0) {
-        return event.detail || event.target.value;
-      } else if (el.type === "checkbox") {
+
+  function isKeyEvent(event) {
+    return ['keydown', 'keyup'].includes(event);
+  }
+
+  function isListeningForASpecificKeyThatHasntBeenPressed(e, modifiers) {
+    let keyModifiers = modifiers.filter(i => {
+      return !['window', 'document', 'prevent', 'stop'].includes(i);
+    });
+
+    if (keyModifiers.includes('debounce')) {
+      let debounceIndex = keyModifiers.indexOf('debounce');
+      keyModifiers.splice(debounceIndex, isNumeric((keyModifiers[debounceIndex + 1] || 'invalid-wait').split('ms')[0]) ? 2 : 1);
+    } // If no modifier is specified, we'll call it a press.
+
+
+    if (keyModifiers.length === 0) return false; // If one is passed, AND it matches the key pressed, we'll call it a press.
+
+    if (keyModifiers.length === 1 && keyModifiers[0] === keyToModifier(e.key)) return false; // The user is listening for key combinations.
+
+    const systemKeyModifiers = ['ctrl', 'shift', 'alt', 'meta', 'cmd', 'super'];
+    const selectedSystemKeyModifiers = systemKeyModifiers.filter(modifier => keyModifiers.includes(modifier));
+    keyModifiers = keyModifiers.filter(i => !selectedSystemKeyModifiers.includes(i));
+
+    if (selectedSystemKeyModifiers.length > 0) {
+      const activelyPressedKeyModifiers = selectedSystemKeyModifiers.filter(modifier => {
+        // Alias "cmd" and "super" to "meta"
+        if (modifier === 'cmd' || modifier === 'super') modifier = 'meta';
+        return e[`${modifier}Key`];
+      }); // If all the modifiers selected are pressed, ...
+
+      if (activelyPressedKeyModifiers.length === selectedSystemKeyModifiers.length) {
+        // AND the remaining key is pressed as well. It's a press.
+        if (keyModifiers[0] === keyToModifier(e.key)) return false;
+      }
+    } // We'll call it NOT a valid keypress.
+
+
+    return true;
+  }
+
+  function keyToModifier(key) {
+    switch (key) {
+      case '/':
+        return 'slash';
+
+      case ' ':
+      case 'Spacebar':
+        return 'space';
+
+      default:
+        return key && kebabCase(key);
+    }
+  }
+
+  function registerModelListener(component, el, modifiers, expression, extraVars) {
+    // If the element we are binding to is a select, a radio, or checkbox
+    // we'll listen for the change event instead of the "input" event.
+    var event = el.tagName.toLowerCase() === 'select' || ['checkbox', 'radio'].includes(el.type) || modifiers.includes('lazy') ? 'change' : 'input';
+    const listenerExpression = `${expression} = rightSideOfExpression($event, ${expression})`;
+    registerListener(component, el, event, modifiers, listenerExpression, () => {
+      return _objectSpread2(_objectSpread2({}, extraVars()), {}, {
+        rightSideOfExpression: generateModelAssignmentFunction(el, modifiers, expression)
+      });
+    });
+  }
+
+  function generateModelAssignmentFunction(el, modifiers, expression) {
+    if (el.type === 'radio') {
+      // Radio buttons only work properly when they share a name attribute.
+      // People might assume we take care of that for them, because
+      // they already set a shared "x-model" attribute.
+      if (!el.hasAttribute('name')) el.setAttribute('name', expression);
+    }
+
+    return (event, currentValue) => {
+      // Check for event.detail due to an issue where IE11 handles other events as a CustomEvent.
+      if (event instanceof CustomEvent && event.detail) {
+        return event.detail;
+      } else if (el.type === 'checkbox') {
+        // If the data we are binding to is an array, toggle its value inside the array.
         if (Array.isArray(currentValue)) {
-          let newValue = modifiers.includes("number") ? safeParseNumber(event.target.value) : event.target.value;
-          return event.target.checked ? currentValue.concat([newValue]) : currentValue.filter((el2) => !checkedAttrLooseCompare2(el2, newValue));
+          const newValue = modifiers.includes('number') ? safeParseNumber(event.target.value) : event.target.value;
+          return event.target.checked ? currentValue.concat([newValue]) : currentValue.filter(el => !checkedAttrLooseCompare(el, newValue));
         } else {
           return event.target.checked;
         }
-      } else if (el.tagName.toLowerCase() === "select" && el.multiple) {
-        return modifiers.includes("number") ? Array.from(event.target.selectedOptions).map((option) => {
-          let rawValue = option.value || option.text;
+      } else if (el.tagName.toLowerCase() === 'select' && el.multiple) {
+        return modifiers.includes('number') ? Array.from(event.target.selectedOptions).map(option => {
+          const rawValue = option.value || option.text;
           return safeParseNumber(rawValue);
-        }) : Array.from(event.target.selectedOptions).map((option) => {
+        }) : Array.from(event.target.selectedOptions).map(option => {
           return option.value || option.text;
         });
       } else {
-        let rawValue = event.target.value;
-        return modifiers.includes("number") ? safeParseNumber(rawValue) : modifiers.includes("trim") ? rawValue.trim() : rawValue;
+        const rawValue = event.target.value;
+        return modifiers.includes('number') ? safeParseNumber(rawValue) : modifiers.includes('trim') ? rawValue.trim() : rawValue;
       }
-    });
-  };
-}
-function safeParseNumber(rawValue) {
-  let number = rawValue ? parseFloat(rawValue) : null;
-  return isNumeric2(number) ? number : rawValue;
-}
-function checkedAttrLooseCompare2(valueA, valueB) {
-  return valueA == valueB;
-}
-function isNumeric2(subject) {
-  return !Array.isArray(subject) && !isNaN(subject);
-}
-
-// packages/alpinejs/src/directives/x-cloak.js
-directive("cloak", (el) => queueMicrotask(() => mutateDom(() => el.removeAttribute(prefix("cloak")))));
-
-// packages/alpinejs/src/directives/x-init.js
-addInitSelector(() => `[${prefix("init")}]`);
-directive("init", skipDuringClone((el, {expression}) => {
-  if (typeof expression === "string") {
-    return !!expression.trim() && evaluate(el, expression, {}, false);
-  }
-  return evaluate(el, expression, {}, false);
-}));
-
-// packages/alpinejs/src/directives/x-text.js
-directive("text", (el, {expression}, {effect: effect3, evaluateLater: evaluateLater2}) => {
-  let evaluate2 = evaluateLater2(expression);
-  effect3(() => {
-    evaluate2((value) => {
-      mutateDom(() => {
-        el.textContent = value;
-      });
-    });
-  });
-});
-
-// packages/alpinejs/src/directives/x-html.js
-directive("html", (el, {expression}, {effect: effect3, evaluateLater: evaluateLater2}) => {
-  let evaluate2 = evaluateLater2(expression);
-  effect3(() => {
-    evaluate2((value) => {
-      el.innerHTML = value;
-    });
-  });
-});
-
-// packages/alpinejs/src/directives/x-bind.js
-mapAttributes(startingWith(":", into(prefix("bind:"))));
-directive("bind", (el, {value, modifiers, expression, original}, {effect: effect3}) => {
-  if (!value)
-    return applyBindingsObject(el, expression, original, effect3);
-  if (value === "key")
-    return storeKeyForXFor(el, expression);
-  let evaluate2 = evaluateLater(el, expression);
-  effect3(() => evaluate2((result) => {
-    if (result === void 0 && expression.match(/\./))
-      result = "";
-    mutateDom(() => bind(el, value, result, modifiers));
-  }));
-});
-function applyBindingsObject(el, expression, original, effect3) {
-  let getBindings = evaluateLater(el, expression);
-  let cleanupRunners = [];
-  effect3(() => {
-    while (cleanupRunners.length)
-      cleanupRunners.pop()();
-    getBindings((bindings) => {
-      let attributes = Object.entries(bindings).map(([name, value]) => ({name, value}));
-      attributes = attributes.filter((attr) => {
-        return !(typeof attr.value === "object" && !Array.isArray(attr.value) && attr.value !== null);
-      });
-      let staticAttributes = attributesOnly(attributes);
-      attributes = attributes.map((attribute) => {
-        if (staticAttributes.find((attr) => attr.name === attribute.name)) {
-          return {
-            name: `x-bind:${attribute.name}`,
-            value: `"${attribute.value}"`
-          };
-        }
-        return attribute;
-      });
-      directives(el, attributes, original).map((handle) => {
-        cleanupRunners.push(handle.runCleanups);
-        handle();
-      });
-    });
-  });
-}
-function storeKeyForXFor(el, expression) {
-  el._x_keyExpression = expression;
-}
-
-// packages/alpinejs/src/directives/x-data.js
-addRootSelector(() => `[${prefix("data")}]`);
-directive("data", skipDuringClone((el, {expression}, {cleanup}) => {
-  expression = expression === "" ? "{}" : expression;
-  let magicContext = {};
-  injectMagics(magicContext, el);
-  let dataProviderContext = {};
-  injectDataProviders(dataProviderContext, magicContext);
-  let data2 = evaluate(el, expression, {scope: dataProviderContext});
-  if (data2 === void 0)
-    data2 = {};
-  injectMagics(data2, el);
-  let reactiveData = reactive(data2);
-  initInterceptors(reactiveData);
-  let undo = addScopeToNode(el, reactiveData);
-  reactiveData["init"] && evaluate(el, reactiveData["init"]);
-  cleanup(() => {
-    undo();
-    reactiveData["destroy"] && evaluate(el, reactiveData["destroy"]);
-  });
-}));
-
-// packages/alpinejs/src/directives/x-show.js
-directive("show", (el, {modifiers, expression}, {effect: effect3}) => {
-  let evaluate2 = evaluateLater(el, expression);
-  let hide = () => mutateDom(() => {
-    el.style.display = "none";
-    el._x_isShown = false;
-  });
-  let show = () => mutateDom(() => {
-    if (el.style.length === 1 && el.style.display === "none") {
-      el.removeAttribute("style");
-    } else {
-      el.style.removeProperty("display");
-    }
-    el._x_isShown = true;
-  });
-  let clickAwayCompatibleShow = () => setTimeout(show);
-  let toggle = once((value) => value ? show() : hide(), (value) => {
-    if (typeof el._x_toggleAndCascadeWithTransitions === "function") {
-      el._x_toggleAndCascadeWithTransitions(el, value, show, hide);
-    } else {
-      value ? clickAwayCompatibleShow() : hide();
-    }
-  });
-  let oldValue;
-  let firstTime = true;
-  effect3(() => evaluate2((value) => {
-    if (!firstTime && value === oldValue)
-      return;
-    if (modifiers.includes("immediate"))
-      value ? clickAwayCompatibleShow() : hide();
-    toggle(value);
-    oldValue = value;
-    firstTime = false;
-  }));
-});
-
-// packages/alpinejs/src/directives/x-for.js
-directive("for", (el, {expression}, {effect: effect3, cleanup}) => {
-  let iteratorNames = parseForExpression(expression);
-  let evaluateItems = evaluateLater(el, iteratorNames.items);
-  let evaluateKey = evaluateLater(el, el._x_keyExpression || "index");
-  el._x_prevKeys = [];
-  el._x_lookup = {};
-  effect3(() => loop(el, iteratorNames, evaluateItems, evaluateKey));
-  cleanup(() => {
-    Object.values(el._x_lookup).forEach((el2) => el2.remove());
-    delete el._x_prevKeys;
-    delete el._x_lookup;
-  });
-});
-function loop(el, iteratorNames, evaluateItems, evaluateKey) {
-  let isObject = (i) => typeof i === "object" && !Array.isArray(i);
-  let templateEl = el;
-  evaluateItems((items) => {
-    if (isNumeric3(items) && items >= 0) {
-      items = Array.from(Array(items).keys(), (i) => i + 1);
-    }
-    if (items === void 0)
-      items = [];
-    let lookup = el._x_lookup;
-    let prevKeys = el._x_prevKeys;
-    let scopes = [];
-    let keys = [];
-    if (isObject(items)) {
-      items = Object.entries(items).map(([key, value]) => {
-        let scope = getIterationScopeVariables(iteratorNames, value, key, items);
-        evaluateKey((value2) => keys.push(value2), {scope: {index: key, ...scope}});
-        scopes.push(scope);
-      });
-    } else {
-      for (let i = 0; i < items.length; i++) {
-        let scope = getIterationScopeVariables(iteratorNames, items[i], i, items);
-        evaluateKey((value) => keys.push(value), {scope: {index: i, ...scope}});
-        scopes.push(scope);
-      }
-    }
-    let adds = [];
-    let moves = [];
-    let removes = [];
-    let sames = [];
-    for (let i = 0; i < prevKeys.length; i++) {
-      let key = prevKeys[i];
-      if (keys.indexOf(key) === -1)
-        removes.push(key);
-    }
-    prevKeys = prevKeys.filter((key) => !removes.includes(key));
-    let lastKey = "template";
-    for (let i = 0; i < keys.length; i++) {
-      let key = keys[i];
-      let prevIndex = prevKeys.indexOf(key);
-      if (prevIndex === -1) {
-        prevKeys.splice(i, 0, key);
-        adds.push([lastKey, i]);
-      } else if (prevIndex !== i) {
-        let keyInSpot = prevKeys.splice(i, 1)[0];
-        let keyForSpot = prevKeys.splice(prevIndex - 1, 1)[0];
-        prevKeys.splice(i, 0, keyForSpot);
-        prevKeys.splice(prevIndex, 0, keyInSpot);
-        moves.push([keyInSpot, keyForSpot]);
-      } else {
-        sames.push(key);
-      }
-      lastKey = key;
-    }
-    for (let i = 0; i < removes.length; i++) {
-      let key = removes[i];
-      lookup[key].remove();
-      lookup[key] = null;
-      delete lookup[key];
-    }
-    for (let i = 0; i < moves.length; i++) {
-      let [keyInSpot, keyForSpot] = moves[i];
-      let elInSpot = lookup[keyInSpot];
-      let elForSpot = lookup[keyForSpot];
-      let marker = document.createElement("div");
-      mutateDom(() => {
-        elForSpot.after(marker);
-        elInSpot.after(elForSpot);
-        marker.before(elInSpot);
-        marker.remove();
-      });
-      refreshScope(elForSpot, scopes[keys.indexOf(keyForSpot)]);
-    }
-    for (let i = 0; i < adds.length; i++) {
-      let [lastKey2, index] = adds[i];
-      let lastEl = lastKey2 === "template" ? templateEl : lookup[lastKey2];
-      let scope = scopes[index];
-      let key = keys[index];
-      let clone2 = document.importNode(templateEl.content, true).firstElementChild;
-      addScopeToNode(clone2, reactive(scope), templateEl);
-      mutateDom(() => {
-        lastEl.after(clone2);
-        initTree(clone2);
-      });
-      if (typeof key === "object") {
-        warn("x-for key cannot be an object, it must be a string or an integer", templateEl);
-      }
-      lookup[key] = clone2;
-    }
-    for (let i = 0; i < sames.length; i++) {
-      refreshScope(lookup[sames[i]], scopes[keys.indexOf(sames[i])]);
-    }
-    templateEl._x_prevKeys = keys;
-  });
-}
-function parseForExpression(expression) {
-  let forIteratorRE = /,([^,\}\]]*)(?:,([^,\}\]]*))?$/;
-  let stripParensRE = /^\s*\(|\)\s*$/g;
-  let forAliasRE = /([\s\S]*?)\s+(?:in|of)\s+([\s\S]*)/;
-  let inMatch = expression.match(forAliasRE);
-  if (!inMatch)
-    return;
-  let res = {};
-  res.items = inMatch[2].trim();
-  let item = inMatch[1].replace(stripParensRE, "").trim();
-  let iteratorMatch = item.match(forIteratorRE);
-  if (iteratorMatch) {
-    res.item = item.replace(forIteratorRE, "").trim();
-    res.index = iteratorMatch[1].trim();
-    if (iteratorMatch[2]) {
-      res.collection = iteratorMatch[2].trim();
-    }
-  } else {
-    res.item = item;
-  }
-  return res;
-}
-function getIterationScopeVariables(iteratorNames, item, index, items) {
-  let scopeVariables = {};
-  if (/^\[.*\]$/.test(iteratorNames.item) && Array.isArray(item)) {
-    let names = iteratorNames.item.replace("[", "").replace("]", "").split(",").map((i) => i.trim());
-    names.forEach((name, i) => {
-      scopeVariables[name] = item[i];
-    });
-  } else if (/^\{.*\}$/.test(iteratorNames.item) && !Array.isArray(item) && typeof item === "object") {
-    let names = iteratorNames.item.replace("{", "").replace("}", "").split(",").map((i) => i.trim());
-    names.forEach((name) => {
-      scopeVariables[name] = item[name];
-    });
-  } else {
-    scopeVariables[iteratorNames.item] = item;
-  }
-  if (iteratorNames.index)
-    scopeVariables[iteratorNames.index] = index;
-  if (iteratorNames.collection)
-    scopeVariables[iteratorNames.collection] = items;
-  return scopeVariables;
-}
-function isNumeric3(subject) {
-  return !Array.isArray(subject) && !isNaN(subject);
-}
-
-// packages/alpinejs/src/directives/x-ref.js
-function handler2() {
-}
-handler2.inline = (el, {expression}, {cleanup}) => {
-  let root = closestRoot(el);
-  if (!root._x_refs)
-    root._x_refs = {};
-  root._x_refs[expression] = el;
-  cleanup(() => delete root._x_refs[expression]);
-};
-directive("ref", handler2);
-
-// packages/alpinejs/src/directives/x-if.js
-directive("if", (el, {expression}, {effect: effect3, cleanup}) => {
-  let evaluate2 = evaluateLater(el, expression);
-  let show = () => {
-    if (el._x_currentIfEl)
-      return el._x_currentIfEl;
-    let clone2 = el.content.cloneNode(true).firstElementChild;
-    addScopeToNode(clone2, {}, el);
-    mutateDom(() => {
-      el.after(clone2);
-      initTree(clone2);
-    });
-    el._x_currentIfEl = clone2;
-    el._x_undoIf = () => {
-      clone2.remove();
-      delete el._x_currentIfEl;
     };
-    return clone2;
+  }
+
+  function safeParseNumber(rawValue) {
+    const number = rawValue ? parseFloat(rawValue) : null;
+    return isNumeric(number) ? number : rawValue;
+  }
+
+  /**
+   * Copyright (C) 2017 salesforce.com, inc.
+   */
+  const { isArray } = Array;
+  const { getPrototypeOf, create: ObjectCreate, defineProperty: ObjectDefineProperty, defineProperties: ObjectDefineProperties, isExtensible, getOwnPropertyDescriptor, getOwnPropertyNames, getOwnPropertySymbols, preventExtensions, hasOwnProperty, } = Object;
+  const { push: ArrayPush, concat: ArrayConcat, map: ArrayMap, } = Array.prototype;
+  function isUndefined(obj) {
+      return obj === undefined;
+  }
+  function isFunction(obj) {
+      return typeof obj === 'function';
+  }
+  function isObject(obj) {
+      return typeof obj === 'object';
+  }
+  const proxyToValueMap = new WeakMap();
+  function registerProxy(proxy, value) {
+      proxyToValueMap.set(proxy, value);
+  }
+  const unwrap = (replicaOrAny) => proxyToValueMap.get(replicaOrAny) || replicaOrAny;
+
+  function wrapValue(membrane, value) {
+      return membrane.valueIsObservable(value) ? membrane.getProxy(value) : value;
+  }
+  /**
+   * Unwrap property descriptors will set value on original descriptor
+   * We only need to unwrap if value is specified
+   * @param descriptor external descrpitor provided to define new property on original value
+   */
+  function unwrapDescriptor(descriptor) {
+      if (hasOwnProperty.call(descriptor, 'value')) {
+          descriptor.value = unwrap(descriptor.value);
+      }
+      return descriptor;
+  }
+  function lockShadowTarget(membrane, shadowTarget, originalTarget) {
+      const targetKeys = ArrayConcat.call(getOwnPropertyNames(originalTarget), getOwnPropertySymbols(originalTarget));
+      targetKeys.forEach((key) => {
+          let descriptor = getOwnPropertyDescriptor(originalTarget, key);
+          // We do not need to wrap the descriptor if configurable
+          // Because we can deal with wrapping it when user goes through
+          // Get own property descriptor. There is also a chance that this descriptor
+          // could change sometime in the future, so we can defer wrapping
+          // until we need to
+          if (!descriptor.configurable) {
+              descriptor = wrapDescriptor(membrane, descriptor, wrapValue);
+          }
+          ObjectDefineProperty(shadowTarget, key, descriptor);
+      });
+      preventExtensions(shadowTarget);
+  }
+  class ReactiveProxyHandler {
+      constructor(membrane, value) {
+          this.originalTarget = value;
+          this.membrane = membrane;
+      }
+      get(shadowTarget, key) {
+          const { originalTarget, membrane } = this;
+          const value = originalTarget[key];
+          const { valueObserved } = membrane;
+          valueObserved(originalTarget, key);
+          return membrane.getProxy(value);
+      }
+      set(shadowTarget, key, value) {
+          const { originalTarget, membrane: { valueMutated } } = this;
+          const oldValue = originalTarget[key];
+          if (oldValue !== value) {
+              originalTarget[key] = value;
+              valueMutated(originalTarget, key);
+          }
+          else if (key === 'length' && isArray(originalTarget)) {
+              // fix for issue #236: push will add the new index, and by the time length
+              // is updated, the internal length is already equal to the new length value
+              // therefore, the oldValue is equal to the value. This is the forking logic
+              // to support this use case.
+              valueMutated(originalTarget, key);
+          }
+          return true;
+      }
+      deleteProperty(shadowTarget, key) {
+          const { originalTarget, membrane: { valueMutated } } = this;
+          delete originalTarget[key];
+          valueMutated(originalTarget, key);
+          return true;
+      }
+      apply(shadowTarget, thisArg, argArray) {
+          /* No op */
+      }
+      construct(target, argArray, newTarget) {
+          /* No op */
+      }
+      has(shadowTarget, key) {
+          const { originalTarget, membrane: { valueObserved } } = this;
+          valueObserved(originalTarget, key);
+          return key in originalTarget;
+      }
+      ownKeys(shadowTarget) {
+          const { originalTarget } = this;
+          return ArrayConcat.call(getOwnPropertyNames(originalTarget), getOwnPropertySymbols(originalTarget));
+      }
+      isExtensible(shadowTarget) {
+          const shadowIsExtensible = isExtensible(shadowTarget);
+          if (!shadowIsExtensible) {
+              return shadowIsExtensible;
+          }
+          const { originalTarget, membrane } = this;
+          const targetIsExtensible = isExtensible(originalTarget);
+          if (!targetIsExtensible) {
+              lockShadowTarget(membrane, shadowTarget, originalTarget);
+          }
+          return targetIsExtensible;
+      }
+      setPrototypeOf(shadowTarget, prototype) {
+      }
+      getPrototypeOf(shadowTarget) {
+          const { originalTarget } = this;
+          return getPrototypeOf(originalTarget);
+      }
+      getOwnPropertyDescriptor(shadowTarget, key) {
+          const { originalTarget, membrane } = this;
+          const { valueObserved } = this.membrane;
+          // keys looked up via hasOwnProperty need to be reactive
+          valueObserved(originalTarget, key);
+          let desc = getOwnPropertyDescriptor(originalTarget, key);
+          if (isUndefined(desc)) {
+              return desc;
+          }
+          const shadowDescriptor = getOwnPropertyDescriptor(shadowTarget, key);
+          if (!isUndefined(shadowDescriptor)) {
+              return shadowDescriptor;
+          }
+          // Note: by accessing the descriptor, the key is marked as observed
+          // but access to the value, setter or getter (if available) cannot observe
+          // mutations, just like regular methods, in which case we just do nothing.
+          desc = wrapDescriptor(membrane, desc, wrapValue);
+          if (!desc.configurable) {
+              // If descriptor from original target is not configurable,
+              // We must copy the wrapped descriptor over to the shadow target.
+              // Otherwise, proxy will throw an invariant error.
+              // This is our last chance to lock the value.
+              // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy/handler/getOwnPropertyDescriptor#Invariants
+              ObjectDefineProperty(shadowTarget, key, desc);
+          }
+          return desc;
+      }
+      preventExtensions(shadowTarget) {
+          const { originalTarget, membrane } = this;
+          lockShadowTarget(membrane, shadowTarget, originalTarget);
+          preventExtensions(originalTarget);
+          return true;
+      }
+      defineProperty(shadowTarget, key, descriptor) {
+          const { originalTarget, membrane } = this;
+          const { valueMutated } = membrane;
+          const { configurable } = descriptor;
+          // We have to check for value in descriptor
+          // because Object.freeze(proxy) calls this method
+          // with only { configurable: false, writeable: false }
+          // Additionally, method will only be called with writeable:false
+          // if the descriptor has a value, as opposed to getter/setter
+          // So we can just check if writable is present and then see if
+          // value is present. This eliminates getter and setter descriptors
+          if (hasOwnProperty.call(descriptor, 'writable') && !hasOwnProperty.call(descriptor, 'value')) {
+              const originalDescriptor = getOwnPropertyDescriptor(originalTarget, key);
+              descriptor.value = originalDescriptor.value;
+          }
+          ObjectDefineProperty(originalTarget, key, unwrapDescriptor(descriptor));
+          if (configurable === false) {
+              ObjectDefineProperty(shadowTarget, key, wrapDescriptor(membrane, descriptor, wrapValue));
+          }
+          valueMutated(originalTarget, key);
+          return true;
+      }
+  }
+
+  function wrapReadOnlyValue(membrane, value) {
+      return membrane.valueIsObservable(value) ? membrane.getReadOnlyProxy(value) : value;
+  }
+  class ReadOnlyHandler {
+      constructor(membrane, value) {
+          this.originalTarget = value;
+          this.membrane = membrane;
+      }
+      get(shadowTarget, key) {
+          const { membrane, originalTarget } = this;
+          const value = originalTarget[key];
+          const { valueObserved } = membrane;
+          valueObserved(originalTarget, key);
+          return membrane.getReadOnlyProxy(value);
+      }
+      set(shadowTarget, key, value) {
+          return false;
+      }
+      deleteProperty(shadowTarget, key) {
+          return false;
+      }
+      apply(shadowTarget, thisArg, argArray) {
+          /* No op */
+      }
+      construct(target, argArray, newTarget) {
+          /* No op */
+      }
+      has(shadowTarget, key) {
+          const { originalTarget, membrane: { valueObserved } } = this;
+          valueObserved(originalTarget, key);
+          return key in originalTarget;
+      }
+      ownKeys(shadowTarget) {
+          const { originalTarget } = this;
+          return ArrayConcat.call(getOwnPropertyNames(originalTarget), getOwnPropertySymbols(originalTarget));
+      }
+      setPrototypeOf(shadowTarget, prototype) {
+      }
+      getOwnPropertyDescriptor(shadowTarget, key) {
+          const { originalTarget, membrane } = this;
+          const { valueObserved } = membrane;
+          // keys looked up via hasOwnProperty need to be reactive
+          valueObserved(originalTarget, key);
+          let desc = getOwnPropertyDescriptor(originalTarget, key);
+          if (isUndefined(desc)) {
+              return desc;
+          }
+          const shadowDescriptor = getOwnPropertyDescriptor(shadowTarget, key);
+          if (!isUndefined(shadowDescriptor)) {
+              return shadowDescriptor;
+          }
+          // Note: by accessing the descriptor, the key is marked as observed
+          // but access to the value or getter (if available) cannot be observed,
+          // just like regular methods, in which case we just do nothing.
+          desc = wrapDescriptor(membrane, desc, wrapReadOnlyValue);
+          if (hasOwnProperty.call(desc, 'set')) {
+              desc.set = undefined; // readOnly membrane does not allow setters
+          }
+          if (!desc.configurable) {
+              // If descriptor from original target is not configurable,
+              // We must copy the wrapped descriptor over to the shadow target.
+              // Otherwise, proxy will throw an invariant error.
+              // This is our last chance to lock the value.
+              // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy/handler/getOwnPropertyDescriptor#Invariants
+              ObjectDefineProperty(shadowTarget, key, desc);
+          }
+          return desc;
+      }
+      preventExtensions(shadowTarget) {
+          return false;
+      }
+      defineProperty(shadowTarget, key, descriptor) {
+          return false;
+      }
+  }
+  function createShadowTarget(value) {
+      let shadowTarget = undefined;
+      if (isArray(value)) {
+          shadowTarget = [];
+      }
+      else if (isObject(value)) {
+          shadowTarget = {};
+      }
+      return shadowTarget;
+  }
+  const ObjectDotPrototype = Object.prototype;
+  function defaultValueIsObservable(value) {
+      // intentionally checking for null
+      if (value === null) {
+          return false;
+      }
+      // treat all non-object types, including undefined, as non-observable values
+      if (typeof value !== 'object') {
+          return false;
+      }
+      if (isArray(value)) {
+          return true;
+      }
+      const proto = getPrototypeOf(value);
+      return (proto === ObjectDotPrototype || proto === null || getPrototypeOf(proto) === null);
+  }
+  const defaultValueObserved = (obj, key) => {
+      /* do nothing */
   };
-  let hide = () => {
-    if (!el._x_undoIf)
-      return;
-    el._x_undoIf();
-    delete el._x_undoIf;
+  const defaultValueMutated = (obj, key) => {
+      /* do nothing */
   };
-  effect3(() => evaluate2((value) => {
-    value ? show() : hide();
-  }));
-  cleanup(() => el._x_undoIf && el._x_undoIf());
-});
+  const defaultValueDistortion = (value) => value;
+  function wrapDescriptor(membrane, descriptor, getValue) {
+      const { set, get } = descriptor;
+      if (hasOwnProperty.call(descriptor, 'value')) {
+          descriptor.value = getValue(membrane, descriptor.value);
+      }
+      else {
+          if (!isUndefined(get)) {
+              descriptor.get = function () {
+                  // invoking the original getter with the original target
+                  return getValue(membrane, get.call(unwrap(this)));
+              };
+          }
+          if (!isUndefined(set)) {
+              descriptor.set = function (value) {
+                  // At this point we don't have a clear indication of whether
+                  // or not a valid mutation will occur, we don't have the key,
+                  // and we are not sure why and how they are invoking this setter.
+                  // Nevertheless we preserve the original semantics by invoking the
+                  // original setter with the original target and the unwrapped value
+                  set.call(unwrap(this), membrane.unwrapProxy(value));
+              };
+          }
+      }
+      return descriptor;
+  }
+  class ReactiveMembrane {
+      constructor(options) {
+          this.valueDistortion = defaultValueDistortion;
+          this.valueMutated = defaultValueMutated;
+          this.valueObserved = defaultValueObserved;
+          this.valueIsObservable = defaultValueIsObservable;
+          this.objectGraph = new WeakMap();
+          if (!isUndefined(options)) {
+              const { valueDistortion, valueMutated, valueObserved, valueIsObservable } = options;
+              this.valueDistortion = isFunction(valueDistortion) ? valueDistortion : defaultValueDistortion;
+              this.valueMutated = isFunction(valueMutated) ? valueMutated : defaultValueMutated;
+              this.valueObserved = isFunction(valueObserved) ? valueObserved : defaultValueObserved;
+              this.valueIsObservable = isFunction(valueIsObservable) ? valueIsObservable : defaultValueIsObservable;
+          }
+      }
+      getProxy(value) {
+          const unwrappedValue = unwrap(value);
+          const distorted = this.valueDistortion(unwrappedValue);
+          if (this.valueIsObservable(distorted)) {
+              const o = this.getReactiveState(unwrappedValue, distorted);
+              // when trying to extract the writable version of a readonly
+              // we return the readonly.
+              return o.readOnly === value ? value : o.reactive;
+          }
+          return distorted;
+      }
+      getReadOnlyProxy(value) {
+          value = unwrap(value);
+          const distorted = this.valueDistortion(value);
+          if (this.valueIsObservable(distorted)) {
+              return this.getReactiveState(value, distorted).readOnly;
+          }
+          return distorted;
+      }
+      unwrapProxy(p) {
+          return unwrap(p);
+      }
+      getReactiveState(value, distortedValue) {
+          const { objectGraph, } = this;
+          let reactiveState = objectGraph.get(distortedValue);
+          if (reactiveState) {
+              return reactiveState;
+          }
+          const membrane = this;
+          reactiveState = {
+              get reactive() {
+                  const reactiveHandler = new ReactiveProxyHandler(membrane, distortedValue);
+                  // caching the reactive proxy after the first time it is accessed
+                  const proxy = new Proxy(createShadowTarget(distortedValue), reactiveHandler);
+                  registerProxy(proxy, value);
+                  ObjectDefineProperty(this, 'reactive', { value: proxy });
+                  return proxy;
+              },
+              get readOnly() {
+                  const readOnlyHandler = new ReadOnlyHandler(membrane, distortedValue);
+                  // caching the readOnly proxy after the first time it is accessed
+                  const proxy = new Proxy(createShadowTarget(distortedValue), readOnlyHandler);
+                  registerProxy(proxy, value);
+                  ObjectDefineProperty(this, 'readOnly', { value: proxy });
+                  return proxy;
+              }
+          };
+          objectGraph.set(distortedValue, reactiveState);
+          return reactiveState;
+      }
+  }
+  /** version: 0.26.0 */
 
-// packages/alpinejs/src/directives/x-on.js
-mapAttributes(startingWith("@", into(prefix("on:"))));
-directive("on", skipDuringClone((el, {value, modifiers, expression}, {cleanup}) => {
-  let evaluate2 = expression ? evaluateLater(el, expression) : () => {
+  function wrap(data, mutationCallback) {
+
+    let membrane = new ReactiveMembrane({
+      valueMutated(target, key) {
+        mutationCallback(target, key);
+      }
+
+    });
+    return {
+      data: membrane.getProxy(data),
+      membrane: membrane
+    };
+  }
+  function unwrap$1(membrane, observable) {
+    let unwrappedData = membrane.unwrapProxy(observable);
+    let copy = {};
+    Object.keys(unwrappedData).forEach(key => {
+      if (['$el', '$refs', '$nextTick', '$watch'].includes(key)) return;
+      copy[key] = unwrappedData[key];
+    });
+    return copy;
+  }
+
+  class Component {
+    constructor(el, componentForClone = null) {
+      this.$el = el;
+      const dataAttr = this.$el.getAttribute('x-data');
+      const dataExpression = dataAttr === '' ? '{}' : dataAttr;
+      const initExpression = this.$el.getAttribute('x-init');
+      let dataExtras = {
+        $el: this.$el
+      };
+      let canonicalComponentElementReference = componentForClone ? componentForClone.$el : this.$el;
+      Object.entries(Alpine.magicProperties).forEach(([name, callback]) => {
+        Object.defineProperty(dataExtras, `$${name}`, {
+          get: function get() {
+            return callback(canonicalComponentElementReference);
+          }
+        });
+      });
+      this.unobservedData = componentForClone ? componentForClone.getUnobservedData() : saferEval(el, dataExpression, dataExtras);
+      // Construct a Proxy-based observable. This will be used to handle reactivity.
+
+      let {
+        membrane,
+        data
+      } = this.wrapDataInObservable(this.unobservedData);
+      this.$data = data;
+      this.membrane = membrane; // After making user-supplied data methods reactive, we can now add
+      // our magic properties to the original data for access.
+
+      this.unobservedData.$el = this.$el;
+      this.unobservedData.$refs = this.getRefsProxy();
+      this.nextTickStack = [];
+
+      this.unobservedData.$nextTick = callback => {
+        this.nextTickStack.push(callback);
+      };
+
+      this.watchers = {};
+
+      this.unobservedData.$watch = (property, callback) => {
+        if (!this.watchers[property]) this.watchers[property] = [];
+        this.watchers[property].push(callback);
+      };
+      /* MODERN-ONLY:START */
+      // We remove this piece of code from the legacy build.
+      // In IE11, we have already defined our helpers at this point.
+      // Register custom magic properties.
+
+
+      Object.entries(Alpine.magicProperties).forEach(([name, callback]) => {
+        Object.defineProperty(this.unobservedData, `$${name}`, {
+          get: function get() {
+            return callback(canonicalComponentElementReference, this.$el);
+          }
+        });
+      });
+      /* MODERN-ONLY:END */
+
+      this.showDirectiveStack = [];
+      this.showDirectiveLastElement;
+      componentForClone || Alpine.onBeforeComponentInitializeds.forEach(callback => callback(this));
+      var initReturnedCallback; // If x-init is present AND we aren't cloning (skip x-init on clone)
+
+      if (initExpression && !componentForClone) {
+        // We want to allow data manipulation, but not trigger DOM updates just yet.
+        // We haven't even initialized the elements with their Alpine bindings. I mean c'mon.
+        this.pauseReactivity = true;
+        initReturnedCallback = this.evaluateReturnExpression(this.$el, initExpression);
+        this.pauseReactivity = false;
+      } // Register all our listeners and set all our attribute bindings.
+      // If we're cloning a component, the third parameter ensures no duplicate
+      // event listeners are registered (the mutation observer will take care of them)
+
+
+      this.initializeElements(this.$el, () => {}, componentForClone); // Use mutation observer to detect new elements being added within this component at run-time.
+      // Alpine's just so darn flexible amirite?
+
+      this.listenForNewElementsToInitialize();
+
+      if (typeof initReturnedCallback === 'function') {
+        // Run the callback returned from the "x-init" hook to allow the user to do stuff after
+        // Alpine's got it's grubby little paws all over everything.
+        initReturnedCallback.call(this.$data);
+      }
+
+      componentForClone || setTimeout(() => {
+        Alpine.onComponentInitializeds.forEach(callback => callback(this));
+      }, 0);
+    }
+
+    getUnobservedData() {
+      return unwrap$1(this.membrane, this.$data);
+    }
+
+    wrapDataInObservable(data) {
+      var self = this;
+      let updateDom = debounce(function () {
+        self.updateElements(self.$el);
+      }, 0);
+      return wrap(data, (target, key) => {
+        if (self.watchers[key]) {
+          // If there's a watcher for this specific key, run it.
+          self.watchers[key].forEach(callback => callback(target[key]));
+        } else if (Array.isArray(target)) {
+          // Arrays are special cases, if any of the items change, we consider the array as mutated.
+          Object.keys(self.watchers).forEach(fullDotNotationKey => {
+            let dotNotationParts = fullDotNotationKey.split('.'); // Ignore length mutations since they would result in duplicate calls.
+            // For example, when calling push, we would get a mutation for the item's key
+            // and a second mutation for the length property.
+
+            if (key === 'length') return;
+            dotNotationParts.reduce((comparisonData, part) => {
+              if (Object.is(target, comparisonData[part])) {
+                self.watchers[fullDotNotationKey].forEach(callback => callback(target));
+              }
+
+              return comparisonData[part];
+            }, self.unobservedData);
+          });
+        } else {
+          // Let's walk through the watchers with "dot-notation" (foo.bar) and see
+          // if this mutation fits any of them.
+          Object.keys(self.watchers).filter(i => i.includes('.')).forEach(fullDotNotationKey => {
+            let dotNotationParts = fullDotNotationKey.split('.'); // If this dot-notation watcher's last "part" doesn't match the current
+            // key, then skip it early for performance reasons.
+
+            if (key !== dotNotationParts[dotNotationParts.length - 1]) return; // Now, walk through the dot-notation "parts" recursively to find
+            // a match, and call the watcher if one's found.
+
+            dotNotationParts.reduce((comparisonData, part) => {
+              if (Object.is(target, comparisonData)) {
+                // Run the watchers.
+                self.watchers[fullDotNotationKey].forEach(callback => callback(target[key]));
+              }
+
+              return comparisonData[part];
+            }, self.unobservedData);
+          });
+        } // Don't react to data changes for cases like the `x-created` hook.
+
+
+        if (self.pauseReactivity) return;
+        updateDom();
+      });
+    }
+
+    walkAndSkipNestedComponents(el, callback, initializeComponentCallback = () => {}) {
+      walk(el, el => {
+        // We've hit a component.
+        if (el.hasAttribute('x-data')) {
+          // If it's not the current one.
+          if (!el.isSameNode(this.$el)) {
+            // Initialize it if it's not.
+            if (!el.__x) initializeComponentCallback(el); // Now we'll let that sub-component deal with itself.
+
+            return false;
+          }
+        }
+
+        return callback(el);
+      });
+    }
+
+    initializeElements(rootEl, extraVars = () => {}, componentForClone = false) {
+      this.walkAndSkipNestedComponents(rootEl, el => {
+        // Don't touch spawns from for loop
+        if (el.__x_for_key !== undefined) return false; // Don't touch spawns from if directives
+
+        if (el.__x_inserted_me !== undefined) return false;
+        this.initializeElement(el, extraVars, componentForClone ? false : true);
+      }, el => {
+        if (!componentForClone) el.__x = new Component(el);
+      });
+      this.executeAndClearRemainingShowDirectiveStack();
+      this.executeAndClearNextTickStack(rootEl);
+    }
+
+    initializeElement(el, extraVars, shouldRegisterListeners = true) {
+      // To support class attribute merging, we have to know what the element's
+      // original class attribute looked like for reference.
+      if (el.hasAttribute('class') && getXAttrs(el, this).length > 0) {
+        el.__x_original_classes = convertClassStringToArray(el.getAttribute('class'));
+      }
+
+      shouldRegisterListeners && this.registerListeners(el, extraVars);
+      this.resolveBoundAttributes(el, true, extraVars);
+    }
+
+    updateElements(rootEl, extraVars = () => {}) {
+      this.walkAndSkipNestedComponents(rootEl, el => {
+        // Don't touch spawns from for loop (and check if the root is actually a for loop in a parent, don't skip it.)
+        if (el.__x_for_key !== undefined && !el.isSameNode(this.$el)) return false;
+        this.updateElement(el, extraVars);
+      }, el => {
+        el.__x = new Component(el);
+      });
+      this.executeAndClearRemainingShowDirectiveStack();
+      this.executeAndClearNextTickStack(rootEl);
+    }
+
+    executeAndClearNextTickStack(el) {
+      // Skip spawns from alpine directives
+      if (el === this.$el && this.nextTickStack.length > 0) {
+        // We run the tick stack after the next frame to allow any
+        // running transitions to pass the initial show stage.
+        requestAnimationFrame(() => {
+          while (this.nextTickStack.length > 0) {
+            this.nextTickStack.shift()();
+          }
+        });
+      }
+    }
+
+    executeAndClearRemainingShowDirectiveStack() {
+      // The goal here is to start all the x-show transitions
+      // and build a nested promise chain so that elements
+      // only hide when the children are finished hiding.
+      this.showDirectiveStack.reverse().map(handler => {
+        return new Promise((resolve, reject) => {
+          handler(resolve, reject);
+        });
+      }).reduce((promiseChain, promise) => {
+        return promiseChain.then(() => {
+          return promise.then(finishElement => {
+            finishElement();
+          });
+        });
+      }, Promise.resolve(() => {})).catch(e => {
+        if (e !== TRANSITION_CANCELLED) throw e;
+      }); // We've processed the handler stack. let's clear it.
+
+      this.showDirectiveStack = [];
+      this.showDirectiveLastElement = undefined;
+    }
+
+    updateElement(el, extraVars) {
+      this.resolveBoundAttributes(el, false, extraVars);
+    }
+
+    registerListeners(el, extraVars) {
+      getXAttrs(el, this).forEach(({
+        type,
+        value,
+        modifiers,
+        expression
+      }) => {
+        switch (type) {
+          case 'on':
+            registerListener(this, el, value, modifiers, expression, extraVars);
+            break;
+
+          case 'model':
+            registerModelListener(this, el, modifiers, expression, extraVars);
+            break;
+        }
+      });
+    }
+
+    resolveBoundAttributes(el, initialUpdate = false, extraVars) {
+      let attrs = getXAttrs(el, this);
+      attrs.forEach(({
+        type,
+        value,
+        modifiers,
+        expression
+      }) => {
+        switch (type) {
+          case 'model':
+            handleAttributeBindingDirective(this, el, 'value', expression, extraVars, type, modifiers);
+            break;
+
+          case 'bind':
+            // The :key binding on an x-for is special, ignore it.
+            if (el.tagName.toLowerCase() === 'template' && value === 'key') return;
+            handleAttributeBindingDirective(this, el, value, expression, extraVars, type, modifiers);
+            break;
+
+          case 'text':
+            var output = this.evaluateReturnExpression(el, expression, extraVars);
+            handleTextDirective(el, output, expression);
+            break;
+
+          case 'html':
+            handleHtmlDirective(this, el, expression, extraVars);
+            break;
+
+          case 'show':
+            var output = this.evaluateReturnExpression(el, expression, extraVars);
+            handleShowDirective(this, el, output, modifiers, initialUpdate);
+            break;
+
+          case 'if':
+            // If this element also has x-for on it, don't process x-if.
+            // We will let the "x-for" directive handle the "if"ing.
+            if (attrs.some(i => i.type === 'for')) return;
+            var output = this.evaluateReturnExpression(el, expression, extraVars);
+            handleIfDirective(this, el, output, initialUpdate, extraVars);
+            break;
+
+          case 'for':
+            handleForDirective(this, el, expression, initialUpdate, extraVars);
+            break;
+
+          case 'cloak':
+            el.removeAttribute('x-cloak');
+            break;
+        }
+      });
+    }
+
+    evaluateReturnExpression(el, expression, extraVars = () => {}) {
+      return saferEval(el, expression, this.$data, _objectSpread2(_objectSpread2({}, extraVars()), {}, {
+        $dispatch: this.getDispatchFunction(el)
+      }));
+    }
+
+    evaluateCommandExpression(el, expression, extraVars = () => {}) {
+      return saferEvalNoReturn(el, expression, this.$data, _objectSpread2(_objectSpread2({}, extraVars()), {}, {
+        $dispatch: this.getDispatchFunction(el)
+      }));
+    }
+
+    getDispatchFunction(el) {
+      return (event, detail = {}) => {
+        el.dispatchEvent(new CustomEvent(event, {
+          detail,
+          bubbles: true
+        }));
+      };
+    }
+
+    listenForNewElementsToInitialize() {
+      const targetNode = this.$el;
+      const observerOptions = {
+        childList: true,
+        attributes: true,
+        subtree: true
+      };
+      const observer = new MutationObserver(mutations => {
+        for (let i = 0; i < mutations.length; i++) {
+          // Filter out mutations triggered from child components.
+          const closestParentComponent = mutations[i].target.closest('[x-data]');
+          if (!(closestParentComponent && closestParentComponent.isSameNode(this.$el))) continue;
+
+          if (mutations[i].type === 'attributes' && mutations[i].attributeName === 'x-data') {
+            const xAttr = mutations[i].target.getAttribute('x-data') || '{}';
+            const rawData = saferEval(this.$el, xAttr, {
+              $el: this.$el
+            });
+            Object.keys(rawData).forEach(key => {
+              if (this.$data[key] !== rawData[key]) {
+                this.$data[key] = rawData[key];
+              }
+            });
+          }
+
+          if (mutations[i].addedNodes.length > 0) {
+            mutations[i].addedNodes.forEach(node => {
+              if (node.nodeType !== 1 || node.__x_inserted_me) return;
+
+              if (node.matches('[x-data]') && !node.__x) {
+                node.__x = new Component(node);
+                return;
+              }
+
+              this.initializeElements(node);
+            });
+          }
+        }
+      });
+      observer.observe(targetNode, observerOptions);
+    }
+
+    getRefsProxy() {
+      var self = this;
+      var refObj = {};
+      // One of the goals of this is to not hold elements in memory, but rather re-evaluate
+      // the DOM when the system needs something from it. This way, the framework is flexible and
+      // friendly to outside DOM changes from libraries like Vue/Livewire.
+      // For this reason, I'm using an "on-demand" proxy to fake a "$refs" object.
+
+      return new Proxy(refObj, {
+        get(object, property) {
+          if (property === '$isAlpineProxy') return true;
+          var ref; // We can't just query the DOM because it's hard to filter out refs in
+          // nested components.
+
+          self.walkAndSkipNestedComponents(self.$el, el => {
+            if (el.hasAttribute('x-ref') && el.getAttribute('x-ref') === property) {
+              ref = el;
+            }
+          });
+          return ref;
+        }
+
+      });
+    }
+
+  }
+
+  const Alpine = {
+    version: "2.8.2",
+    pauseMutationObserver: false,
+    magicProperties: {},
+    onComponentInitializeds: [],
+    onBeforeComponentInitializeds: [],
+    ignoreFocusedForValueBinding: false,
+    start: async function start() {
+      if (!isTesting()) {
+        await domReady();
+      }
+
+      this.discoverComponents(el => {
+        this.initializeComponent(el);
+      }); // It's easier and more performant to just support Turbolinks than listen
+      // to MutationObserver mutations at the document level.
+
+      document.addEventListener("turbolinks:load", () => {
+        this.discoverUninitializedComponents(el => {
+          this.initializeComponent(el);
+        });
+      });
+      this.listenForNewUninitializedComponentsAtRunTime();
+    },
+    discoverComponents: function discoverComponents(callback) {
+      const rootEls = document.querySelectorAll('[x-data]');
+      rootEls.forEach(rootEl => {
+        callback(rootEl);
+      });
+    },
+    discoverUninitializedComponents: function discoverUninitializedComponents(callback, el = null) {
+      const rootEls = (el || document).querySelectorAll('[x-data]');
+      Array.from(rootEls).filter(el => el.__x === undefined).forEach(rootEl => {
+        callback(rootEl);
+      });
+    },
+    listenForNewUninitializedComponentsAtRunTime: function listenForNewUninitializedComponentsAtRunTime() {
+      const targetNode = document.querySelector('body');
+      const observerOptions = {
+        childList: true,
+        attributes: true,
+        subtree: true
+      };
+      const observer = new MutationObserver(mutations => {
+        if (this.pauseMutationObserver) return;
+
+        for (let i = 0; i < mutations.length; i++) {
+          if (mutations[i].addedNodes.length > 0) {
+            mutations[i].addedNodes.forEach(node => {
+              // Discard non-element nodes (like line-breaks)
+              if (node.nodeType !== 1) return; // Discard any changes happening within an existing component.
+              // They will take care of themselves.
+
+              if (node.parentElement && node.parentElement.closest('[x-data]')) return;
+              this.discoverUninitializedComponents(el => {
+                this.initializeComponent(el);
+              }, node.parentElement);
+            });
+          }
+        }
+      });
+      observer.observe(targetNode, observerOptions);
+    },
+    initializeComponent: function initializeComponent(el) {
+      if (!el.__x) {
+        // Wrap in a try/catch so that we don't prevent other components
+        // from initializing when one component contains an error.
+        try {
+          el.__x = new Component(el);
+        } catch (error) {
+          setTimeout(() => {
+            throw error;
+          }, 0);
+        }
+      }
+    },
+    clone: function clone(component, newEl) {
+      if (!newEl.__x) {
+        newEl.__x = new Component(newEl, component);
+      }
+    },
+    addMagicProperty: function addMagicProperty(name, callback) {
+      this.magicProperties[name] = callback;
+    },
+    onComponentInitialized: function onComponentInitialized(callback) {
+      this.onComponentInitializeds.push(callback);
+    },
+    onBeforeComponentInitialized: function onBeforeComponentInitialized(callback) {
+      this.onBeforeComponentInitializeds.push(callback);
+    }
   };
-  let removeListener = on(el, value, modifiers, (e) => {
-    evaluate2(() => {
-    }, {scope: {$event: e}, params: [e]});
-  });
-  cleanup(() => removeListener());
-}));
 
-// packages/alpinejs/src/index.js
-alpine_default.setEvaluator(normalEvaluator);
-alpine_default.setReactivityEngine({reactive: import_reactivity9.reactive, effect: import_reactivity9.effect, release: import_reactivity9.stop, raw: import_reactivity9.toRaw});
-var src_default = alpine_default;
+  if (!isTesting()) {
+    window.Alpine = Alpine;
 
-// packages/alpinejs/builds/module.js
-var module_default = src_default;
+    if (window.deferLoadingAlpine) {
+      window.deferLoadingAlpine(function () {
+        window.Alpine.start();
+      });
+    } else {
+      window.Alpine.start();
+    }
+  }
 
+  return Alpine;
+
+})));
 
 
 /***/ }),
@@ -4275,7 +2954,7 @@ module.exports = function transformData(data, headers, fns) {
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
-/* provided dependency */ var process = __webpack_require__(/*! process/browser.js */ "./node_modules/process/browser.js");
+/* provided dependency */ var process = __webpack_require__(/*! process/browser */ "./node_modules/process/browser.js");
 
 
 var utils = __webpack_require__(/*! ./utils */ "./node_modules/axios/lib/utils.js");
@@ -5337,16 +4016,11 @@ module.exports = {
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
   \*****************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
 
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var alpinejs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! alpinejs */ "./node_modules/alpinejs/dist/module.esm.js");
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
-
-window.Alpine = alpinejs__WEBPACK_IMPORTED_MODULE_0__["default"];
-alpinejs__WEBPACK_IMPORTED_MODULE_0__["default"].start();
+__webpack_require__(/*! alpinejs */ "./node_modules/alpinejs/dist/alpine.js");
 
 /***/ }),
 
@@ -5364,7 +4038,7 @@ window._ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
  */
 
 try {
-  window.Popper = (__webpack_require__(/*! popper.js */ "./node_modules/popper.js/dist/esm/popper.js")["default"]);
+  window.Popper = __webpack_require__(/*! popper.js */ "./node_modules/popper.js/dist/esm/popper.js")["default"];
   window.$ = window.jQuery = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
 
   __webpack_require__(/*! bootstrap */ "./node_modules/bootstrap/dist/js/bootstrap.js");
@@ -5401,14 +4075,14 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 /*!
-  * Bootstrap v4.6.1 (https://getbootstrap.com/)
+  * Bootstrap v4.6.0 (https://getbootstrap.com/)
   * Copyright 2011-2021 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
   */
 (function (global, factory) {
    true ? factory(exports, __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js"), __webpack_require__(/*! popper.js */ "./node_modules/popper.js/dist/esm/popper.js")) :
   0;
-})(this, (function (exports, $, Popper) { 'use strict';
+}(this, (function (exports, $, Popper) { 'use strict';
 
   function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
@@ -5452,27 +4126,19 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
   function _inheritsLoose(subClass, superClass) {
     subClass.prototype = Object.create(superClass.prototype);
     subClass.prototype.constructor = subClass;
-
-    _setPrototypeOf(subClass, superClass);
-  }
-
-  function _setPrototypeOf(o, p) {
-    _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {
-      o.__proto__ = p;
-      return o;
-    };
-
-    return _setPrototypeOf(o, p);
+    subClass.__proto__ = superClass;
   }
 
   /**
    * --------------------------------------------------------------------------
-   * Bootstrap (v4.6.1): util.js
+   * Bootstrap (v4.6.0): util.js
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
    * --------------------------------------------------------------------------
    */
   /**
+   * ------------------------------------------------------------------------
    * Private TransitionEnd Helpers
+   * ------------------------------------------------------------------------
    */
 
   var TRANSITION_END = 'transitionend';
@@ -5492,7 +4158,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
       bindType: TRANSITION_END,
       delegateType: TRANSITION_END,
       handle: function handle(event) {
-        if ($__default["default"](event.target).is(this)) {
+        if ($__default['default'](event.target).is(this)) {
           return event.handleObj.handler.apply(this, arguments); // eslint-disable-line prefer-rest-params
         }
 
@@ -5505,7 +4171,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
     var _this = this;
 
     var called = false;
-    $__default["default"](this).one(Util.TRANSITION_END, function () {
+    $__default['default'](this).one(Util.TRANSITION_END, function () {
       called = true;
     });
     setTimeout(function () {
@@ -5517,11 +4183,13 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
   }
 
   function setTransitionEndSupport() {
-    $__default["default"].fn.emulateTransitionEnd = transitionEndEmulator;
-    $__default["default"].event.special[Util.TRANSITION_END] = getSpecialTransitionEndEvent();
+    $__default['default'].fn.emulateTransitionEnd = transitionEndEmulator;
+    $__default['default'].event.special[Util.TRANSITION_END] = getSpecialTransitionEndEvent();
   }
   /**
-   * Public Util API
+   * --------------------------------------------------------------------------
+   * Public Util Api
+   * --------------------------------------------------------------------------
    */
 
 
@@ -5529,7 +4197,6 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
     TRANSITION_END: 'bsTransitionEnd',
     getUID: function getUID(prefix) {
       do {
-        // eslint-disable-next-line no-bitwise
         prefix += ~~(Math.random() * MAX_UID); // "~~" acts like a faster Math.floor() here
       } while (document.getElementById(prefix));
 
@@ -5555,8 +4222,8 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
       } // Get transition-duration of the element
 
 
-      var transitionDuration = $__default["default"](element).css('transition-duration');
-      var transitionDelay = $__default["default"](element).css('transition-delay');
+      var transitionDuration = $__default['default'](element).css('transition-duration');
+      var transitionDelay = $__default['default'](element).css('transition-delay');
       var floatTransitionDuration = parseFloat(transitionDuration);
       var floatTransitionDelay = parseFloat(transitionDelay); // Return 0 if element or transition duration is not found
 
@@ -5573,7 +4240,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
       return element.offsetHeight;
     },
     triggerTransitionEnd: function triggerTransitionEnd(element) {
-      $__default["default"](element).trigger(TRANSITION_END);
+      $__default['default'](element).trigger(TRANSITION_END);
     },
     supportsTransitionEnd: function supportsTransitionEnd() {
       return Boolean(TRANSITION_END);
@@ -5617,11 +4284,11 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
       return Util.findShadowRoot(element.parentNode);
     },
     jQueryDetection: function jQueryDetection() {
-      if (typeof $__default["default"] === 'undefined') {
+      if (typeof $__default['default'] === 'undefined') {
         throw new TypeError('Bootstrap\'s JavaScript requires jQuery. jQuery must be included before Bootstrap\'s JavaScript.');
       }
 
-      var version = $__default["default"].fn.jquery.split(' ')[0].split('.');
+      var version = $__default['default'].fn.jquery.split(' ')[0].split('.');
       var minMajor = 1;
       var ltMajor = 2;
       var minMinor = 9;
@@ -5637,24 +4304,28 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
   setTransitionEndSupport();
 
   /**
+   * ------------------------------------------------------------------------
    * Constants
+   * ------------------------------------------------------------------------
    */
 
-  var NAME$a = 'alert';
-  var VERSION$a = '4.6.1';
-  var DATA_KEY$a = 'bs.alert';
-  var EVENT_KEY$a = "." + DATA_KEY$a;
-  var DATA_API_KEY$7 = '.data-api';
-  var JQUERY_NO_CONFLICT$a = $__default["default"].fn[NAME$a];
-  var CLASS_NAME_ALERT = 'alert';
-  var CLASS_NAME_FADE$5 = 'fade';
-  var CLASS_NAME_SHOW$7 = 'show';
-  var EVENT_CLOSE = "close" + EVENT_KEY$a;
-  var EVENT_CLOSED = "closed" + EVENT_KEY$a;
-  var EVENT_CLICK_DATA_API$6 = "click" + EVENT_KEY$a + DATA_API_KEY$7;
+  var NAME = 'alert';
+  var VERSION = '4.6.0';
+  var DATA_KEY = 'bs.alert';
+  var EVENT_KEY = "." + DATA_KEY;
+  var DATA_API_KEY = '.data-api';
+  var JQUERY_NO_CONFLICT = $__default['default'].fn[NAME];
   var SELECTOR_DISMISS = '[data-dismiss="alert"]';
+  var EVENT_CLOSE = "close" + EVENT_KEY;
+  var EVENT_CLOSED = "closed" + EVENT_KEY;
+  var EVENT_CLICK_DATA_API = "click" + EVENT_KEY + DATA_API_KEY;
+  var CLASS_NAME_ALERT = 'alert';
+  var CLASS_NAME_FADE = 'fade';
+  var CLASS_NAME_SHOW = 'show';
   /**
-   * Class definition
+   * ------------------------------------------------------------------------
+   * Class Definition
+   * ------------------------------------------------------------------------
    */
 
   var Alert = /*#__PURE__*/function () {
@@ -5683,7 +4354,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
     };
 
     _proto.dispose = function dispose() {
-      $__default["default"].removeData(this._element, DATA_KEY$a);
+      $__default['default'].removeData(this._element, DATA_KEY);
       this._element = null;
     } // Private
     ;
@@ -5697,48 +4368,48 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
       }
 
       if (!parent) {
-        parent = $__default["default"](element).closest("." + CLASS_NAME_ALERT)[0];
+        parent = $__default['default'](element).closest("." + CLASS_NAME_ALERT)[0];
       }
 
       return parent;
     };
 
     _proto._triggerCloseEvent = function _triggerCloseEvent(element) {
-      var closeEvent = $__default["default"].Event(EVENT_CLOSE);
-      $__default["default"](element).trigger(closeEvent);
+      var closeEvent = $__default['default'].Event(EVENT_CLOSE);
+      $__default['default'](element).trigger(closeEvent);
       return closeEvent;
     };
 
     _proto._removeElement = function _removeElement(element) {
       var _this = this;
 
-      $__default["default"](element).removeClass(CLASS_NAME_SHOW$7);
+      $__default['default'](element).removeClass(CLASS_NAME_SHOW);
 
-      if (!$__default["default"](element).hasClass(CLASS_NAME_FADE$5)) {
+      if (!$__default['default'](element).hasClass(CLASS_NAME_FADE)) {
         this._destroyElement(element);
 
         return;
       }
 
       var transitionDuration = Util.getTransitionDurationFromElement(element);
-      $__default["default"](element).one(Util.TRANSITION_END, function (event) {
+      $__default['default'](element).one(Util.TRANSITION_END, function (event) {
         return _this._destroyElement(element, event);
       }).emulateTransitionEnd(transitionDuration);
     };
 
     _proto._destroyElement = function _destroyElement(element) {
-      $__default["default"](element).detach().trigger(EVENT_CLOSED).remove();
+      $__default['default'](element).detach().trigger(EVENT_CLOSED).remove();
     } // Static
     ;
 
     Alert._jQueryInterface = function _jQueryInterface(config) {
       return this.each(function () {
-        var $element = $__default["default"](this);
-        var data = $element.data(DATA_KEY$a);
+        var $element = $__default['default'](this);
+        var data = $element.data(DATA_KEY);
 
         if (!data) {
           data = new Alert(this);
-          $element.data(DATA_KEY$a, data);
+          $element.data(DATA_KEY, data);
         }
 
         if (config === 'close') {
@@ -5760,55 +4431,63 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
     _createClass(Alert, null, [{
       key: "VERSION",
       get: function get() {
-        return VERSION$a;
+        return VERSION;
       }
     }]);
 
     return Alert;
   }();
   /**
-   * Data API implementation
+   * ------------------------------------------------------------------------
+   * Data Api implementation
+   * ------------------------------------------------------------------------
    */
 
 
-  $__default["default"](document).on(EVENT_CLICK_DATA_API$6, SELECTOR_DISMISS, Alert._handleDismiss(new Alert()));
+  $__default['default'](document).on(EVENT_CLICK_DATA_API, SELECTOR_DISMISS, Alert._handleDismiss(new Alert()));
   /**
+   * ------------------------------------------------------------------------
    * jQuery
+   * ------------------------------------------------------------------------
    */
 
-  $__default["default"].fn[NAME$a] = Alert._jQueryInterface;
-  $__default["default"].fn[NAME$a].Constructor = Alert;
+  $__default['default'].fn[NAME] = Alert._jQueryInterface;
+  $__default['default'].fn[NAME].Constructor = Alert;
 
-  $__default["default"].fn[NAME$a].noConflict = function () {
-    $__default["default"].fn[NAME$a] = JQUERY_NO_CONFLICT$a;
+  $__default['default'].fn[NAME].noConflict = function () {
+    $__default['default'].fn[NAME] = JQUERY_NO_CONFLICT;
     return Alert._jQueryInterface;
   };
 
   /**
+   * ------------------------------------------------------------------------
    * Constants
+   * ------------------------------------------------------------------------
    */
 
-  var NAME$9 = 'button';
-  var VERSION$9 = '4.6.1';
-  var DATA_KEY$9 = 'bs.button';
-  var EVENT_KEY$9 = "." + DATA_KEY$9;
-  var DATA_API_KEY$6 = '.data-api';
-  var JQUERY_NO_CONFLICT$9 = $__default["default"].fn[NAME$9];
-  var CLASS_NAME_ACTIVE$3 = 'active';
+  var NAME$1 = 'button';
+  var VERSION$1 = '4.6.0';
+  var DATA_KEY$1 = 'bs.button';
+  var EVENT_KEY$1 = "." + DATA_KEY$1;
+  var DATA_API_KEY$1 = '.data-api';
+  var JQUERY_NO_CONFLICT$1 = $__default['default'].fn[NAME$1];
+  var CLASS_NAME_ACTIVE = 'active';
   var CLASS_NAME_BUTTON = 'btn';
   var CLASS_NAME_FOCUS = 'focus';
-  var EVENT_CLICK_DATA_API$5 = "click" + EVENT_KEY$9 + DATA_API_KEY$6;
-  var EVENT_FOCUS_BLUR_DATA_API = "focus" + EVENT_KEY$9 + DATA_API_KEY$6 + " " + ("blur" + EVENT_KEY$9 + DATA_API_KEY$6);
-  var EVENT_LOAD_DATA_API$2 = "load" + EVENT_KEY$9 + DATA_API_KEY$6;
   var SELECTOR_DATA_TOGGLE_CARROT = '[data-toggle^="button"]';
   var SELECTOR_DATA_TOGGLES = '[data-toggle="buttons"]';
-  var SELECTOR_DATA_TOGGLE$4 = '[data-toggle="button"]';
+  var SELECTOR_DATA_TOGGLE = '[data-toggle="button"]';
   var SELECTOR_DATA_TOGGLES_BUTTONS = '[data-toggle="buttons"] .btn';
   var SELECTOR_INPUT = 'input:not([type="hidden"])';
-  var SELECTOR_ACTIVE$2 = '.active';
+  var SELECTOR_ACTIVE = '.active';
   var SELECTOR_BUTTON = '.btn';
+  var EVENT_CLICK_DATA_API$1 = "click" + EVENT_KEY$1 + DATA_API_KEY$1;
+  var EVENT_FOCUS_BLUR_DATA_API = "focus" + EVENT_KEY$1 + DATA_API_KEY$1 + " " + ("blur" + EVENT_KEY$1 + DATA_API_KEY$1);
+  var EVENT_LOAD_DATA_API = "load" + EVENT_KEY$1 + DATA_API_KEY$1;
   /**
-   * Class definition
+   * ------------------------------------------------------------------------
+   * Class Definition
+   * ------------------------------------------------------------------------
    */
 
   var Button = /*#__PURE__*/function () {
@@ -5824,20 +4503,20 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
     _proto.toggle = function toggle() {
       var triggerChangeEvent = true;
       var addAriaPressed = true;
-      var rootElement = $__default["default"](this._element).closest(SELECTOR_DATA_TOGGLES)[0];
+      var rootElement = $__default['default'](this._element).closest(SELECTOR_DATA_TOGGLES)[0];
 
       if (rootElement) {
         var input = this._element.querySelector(SELECTOR_INPUT);
 
         if (input) {
           if (input.type === 'radio') {
-            if (input.checked && this._element.classList.contains(CLASS_NAME_ACTIVE$3)) {
+            if (input.checked && this._element.classList.contains(CLASS_NAME_ACTIVE)) {
               triggerChangeEvent = false;
             } else {
-              var activeElement = rootElement.querySelector(SELECTOR_ACTIVE$2);
+              var activeElement = rootElement.querySelector(SELECTOR_ACTIVE);
 
               if (activeElement) {
-                $__default["default"](activeElement).removeClass(CLASS_NAME_ACTIVE$3);
+                $__default['default'](activeElement).removeClass(CLASS_NAME_ACTIVE);
               }
             }
           }
@@ -5845,11 +4524,11 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
           if (triggerChangeEvent) {
             // if it's not a radio button or checkbox don't add a pointless/invalid checked property to the input
             if (input.type === 'checkbox' || input.type === 'radio') {
-              input.checked = !this._element.classList.contains(CLASS_NAME_ACTIVE$3);
+              input.checked = !this._element.classList.contains(CLASS_NAME_ACTIVE);
             }
 
             if (!this.shouldAvoidTriggerChange) {
-              $__default["default"](input).trigger('change');
+              $__default['default'](input).trigger('change');
             }
           }
 
@@ -5860,29 +4539,29 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
       if (!(this._element.hasAttribute('disabled') || this._element.classList.contains('disabled'))) {
         if (addAriaPressed) {
-          this._element.setAttribute('aria-pressed', !this._element.classList.contains(CLASS_NAME_ACTIVE$3));
+          this._element.setAttribute('aria-pressed', !this._element.classList.contains(CLASS_NAME_ACTIVE));
         }
 
         if (triggerChangeEvent) {
-          $__default["default"](this._element).toggleClass(CLASS_NAME_ACTIVE$3);
+          $__default['default'](this._element).toggleClass(CLASS_NAME_ACTIVE);
         }
       }
     };
 
     _proto.dispose = function dispose() {
-      $__default["default"].removeData(this._element, DATA_KEY$9);
+      $__default['default'].removeData(this._element, DATA_KEY$1);
       this._element = null;
     } // Static
     ;
 
     Button._jQueryInterface = function _jQueryInterface(config, avoidTriggerChange) {
       return this.each(function () {
-        var $element = $__default["default"](this);
-        var data = $element.data(DATA_KEY$9);
+        var $element = $__default['default'](this);
+        var data = $element.data(DATA_KEY$1);
 
         if (!data) {
           data = new Button(this);
-          $element.data(DATA_KEY$9, data);
+          $element.data(DATA_KEY$1, data);
         }
 
         data.shouldAvoidTriggerChange = avoidTriggerChange;
@@ -5896,23 +4575,25 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
     _createClass(Button, null, [{
       key: "VERSION",
       get: function get() {
-        return VERSION$9;
+        return VERSION$1;
       }
     }]);
 
     return Button;
   }();
   /**
-   * Data API implementation
+   * ------------------------------------------------------------------------
+   * Data Api implementation
+   * ------------------------------------------------------------------------
    */
 
 
-  $__default["default"](document).on(EVENT_CLICK_DATA_API$5, SELECTOR_DATA_TOGGLE_CARROT, function (event) {
+  $__default['default'](document).on(EVENT_CLICK_DATA_API$1, SELECTOR_DATA_TOGGLE_CARROT, function (event) {
     var button = event.target;
     var initialButton = button;
 
-    if (!$__default["default"](button).hasClass(CLASS_NAME_BUTTON)) {
-      button = $__default["default"](button).closest(SELECTOR_BUTTON)[0];
+    if (!$__default['default'](button).hasClass(CLASS_NAME_BUTTON)) {
+      button = $__default['default'](button).closest(SELECTOR_BUTTON)[0];
     }
 
     if (!button || button.hasAttribute('disabled') || button.classList.contains('disabled')) {
@@ -5927,14 +4608,14 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
       }
 
       if (initialButton.tagName === 'INPUT' || button.tagName !== 'LABEL') {
-        Button._jQueryInterface.call($__default["default"](button), 'toggle', initialButton.tagName === 'INPUT');
+        Button._jQueryInterface.call($__default['default'](button), 'toggle', initialButton.tagName === 'INPUT');
       }
     }
   }).on(EVENT_FOCUS_BLUR_DATA_API, SELECTOR_DATA_TOGGLE_CARROT, function (event) {
-    var button = $__default["default"](event.target).closest(SELECTOR_BUTTON)[0];
-    $__default["default"](button).toggleClass(CLASS_NAME_FOCUS, /^focus(in)?$/.test(event.type));
+    var button = $__default['default'](event.target).closest(SELECTOR_BUTTON)[0];
+    $__default['default'](button).toggleClass(CLASS_NAME_FOCUS, /^focus(in)?$/.test(event.type));
   });
-  $__default["default"](window).on(EVENT_LOAD_DATA_API$2, function () {
+  $__default['default'](window).on(EVENT_LOAD_DATA_API, function () {
     // ensure correct active class is set to match the controls' actual values/states
     // find all checkboxes/readio buttons inside data-toggle groups
     var buttons = [].slice.call(document.querySelectorAll(SELECTOR_DATA_TOGGLES_BUTTONS));
@@ -5944,47 +4625,51 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
       var input = button.querySelector(SELECTOR_INPUT);
 
       if (input.checked || input.hasAttribute('checked')) {
-        button.classList.add(CLASS_NAME_ACTIVE$3);
+        button.classList.add(CLASS_NAME_ACTIVE);
       } else {
-        button.classList.remove(CLASS_NAME_ACTIVE$3);
+        button.classList.remove(CLASS_NAME_ACTIVE);
       }
     } // find all button toggles
 
 
-    buttons = [].slice.call(document.querySelectorAll(SELECTOR_DATA_TOGGLE$4));
+    buttons = [].slice.call(document.querySelectorAll(SELECTOR_DATA_TOGGLE));
 
     for (var _i = 0, _len = buttons.length; _i < _len; _i++) {
       var _button = buttons[_i];
 
       if (_button.getAttribute('aria-pressed') === 'true') {
-        _button.classList.add(CLASS_NAME_ACTIVE$3);
+        _button.classList.add(CLASS_NAME_ACTIVE);
       } else {
-        _button.classList.remove(CLASS_NAME_ACTIVE$3);
+        _button.classList.remove(CLASS_NAME_ACTIVE);
       }
     }
   });
   /**
+   * ------------------------------------------------------------------------
    * jQuery
+   * ------------------------------------------------------------------------
    */
 
-  $__default["default"].fn[NAME$9] = Button._jQueryInterface;
-  $__default["default"].fn[NAME$9].Constructor = Button;
+  $__default['default'].fn[NAME$1] = Button._jQueryInterface;
+  $__default['default'].fn[NAME$1].Constructor = Button;
 
-  $__default["default"].fn[NAME$9].noConflict = function () {
-    $__default["default"].fn[NAME$9] = JQUERY_NO_CONFLICT$9;
+  $__default['default'].fn[NAME$1].noConflict = function () {
+    $__default['default'].fn[NAME$1] = JQUERY_NO_CONFLICT$1;
     return Button._jQueryInterface;
   };
 
   /**
+   * ------------------------------------------------------------------------
    * Constants
+   * ------------------------------------------------------------------------
    */
 
-  var NAME$8 = 'carousel';
-  var VERSION$8 = '4.6.1';
-  var DATA_KEY$8 = 'bs.carousel';
-  var EVENT_KEY$8 = "." + DATA_KEY$8;
-  var DATA_API_KEY$5 = '.data-api';
-  var JQUERY_NO_CONFLICT$8 = $__default["default"].fn[NAME$8];
+  var NAME$2 = 'carousel';
+  var VERSION$2 = '4.6.0';
+  var DATA_KEY$2 = 'bs.carousel';
+  var EVENT_KEY$2 = "." + DATA_KEY$2;
+  var DATA_API_KEY$2 = '.data-api';
+  var JQUERY_NO_CONFLICT$2 = $__default['default'].fn[NAME$2];
   var ARROW_LEFT_KEYCODE = 37; // KeyboardEvent.which value for left arrow key
 
   var ARROW_RIGHT_KEYCODE = 39; // KeyboardEvent.which value for right arrow key
@@ -5992,31 +4677,47 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
   var TOUCHEVENT_COMPAT_WAIT = 500; // Time for mouse compat events to fire after touch
 
   var SWIPE_THRESHOLD = 40;
+  var Default = {
+    interval: 5000,
+    keyboard: true,
+    slide: false,
+    pause: 'hover',
+    wrap: true,
+    touch: true
+  };
+  var DefaultType = {
+    interval: '(number|boolean)',
+    keyboard: 'boolean',
+    slide: '(boolean|string)',
+    pause: '(string|boolean)',
+    wrap: 'boolean',
+    touch: 'boolean'
+  };
+  var DIRECTION_NEXT = 'next';
+  var DIRECTION_PREV = 'prev';
+  var DIRECTION_LEFT = 'left';
+  var DIRECTION_RIGHT = 'right';
+  var EVENT_SLIDE = "slide" + EVENT_KEY$2;
+  var EVENT_SLID = "slid" + EVENT_KEY$2;
+  var EVENT_KEYDOWN = "keydown" + EVENT_KEY$2;
+  var EVENT_MOUSEENTER = "mouseenter" + EVENT_KEY$2;
+  var EVENT_MOUSELEAVE = "mouseleave" + EVENT_KEY$2;
+  var EVENT_TOUCHSTART = "touchstart" + EVENT_KEY$2;
+  var EVENT_TOUCHMOVE = "touchmove" + EVENT_KEY$2;
+  var EVENT_TOUCHEND = "touchend" + EVENT_KEY$2;
+  var EVENT_POINTERDOWN = "pointerdown" + EVENT_KEY$2;
+  var EVENT_POINTERUP = "pointerup" + EVENT_KEY$2;
+  var EVENT_DRAG_START = "dragstart" + EVENT_KEY$2;
+  var EVENT_LOAD_DATA_API$1 = "load" + EVENT_KEY$2 + DATA_API_KEY$2;
+  var EVENT_CLICK_DATA_API$2 = "click" + EVENT_KEY$2 + DATA_API_KEY$2;
   var CLASS_NAME_CAROUSEL = 'carousel';
-  var CLASS_NAME_ACTIVE$2 = 'active';
+  var CLASS_NAME_ACTIVE$1 = 'active';
   var CLASS_NAME_SLIDE = 'slide';
   var CLASS_NAME_RIGHT = 'carousel-item-right';
   var CLASS_NAME_LEFT = 'carousel-item-left';
   var CLASS_NAME_NEXT = 'carousel-item-next';
   var CLASS_NAME_PREV = 'carousel-item-prev';
   var CLASS_NAME_POINTER_EVENT = 'pointer-event';
-  var DIRECTION_NEXT = 'next';
-  var DIRECTION_PREV = 'prev';
-  var DIRECTION_LEFT = 'left';
-  var DIRECTION_RIGHT = 'right';
-  var EVENT_SLIDE = "slide" + EVENT_KEY$8;
-  var EVENT_SLID = "slid" + EVENT_KEY$8;
-  var EVENT_KEYDOWN = "keydown" + EVENT_KEY$8;
-  var EVENT_MOUSEENTER = "mouseenter" + EVENT_KEY$8;
-  var EVENT_MOUSELEAVE = "mouseleave" + EVENT_KEY$8;
-  var EVENT_TOUCHSTART = "touchstart" + EVENT_KEY$8;
-  var EVENT_TOUCHMOVE = "touchmove" + EVENT_KEY$8;
-  var EVENT_TOUCHEND = "touchend" + EVENT_KEY$8;
-  var EVENT_POINTERDOWN = "pointerdown" + EVENT_KEY$8;
-  var EVENT_POINTERUP = "pointerup" + EVENT_KEY$8;
-  var EVENT_DRAG_START = "dragstart" + EVENT_KEY$8;
-  var EVENT_LOAD_DATA_API$1 = "load" + EVENT_KEY$8 + DATA_API_KEY$5;
-  var EVENT_CLICK_DATA_API$4 = "click" + EVENT_KEY$8 + DATA_API_KEY$5;
   var SELECTOR_ACTIVE$1 = '.active';
   var SELECTOR_ACTIVE_ITEM = '.active.carousel-item';
   var SELECTOR_ITEM = '.carousel-item';
@@ -6025,28 +4726,14 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
   var SELECTOR_INDICATORS = '.carousel-indicators';
   var SELECTOR_DATA_SLIDE = '[data-slide], [data-slide-to]';
   var SELECTOR_DATA_RIDE = '[data-ride="carousel"]';
-  var Default$7 = {
-    interval: 5000,
-    keyboard: true,
-    slide: false,
-    pause: 'hover',
-    wrap: true,
-    touch: true
-  };
-  var DefaultType$7 = {
-    interval: '(number|boolean)',
-    keyboard: 'boolean',
-    slide: '(boolean|string)',
-    pause: '(string|boolean)',
-    wrap: 'boolean',
-    touch: 'boolean'
-  };
   var PointerType = {
     TOUCH: 'touch',
     PEN: 'pen'
   };
   /**
-   * Class definition
+   * ------------------------------------------------------------------------
+   * Class Definition
+   * ------------------------------------------------------------------------
    */
 
   var Carousel = /*#__PURE__*/function () {
@@ -6079,7 +4766,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
     };
 
     _proto.nextWhenVisible = function nextWhenVisible() {
-      var $element = $__default["default"](this._element); // Don't call next when the page isn't visible
+      var $element = $__default['default'](this._element); // Don't call next when the page isn't visible
       // or the carousel or its parent isn't visible
 
       if (!document.hidden && $element.is(':visible') && $element.css('visibility') !== 'hidden') {
@@ -6136,7 +4823,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
       }
 
       if (this._isSliding) {
-        $__default["default"](this._element).one(EVENT_SLID, function () {
+        $__default['default'](this._element).one(EVENT_SLID, function () {
           return _this.to(index);
         });
         return;
@@ -6154,8 +4841,8 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
     };
 
     _proto.dispose = function dispose() {
-      $__default["default"](this._element).off(EVENT_KEY$8);
-      $__default["default"].removeData(this._element, DATA_KEY$8);
+      $__default['default'](this._element).off(EVENT_KEY$2);
+      $__default['default'].removeData(this._element, DATA_KEY$2);
       this._items = null;
       this._config = null;
       this._element = null;
@@ -6168,8 +4855,8 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
     ;
 
     _proto._getConfig = function _getConfig(config) {
-      config = _extends({}, Default$7, config);
-      Util.typeCheckConfig(NAME$8, config, DefaultType$7);
+      config = _extends({}, Default, config);
+      Util.typeCheckConfig(NAME$2, config, DefaultType);
       return config;
     };
 
@@ -6197,13 +4884,13 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
       var _this2 = this;
 
       if (this._config.keyboard) {
-        $__default["default"](this._element).on(EVENT_KEYDOWN, function (event) {
+        $__default['default'](this._element).on(EVENT_KEYDOWN, function (event) {
           return _this2._keydown(event);
         });
       }
 
       if (this._config.pause === 'hover') {
-        $__default["default"](this._element).on(EVENT_MOUSEENTER, function (event) {
+        $__default['default'](this._element).on(EVENT_MOUSEENTER, function (event) {
           return _this2.pause(event);
         }).on(EVENT_MOUSELEAVE, function (event) {
           return _this2.cycle(event);
@@ -6232,7 +4919,11 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
       var move = function move(event) {
         // ensure swiping with one touch and not pinching
-        _this3.touchDeltaX = event.originalEvent.touches && event.originalEvent.touches.length > 1 ? 0 : event.originalEvent.touches[0].clientX - _this3.touchStartX;
+        if (event.originalEvent.touches && event.originalEvent.touches.length > 1) {
+          _this3.touchDeltaX = 0;
+        } else {
+          _this3.touchDeltaX = event.originalEvent.touches[0].clientX - _this3.touchStartX;
+        }
       };
 
       var end = function end(event) {
@@ -6262,27 +4953,27 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
         }
       };
 
-      $__default["default"](this._element.querySelectorAll(SELECTOR_ITEM_IMG)).on(EVENT_DRAG_START, function (e) {
+      $__default['default'](this._element.querySelectorAll(SELECTOR_ITEM_IMG)).on(EVENT_DRAG_START, function (e) {
         return e.preventDefault();
       });
 
       if (this._pointerEvent) {
-        $__default["default"](this._element).on(EVENT_POINTERDOWN, function (event) {
+        $__default['default'](this._element).on(EVENT_POINTERDOWN, function (event) {
           return start(event);
         });
-        $__default["default"](this._element).on(EVENT_POINTERUP, function (event) {
+        $__default['default'](this._element).on(EVENT_POINTERUP, function (event) {
           return end(event);
         });
 
         this._element.classList.add(CLASS_NAME_POINTER_EVENT);
       } else {
-        $__default["default"](this._element).on(EVENT_TOUCHSTART, function (event) {
+        $__default['default'](this._element).on(EVENT_TOUCHSTART, function (event) {
           return start(event);
         });
-        $__default["default"](this._element).on(EVENT_TOUCHMOVE, function (event) {
+        $__default['default'](this._element).on(EVENT_TOUCHMOVE, function (event) {
           return move(event);
         });
-        $__default["default"](this._element).on(EVENT_TOUCHEND, function (event) {
+        $__default['default'](this._element).on(EVENT_TOUCHEND, function (event) {
           return end(event);
         });
       }
@@ -6334,25 +5025,25 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
       var fromIndex = this._getItemIndex(this._element.querySelector(SELECTOR_ACTIVE_ITEM));
 
-      var slideEvent = $__default["default"].Event(EVENT_SLIDE, {
+      var slideEvent = $__default['default'].Event(EVENT_SLIDE, {
         relatedTarget: relatedTarget,
         direction: eventDirectionName,
         from: fromIndex,
         to: targetIndex
       });
-      $__default["default"](this._element).trigger(slideEvent);
+      $__default['default'](this._element).trigger(slideEvent);
       return slideEvent;
     };
 
     _proto._setActiveIndicatorElement = function _setActiveIndicatorElement(element) {
       if (this._indicatorsElement) {
         var indicators = [].slice.call(this._indicatorsElement.querySelectorAll(SELECTOR_ACTIVE$1));
-        $__default["default"](indicators).removeClass(CLASS_NAME_ACTIVE$2);
+        $__default['default'](indicators).removeClass(CLASS_NAME_ACTIVE$1);
 
         var nextIndicator = this._indicatorsElement.children[this._getItemIndex(element)];
 
         if (nextIndicator) {
-          $__default["default"](nextIndicator).addClass(CLASS_NAME_ACTIVE$2);
+          $__default['default'](nextIndicator).addClass(CLASS_NAME_ACTIVE$1);
         }
       }
     };
@@ -6400,7 +5091,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
         eventDirectionName = DIRECTION_RIGHT;
       }
 
-      if (nextElement && $__default["default"](nextElement).hasClass(CLASS_NAME_ACTIVE$2)) {
+      if (nextElement && $__default['default'](nextElement).hasClass(CLASS_NAME_ACTIVE$1)) {
         this._isSliding = false;
         return;
       }
@@ -6425,32 +5116,32 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
       this._setActiveIndicatorElement(nextElement);
 
       this._activeElement = nextElement;
-      var slidEvent = $__default["default"].Event(EVENT_SLID, {
+      var slidEvent = $__default['default'].Event(EVENT_SLID, {
         relatedTarget: nextElement,
         direction: eventDirectionName,
         from: activeElementIndex,
         to: nextElementIndex
       });
 
-      if ($__default["default"](this._element).hasClass(CLASS_NAME_SLIDE)) {
-        $__default["default"](nextElement).addClass(orderClassName);
+      if ($__default['default'](this._element).hasClass(CLASS_NAME_SLIDE)) {
+        $__default['default'](nextElement).addClass(orderClassName);
         Util.reflow(nextElement);
-        $__default["default"](activeElement).addClass(directionalClassName);
-        $__default["default"](nextElement).addClass(directionalClassName);
+        $__default['default'](activeElement).addClass(directionalClassName);
+        $__default['default'](nextElement).addClass(directionalClassName);
         var transitionDuration = Util.getTransitionDurationFromElement(activeElement);
-        $__default["default"](activeElement).one(Util.TRANSITION_END, function () {
-          $__default["default"](nextElement).removeClass(directionalClassName + " " + orderClassName).addClass(CLASS_NAME_ACTIVE$2);
-          $__default["default"](activeElement).removeClass(CLASS_NAME_ACTIVE$2 + " " + orderClassName + " " + directionalClassName);
+        $__default['default'](activeElement).one(Util.TRANSITION_END, function () {
+          $__default['default'](nextElement).removeClass(directionalClassName + " " + orderClassName).addClass(CLASS_NAME_ACTIVE$1);
+          $__default['default'](activeElement).removeClass(CLASS_NAME_ACTIVE$1 + " " + orderClassName + " " + directionalClassName);
           _this4._isSliding = false;
           setTimeout(function () {
-            return $__default["default"](_this4._element).trigger(slidEvent);
+            return $__default['default'](_this4._element).trigger(slidEvent);
           }, 0);
         }).emulateTransitionEnd(transitionDuration);
       } else {
-        $__default["default"](activeElement).removeClass(CLASS_NAME_ACTIVE$2);
-        $__default["default"](nextElement).addClass(CLASS_NAME_ACTIVE$2);
+        $__default['default'](activeElement).removeClass(CLASS_NAME_ACTIVE$1);
+        $__default['default'](nextElement).addClass(CLASS_NAME_ACTIVE$1);
         this._isSliding = false;
-        $__default["default"](this._element).trigger(slidEvent);
+        $__default['default'](this._element).trigger(slidEvent);
       }
 
       if (isCycling) {
@@ -6461,9 +5152,9 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
     Carousel._jQueryInterface = function _jQueryInterface(config) {
       return this.each(function () {
-        var data = $__default["default"](this).data(DATA_KEY$8);
+        var data = $__default['default'](this).data(DATA_KEY$2);
 
-        var _config = _extends({}, Default$7, $__default["default"](this).data());
+        var _config = _extends({}, Default, $__default['default'](this).data());
 
         if (typeof config === 'object') {
           _config = _extends({}, _config, config);
@@ -6473,7 +5164,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
         if (!data) {
           data = new Carousel(this, _config);
-          $__default["default"](this).data(DATA_KEY$8, data);
+          $__default['default'](this).data(DATA_KEY$2, data);
         }
 
         if (typeof config === 'number') {
@@ -6498,13 +5189,13 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
         return;
       }
 
-      var target = $__default["default"](selector)[0];
+      var target = $__default['default'](selector)[0];
 
-      if (!target || !$__default["default"](target).hasClass(CLASS_NAME_CAROUSEL)) {
+      if (!target || !$__default['default'](target).hasClass(CLASS_NAME_CAROUSEL)) {
         return;
       }
 
-      var config = _extends({}, $__default["default"](target).data(), $__default["default"](this).data());
+      var config = _extends({}, $__default['default'](target).data(), $__default['default'](this).data());
 
       var slideIndex = this.getAttribute('data-slide-to');
 
@@ -6512,10 +5203,10 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
         config.interval = false;
       }
 
-      Carousel._jQueryInterface.call($__default["default"](target), config);
+      Carousel._jQueryInterface.call($__default['default'](target), config);
 
       if (slideIndex) {
-        $__default["default"](target).data(DATA_KEY$8).to(slideIndex);
+        $__default['default'](target).data(DATA_KEY$2).to(slideIndex);
       }
 
       event.preventDefault();
@@ -6524,77 +5215,85 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
     _createClass(Carousel, null, [{
       key: "VERSION",
       get: function get() {
-        return VERSION$8;
+        return VERSION$2;
       }
     }, {
       key: "Default",
       get: function get() {
-        return Default$7;
+        return Default;
       }
     }]);
 
     return Carousel;
   }();
   /**
-   * Data API implementation
+   * ------------------------------------------------------------------------
+   * Data Api implementation
+   * ------------------------------------------------------------------------
    */
 
 
-  $__default["default"](document).on(EVENT_CLICK_DATA_API$4, SELECTOR_DATA_SLIDE, Carousel._dataApiClickHandler);
-  $__default["default"](window).on(EVENT_LOAD_DATA_API$1, function () {
+  $__default['default'](document).on(EVENT_CLICK_DATA_API$2, SELECTOR_DATA_SLIDE, Carousel._dataApiClickHandler);
+  $__default['default'](window).on(EVENT_LOAD_DATA_API$1, function () {
     var carousels = [].slice.call(document.querySelectorAll(SELECTOR_DATA_RIDE));
 
     for (var i = 0, len = carousels.length; i < len; i++) {
-      var $carousel = $__default["default"](carousels[i]);
+      var $carousel = $__default['default'](carousels[i]);
 
       Carousel._jQueryInterface.call($carousel, $carousel.data());
     }
   });
   /**
+   * ------------------------------------------------------------------------
    * jQuery
+   * ------------------------------------------------------------------------
    */
 
-  $__default["default"].fn[NAME$8] = Carousel._jQueryInterface;
-  $__default["default"].fn[NAME$8].Constructor = Carousel;
+  $__default['default'].fn[NAME$2] = Carousel._jQueryInterface;
+  $__default['default'].fn[NAME$2].Constructor = Carousel;
 
-  $__default["default"].fn[NAME$8].noConflict = function () {
-    $__default["default"].fn[NAME$8] = JQUERY_NO_CONFLICT$8;
+  $__default['default'].fn[NAME$2].noConflict = function () {
+    $__default['default'].fn[NAME$2] = JQUERY_NO_CONFLICT$2;
     return Carousel._jQueryInterface;
   };
 
   /**
+   * ------------------------------------------------------------------------
    * Constants
+   * ------------------------------------------------------------------------
    */
 
-  var NAME$7 = 'collapse';
-  var VERSION$7 = '4.6.1';
-  var DATA_KEY$7 = 'bs.collapse';
-  var EVENT_KEY$7 = "." + DATA_KEY$7;
-  var DATA_API_KEY$4 = '.data-api';
-  var JQUERY_NO_CONFLICT$7 = $__default["default"].fn[NAME$7];
-  var CLASS_NAME_SHOW$6 = 'show';
+  var NAME$3 = 'collapse';
+  var VERSION$3 = '4.6.0';
+  var DATA_KEY$3 = 'bs.collapse';
+  var EVENT_KEY$3 = "." + DATA_KEY$3;
+  var DATA_API_KEY$3 = '.data-api';
+  var JQUERY_NO_CONFLICT$3 = $__default['default'].fn[NAME$3];
+  var Default$1 = {
+    toggle: true,
+    parent: ''
+  };
+  var DefaultType$1 = {
+    toggle: 'boolean',
+    parent: '(string|element)'
+  };
+  var EVENT_SHOW = "show" + EVENT_KEY$3;
+  var EVENT_SHOWN = "shown" + EVENT_KEY$3;
+  var EVENT_HIDE = "hide" + EVENT_KEY$3;
+  var EVENT_HIDDEN = "hidden" + EVENT_KEY$3;
+  var EVENT_CLICK_DATA_API$3 = "click" + EVENT_KEY$3 + DATA_API_KEY$3;
+  var CLASS_NAME_SHOW$1 = 'show';
   var CLASS_NAME_COLLAPSE = 'collapse';
   var CLASS_NAME_COLLAPSING = 'collapsing';
   var CLASS_NAME_COLLAPSED = 'collapsed';
   var DIMENSION_WIDTH = 'width';
   var DIMENSION_HEIGHT = 'height';
-  var EVENT_SHOW$4 = "show" + EVENT_KEY$7;
-  var EVENT_SHOWN$4 = "shown" + EVENT_KEY$7;
-  var EVENT_HIDE$4 = "hide" + EVENT_KEY$7;
-  var EVENT_HIDDEN$4 = "hidden" + EVENT_KEY$7;
-  var EVENT_CLICK_DATA_API$3 = "click" + EVENT_KEY$7 + DATA_API_KEY$4;
   var SELECTOR_ACTIVES = '.show, .collapsing';
-  var SELECTOR_DATA_TOGGLE$3 = '[data-toggle="collapse"]';
-  var Default$6 = {
-    toggle: true,
-    parent: ''
-  };
-  var DefaultType$6 = {
-    toggle: 'boolean',
-    parent: '(string|element)'
-  };
+  var SELECTOR_DATA_TOGGLE$1 = '[data-toggle="collapse"]';
   /**
-   * Class definition
+   * ------------------------------------------------------------------------
+   * Class Definition
+   * ------------------------------------------------------------------------
    */
 
   var Collapse = /*#__PURE__*/function () {
@@ -6603,7 +5302,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
       this._element = element;
       this._config = this._getConfig(config);
       this._triggerArray = [].slice.call(document.querySelectorAll("[data-toggle=\"collapse\"][href=\"#" + element.id + "\"]," + ("[data-toggle=\"collapse\"][data-target=\"#" + element.id + "\"]")));
-      var toggleList = [].slice.call(document.querySelectorAll(SELECTOR_DATA_TOGGLE$3));
+      var toggleList = [].slice.call(document.querySelectorAll(SELECTOR_DATA_TOGGLE$1));
 
       for (var i = 0, len = toggleList.length; i < len; i++) {
         var elem = toggleList[i];
@@ -6635,7 +5334,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
     // Public
     _proto.toggle = function toggle() {
-      if ($__default["default"](this._element).hasClass(CLASS_NAME_SHOW$6)) {
+      if ($__default['default'](this._element).hasClass(CLASS_NAME_SHOW$1)) {
         this.hide();
       } else {
         this.show();
@@ -6645,7 +5344,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
     _proto.show = function show() {
       var _this = this;
 
-      if (this._isTransitioning || $__default["default"](this._element).hasClass(CLASS_NAME_SHOW$6)) {
+      if (this._isTransitioning || $__default['default'](this._element).hasClass(CLASS_NAME_SHOW$1)) {
         return;
       }
 
@@ -6667,64 +5366,64 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
       }
 
       if (actives) {
-        activesData = $__default["default"](actives).not(this._selector).data(DATA_KEY$7);
+        activesData = $__default['default'](actives).not(this._selector).data(DATA_KEY$3);
 
         if (activesData && activesData._isTransitioning) {
           return;
         }
       }
 
-      var startEvent = $__default["default"].Event(EVENT_SHOW$4);
-      $__default["default"](this._element).trigger(startEvent);
+      var startEvent = $__default['default'].Event(EVENT_SHOW);
+      $__default['default'](this._element).trigger(startEvent);
 
       if (startEvent.isDefaultPrevented()) {
         return;
       }
 
       if (actives) {
-        Collapse._jQueryInterface.call($__default["default"](actives).not(this._selector), 'hide');
+        Collapse._jQueryInterface.call($__default['default'](actives).not(this._selector), 'hide');
 
         if (!activesData) {
-          $__default["default"](actives).data(DATA_KEY$7, null);
+          $__default['default'](actives).data(DATA_KEY$3, null);
         }
       }
 
       var dimension = this._getDimension();
 
-      $__default["default"](this._element).removeClass(CLASS_NAME_COLLAPSE).addClass(CLASS_NAME_COLLAPSING);
+      $__default['default'](this._element).removeClass(CLASS_NAME_COLLAPSE).addClass(CLASS_NAME_COLLAPSING);
       this._element.style[dimension] = 0;
 
       if (this._triggerArray.length) {
-        $__default["default"](this._triggerArray).removeClass(CLASS_NAME_COLLAPSED).attr('aria-expanded', true);
+        $__default['default'](this._triggerArray).removeClass(CLASS_NAME_COLLAPSED).attr('aria-expanded', true);
       }
 
       this.setTransitioning(true);
 
       var complete = function complete() {
-        $__default["default"](_this._element).removeClass(CLASS_NAME_COLLAPSING).addClass(CLASS_NAME_COLLAPSE + " " + CLASS_NAME_SHOW$6);
+        $__default['default'](_this._element).removeClass(CLASS_NAME_COLLAPSING).addClass(CLASS_NAME_COLLAPSE + " " + CLASS_NAME_SHOW$1);
         _this._element.style[dimension] = '';
 
         _this.setTransitioning(false);
 
-        $__default["default"](_this._element).trigger(EVENT_SHOWN$4);
+        $__default['default'](_this._element).trigger(EVENT_SHOWN);
       };
 
       var capitalizedDimension = dimension[0].toUpperCase() + dimension.slice(1);
       var scrollSize = "scroll" + capitalizedDimension;
       var transitionDuration = Util.getTransitionDurationFromElement(this._element);
-      $__default["default"](this._element).one(Util.TRANSITION_END, complete).emulateTransitionEnd(transitionDuration);
+      $__default['default'](this._element).one(Util.TRANSITION_END, complete).emulateTransitionEnd(transitionDuration);
       this._element.style[dimension] = this._element[scrollSize] + "px";
     };
 
     _proto.hide = function hide() {
       var _this2 = this;
 
-      if (this._isTransitioning || !$__default["default"](this._element).hasClass(CLASS_NAME_SHOW$6)) {
+      if (this._isTransitioning || !$__default['default'](this._element).hasClass(CLASS_NAME_SHOW$1)) {
         return;
       }
 
-      var startEvent = $__default["default"].Event(EVENT_HIDE$4);
-      $__default["default"](this._element).trigger(startEvent);
+      var startEvent = $__default['default'].Event(EVENT_HIDE);
+      $__default['default'](this._element).trigger(startEvent);
 
       if (startEvent.isDefaultPrevented()) {
         return;
@@ -6734,7 +5433,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
       this._element.style[dimension] = this._element.getBoundingClientRect()[dimension] + "px";
       Util.reflow(this._element);
-      $__default["default"](this._element).addClass(CLASS_NAME_COLLAPSING).removeClass(CLASS_NAME_COLLAPSE + " " + CLASS_NAME_SHOW$6);
+      $__default['default'](this._element).addClass(CLASS_NAME_COLLAPSING).removeClass(CLASS_NAME_COLLAPSE + " " + CLASS_NAME_SHOW$1);
       var triggerArrayLength = this._triggerArray.length;
 
       if (triggerArrayLength > 0) {
@@ -6743,10 +5442,10 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
           var selector = Util.getSelectorFromElement(trigger);
 
           if (selector !== null) {
-            var $elem = $__default["default"]([].slice.call(document.querySelectorAll(selector)));
+            var $elem = $__default['default']([].slice.call(document.querySelectorAll(selector)));
 
-            if (!$elem.hasClass(CLASS_NAME_SHOW$6)) {
-              $__default["default"](trigger).addClass(CLASS_NAME_COLLAPSED).attr('aria-expanded', false);
+            if (!$elem.hasClass(CLASS_NAME_SHOW$1)) {
+              $__default['default'](trigger).addClass(CLASS_NAME_COLLAPSED).attr('aria-expanded', false);
             }
           }
         }
@@ -6757,12 +5456,12 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
       var complete = function complete() {
         _this2.setTransitioning(false);
 
-        $__default["default"](_this2._element).removeClass(CLASS_NAME_COLLAPSING).addClass(CLASS_NAME_COLLAPSE).trigger(EVENT_HIDDEN$4);
+        $__default['default'](_this2._element).removeClass(CLASS_NAME_COLLAPSING).addClass(CLASS_NAME_COLLAPSE).trigger(EVENT_HIDDEN);
       };
 
       this._element.style[dimension] = '';
       var transitionDuration = Util.getTransitionDurationFromElement(this._element);
-      $__default["default"](this._element).one(Util.TRANSITION_END, complete).emulateTransitionEnd(transitionDuration);
+      $__default['default'](this._element).one(Util.TRANSITION_END, complete).emulateTransitionEnd(transitionDuration);
     };
 
     _proto.setTransitioning = function setTransitioning(isTransitioning) {
@@ -6770,7 +5469,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
     };
 
     _proto.dispose = function dispose() {
-      $__default["default"].removeData(this._element, DATA_KEY$7);
+      $__default['default'].removeData(this._element, DATA_KEY$3);
       this._config = null;
       this._parent = null;
       this._element = null;
@@ -6780,15 +5479,15 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
     ;
 
     _proto._getConfig = function _getConfig(config) {
-      config = _extends({}, Default$6, config);
+      config = _extends({}, Default$1, config);
       config.toggle = Boolean(config.toggle); // Coerce string values
 
-      Util.typeCheckConfig(NAME$7, config, DefaultType$6);
+      Util.typeCheckConfig(NAME$3, config, DefaultType$1);
       return config;
     };
 
     _proto._getDimension = function _getDimension() {
-      var hasWidth = $__default["default"](this._element).hasClass(DIMENSION_WIDTH);
+      var hasWidth = $__default['default'](this._element).hasClass(DIMENSION_WIDTH);
       return hasWidth ? DIMENSION_WIDTH : DIMENSION_HEIGHT;
     };
 
@@ -6809,17 +5508,17 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
       var selector = "[data-toggle=\"collapse\"][data-parent=\"" + this._config.parent + "\"]";
       var children = [].slice.call(parent.querySelectorAll(selector));
-      $__default["default"](children).each(function (i, element) {
+      $__default['default'](children).each(function (i, element) {
         _this3._addAriaAndCollapsedClass(Collapse._getTargetFromElement(element), [element]);
       });
       return parent;
     };
 
     _proto._addAriaAndCollapsedClass = function _addAriaAndCollapsedClass(element, triggerArray) {
-      var isOpen = $__default["default"](element).hasClass(CLASS_NAME_SHOW$6);
+      var isOpen = $__default['default'](element).hasClass(CLASS_NAME_SHOW$1);
 
       if (triggerArray.length) {
-        $__default["default"](triggerArray).toggleClass(CLASS_NAME_COLLAPSED, !isOpen).attr('aria-expanded', isOpen);
+        $__default['default'](triggerArray).toggleClass(CLASS_NAME_COLLAPSED, !isOpen).attr('aria-expanded', isOpen);
       }
     } // Static
     ;
@@ -6831,10 +5530,10 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
     Collapse._jQueryInterface = function _jQueryInterface(config) {
       return this.each(function () {
-        var $element = $__default["default"](this);
-        var data = $element.data(DATA_KEY$7);
+        var $element = $__default['default'](this);
+        var data = $element.data(DATA_KEY$3);
 
-        var _config = _extends({}, Default$6, $element.data(), typeof config === 'object' && config ? config : {});
+        var _config = _extends({}, Default$1, $element.data(), typeof config === 'object' && config ? config : {});
 
         if (!data && _config.toggle && typeof config === 'string' && /show|hide/.test(config)) {
           _config.toggle = false;
@@ -6842,7 +5541,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
         if (!data) {
           data = new Collapse(this, _config);
-          $element.data(DATA_KEY$7, data);
+          $element.data(DATA_KEY$3, data);
         }
 
         if (typeof config === 'string') {
@@ -6858,62 +5557,68 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
     _createClass(Collapse, null, [{
       key: "VERSION",
       get: function get() {
-        return VERSION$7;
+        return VERSION$3;
       }
     }, {
       key: "Default",
       get: function get() {
-        return Default$6;
+        return Default$1;
       }
     }]);
 
     return Collapse;
   }();
   /**
-   * Data API implementation
+   * ------------------------------------------------------------------------
+   * Data Api implementation
+   * ------------------------------------------------------------------------
    */
 
 
-  $__default["default"](document).on(EVENT_CLICK_DATA_API$3, SELECTOR_DATA_TOGGLE$3, function (event) {
+  $__default['default'](document).on(EVENT_CLICK_DATA_API$3, SELECTOR_DATA_TOGGLE$1, function (event) {
     // preventDefault only for <a> elements (which change the URL) not inside the collapsible element
     if (event.currentTarget.tagName === 'A') {
       event.preventDefault();
     }
 
-    var $trigger = $__default["default"](this);
+    var $trigger = $__default['default'](this);
     var selector = Util.getSelectorFromElement(this);
     var selectors = [].slice.call(document.querySelectorAll(selector));
-    $__default["default"](selectors).each(function () {
-      var $target = $__default["default"](this);
-      var data = $target.data(DATA_KEY$7);
+    $__default['default'](selectors).each(function () {
+      var $target = $__default['default'](this);
+      var data = $target.data(DATA_KEY$3);
       var config = data ? 'toggle' : $trigger.data();
 
       Collapse._jQueryInterface.call($target, config);
     });
   });
   /**
+   * ------------------------------------------------------------------------
    * jQuery
+   * ------------------------------------------------------------------------
    */
 
-  $__default["default"].fn[NAME$7] = Collapse._jQueryInterface;
-  $__default["default"].fn[NAME$7].Constructor = Collapse;
+  $__default['default'].fn[NAME$3] = Collapse._jQueryInterface;
+  $__default['default'].fn[NAME$3].Constructor = Collapse;
 
-  $__default["default"].fn[NAME$7].noConflict = function () {
-    $__default["default"].fn[NAME$7] = JQUERY_NO_CONFLICT$7;
+  $__default['default'].fn[NAME$3].noConflict = function () {
+    $__default['default'].fn[NAME$3] = JQUERY_NO_CONFLICT$3;
     return Collapse._jQueryInterface;
   };
 
   /**
+   * ------------------------------------------------------------------------
    * Constants
+   * ------------------------------------------------------------------------
    */
 
-  var NAME$6 = 'dropdown';
-  var VERSION$6 = '4.6.1';
-  var DATA_KEY$6 = 'bs.dropdown';
-  var EVENT_KEY$6 = "." + DATA_KEY$6;
-  var DATA_API_KEY$3 = '.data-api';
-  var JQUERY_NO_CONFLICT$6 = $__default["default"].fn[NAME$6];
-  var ESCAPE_KEYCODE$1 = 27; // KeyboardEvent.which value for Escape (Esc) key
+  var NAME$4 = 'dropdown';
+  var VERSION$4 = '4.6.0';
+  var DATA_KEY$4 = 'bs.dropdown';
+  var EVENT_KEY$4 = "." + DATA_KEY$4;
+  var DATA_API_KEY$4 = '.data-api';
+  var JQUERY_NO_CONFLICT$4 = $__default['default'].fn[NAME$4];
+  var ESCAPE_KEYCODE = 27; // KeyboardEvent.which value for Escape (Esc) key
 
   var SPACE_KEYCODE = 32; // KeyboardEvent.which value for space key
 
@@ -6925,22 +5630,22 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
   var RIGHT_MOUSE_BUTTON_WHICH = 3; // MouseEvent.which value for the right button (assuming a right-handed mouse)
 
-  var REGEXP_KEYDOWN = new RegExp(ARROW_UP_KEYCODE + "|" + ARROW_DOWN_KEYCODE + "|" + ESCAPE_KEYCODE$1);
-  var CLASS_NAME_DISABLED$1 = 'disabled';
-  var CLASS_NAME_SHOW$5 = 'show';
+  var REGEXP_KEYDOWN = new RegExp(ARROW_UP_KEYCODE + "|" + ARROW_DOWN_KEYCODE + "|" + ESCAPE_KEYCODE);
+  var EVENT_HIDE$1 = "hide" + EVENT_KEY$4;
+  var EVENT_HIDDEN$1 = "hidden" + EVENT_KEY$4;
+  var EVENT_SHOW$1 = "show" + EVENT_KEY$4;
+  var EVENT_SHOWN$1 = "shown" + EVENT_KEY$4;
+  var EVENT_CLICK = "click" + EVENT_KEY$4;
+  var EVENT_CLICK_DATA_API$4 = "click" + EVENT_KEY$4 + DATA_API_KEY$4;
+  var EVENT_KEYDOWN_DATA_API = "keydown" + EVENT_KEY$4 + DATA_API_KEY$4;
+  var EVENT_KEYUP_DATA_API = "keyup" + EVENT_KEY$4 + DATA_API_KEY$4;
+  var CLASS_NAME_DISABLED = 'disabled';
+  var CLASS_NAME_SHOW$2 = 'show';
   var CLASS_NAME_DROPUP = 'dropup';
   var CLASS_NAME_DROPRIGHT = 'dropright';
   var CLASS_NAME_DROPLEFT = 'dropleft';
   var CLASS_NAME_MENURIGHT = 'dropdown-menu-right';
   var CLASS_NAME_POSITION_STATIC = 'position-static';
-  var EVENT_HIDE$3 = "hide" + EVENT_KEY$6;
-  var EVENT_HIDDEN$3 = "hidden" + EVENT_KEY$6;
-  var EVENT_SHOW$3 = "show" + EVENT_KEY$6;
-  var EVENT_SHOWN$3 = "shown" + EVENT_KEY$6;
-  var EVENT_CLICK = "click" + EVENT_KEY$6;
-  var EVENT_CLICK_DATA_API$2 = "click" + EVENT_KEY$6 + DATA_API_KEY$3;
-  var EVENT_KEYDOWN_DATA_API = "keydown" + EVENT_KEY$6 + DATA_API_KEY$3;
-  var EVENT_KEYUP_DATA_API = "keyup" + EVENT_KEY$6 + DATA_API_KEY$3;
   var SELECTOR_DATA_TOGGLE$2 = '[data-toggle="dropdown"]';
   var SELECTOR_FORM_CHILD = '.dropdown form';
   var SELECTOR_MENU = '.dropdown-menu';
@@ -6952,7 +5657,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
   var PLACEMENT_BOTTOMEND = 'bottom-end';
   var PLACEMENT_RIGHT = 'right-start';
   var PLACEMENT_LEFT = 'left-start';
-  var Default$5 = {
+  var Default$2 = {
     offset: 0,
     flip: true,
     boundary: 'scrollParent',
@@ -6960,7 +5665,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
     display: 'dynamic',
     popperConfig: null
   };
-  var DefaultType$5 = {
+  var DefaultType$2 = {
     offset: '(number|string|function)',
     flip: 'boolean',
     boundary: '(string|element)',
@@ -6969,7 +5674,9 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
     popperConfig: '(null|object)'
   };
   /**
-   * Class definition
+   * ------------------------------------------------------------------------
+   * Class Definition
+   * ------------------------------------------------------------------------
    */
 
   var Dropdown = /*#__PURE__*/function () {
@@ -6988,11 +5695,11 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
     // Public
     _proto.toggle = function toggle() {
-      if (this._element.disabled || $__default["default"](this._element).hasClass(CLASS_NAME_DISABLED$1)) {
+      if (this._element.disabled || $__default['default'](this._element).hasClass(CLASS_NAME_DISABLED)) {
         return;
       }
 
-      var isActive = $__default["default"](this._menu).hasClass(CLASS_NAME_SHOW$5);
+      var isActive = $__default['default'](this._menu).hasClass(CLASS_NAME_SHOW$2);
 
       Dropdown._clearMenus();
 
@@ -7008,18 +5715,18 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
         usePopper = false;
       }
 
-      if (this._element.disabled || $__default["default"](this._element).hasClass(CLASS_NAME_DISABLED$1) || $__default["default"](this._menu).hasClass(CLASS_NAME_SHOW$5)) {
+      if (this._element.disabled || $__default['default'](this._element).hasClass(CLASS_NAME_DISABLED) || $__default['default'](this._menu).hasClass(CLASS_NAME_SHOW$2)) {
         return;
       }
 
       var relatedTarget = {
         relatedTarget: this._element
       };
-      var showEvent = $__default["default"].Event(EVENT_SHOW$3, relatedTarget);
+      var showEvent = $__default['default'].Event(EVENT_SHOW$1, relatedTarget);
 
       var parent = Dropdown._getParentFromElement(this._element);
 
-      $__default["default"](parent).trigger(showEvent);
+      $__default['default'](parent).trigger(showEvent);
 
       if (showEvent.isDefaultPrevented()) {
         return;
@@ -7027,8 +5734,11 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 
       if (!this._inNavbar && usePopper) {
-        // Check for Popper dependency
-        if (typeof Popper__default["default"] === 'undefined') {
+        /**
+         * Check for Popper dependency
+         * Popper - https://popper.js.org
+         */
+        if (typeof Popper__default['default'] === 'undefined') {
           throw new TypeError('Bootstrap\'s dropdowns require Popper (https://popper.js.org)');
         }
 
@@ -7048,41 +5758,41 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 
         if (this._config.boundary !== 'scrollParent') {
-          $__default["default"](parent).addClass(CLASS_NAME_POSITION_STATIC);
+          $__default['default'](parent).addClass(CLASS_NAME_POSITION_STATIC);
         }
 
-        this._popper = new Popper__default["default"](referenceElement, this._menu, this._getPopperConfig());
+        this._popper = new Popper__default['default'](referenceElement, this._menu, this._getPopperConfig());
       } // If this is a touch-enabled device we add extra
       // empty mouseover listeners to the body's immediate children;
       // only needed because of broken event delegation on iOS
       // https://www.quirksmode.org/blog/archives/2014/02/mouse_event_bub.html
 
 
-      if ('ontouchstart' in document.documentElement && $__default["default"](parent).closest(SELECTOR_NAVBAR_NAV).length === 0) {
-        $__default["default"](document.body).children().on('mouseover', null, $__default["default"].noop);
+      if ('ontouchstart' in document.documentElement && $__default['default'](parent).closest(SELECTOR_NAVBAR_NAV).length === 0) {
+        $__default['default'](document.body).children().on('mouseover', null, $__default['default'].noop);
       }
 
       this._element.focus();
 
       this._element.setAttribute('aria-expanded', true);
 
-      $__default["default"](this._menu).toggleClass(CLASS_NAME_SHOW$5);
-      $__default["default"](parent).toggleClass(CLASS_NAME_SHOW$5).trigger($__default["default"].Event(EVENT_SHOWN$3, relatedTarget));
+      $__default['default'](this._menu).toggleClass(CLASS_NAME_SHOW$2);
+      $__default['default'](parent).toggleClass(CLASS_NAME_SHOW$2).trigger($__default['default'].Event(EVENT_SHOWN$1, relatedTarget));
     };
 
     _proto.hide = function hide() {
-      if (this._element.disabled || $__default["default"](this._element).hasClass(CLASS_NAME_DISABLED$1) || !$__default["default"](this._menu).hasClass(CLASS_NAME_SHOW$5)) {
+      if (this._element.disabled || $__default['default'](this._element).hasClass(CLASS_NAME_DISABLED) || !$__default['default'](this._menu).hasClass(CLASS_NAME_SHOW$2)) {
         return;
       }
 
       var relatedTarget = {
         relatedTarget: this._element
       };
-      var hideEvent = $__default["default"].Event(EVENT_HIDE$3, relatedTarget);
+      var hideEvent = $__default['default'].Event(EVENT_HIDE$1, relatedTarget);
 
       var parent = Dropdown._getParentFromElement(this._element);
 
-      $__default["default"](parent).trigger(hideEvent);
+      $__default['default'](parent).trigger(hideEvent);
 
       if (hideEvent.isDefaultPrevented()) {
         return;
@@ -7092,13 +5802,13 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
         this._popper.destroy();
       }
 
-      $__default["default"](this._menu).toggleClass(CLASS_NAME_SHOW$5);
-      $__default["default"](parent).toggleClass(CLASS_NAME_SHOW$5).trigger($__default["default"].Event(EVENT_HIDDEN$3, relatedTarget));
+      $__default['default'](this._menu).toggleClass(CLASS_NAME_SHOW$2);
+      $__default['default'](parent).toggleClass(CLASS_NAME_SHOW$2).trigger($__default['default'].Event(EVENT_HIDDEN$1, relatedTarget));
     };
 
     _proto.dispose = function dispose() {
-      $__default["default"].removeData(this._element, DATA_KEY$6);
-      $__default["default"](this._element).off(EVENT_KEY$6);
+      $__default['default'].removeData(this._element, DATA_KEY$4);
+      $__default['default'](this._element).off(EVENT_KEY$4);
       this._element = null;
       this._menu = null;
 
@@ -7121,7 +5831,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
     _proto._addEventListeners = function _addEventListeners() {
       var _this = this;
 
-      $__default["default"](this._element).on(EVENT_CLICK, function (event) {
+      $__default['default'](this._element).on(EVENT_CLICK, function (event) {
         event.preventDefault();
         event.stopPropagation();
 
@@ -7130,8 +5840,8 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
     };
 
     _proto._getConfig = function _getConfig(config) {
-      config = _extends({}, this.constructor.Default, $__default["default"](this._element).data(), config);
-      Util.typeCheckConfig(NAME$6, config, this.constructor.DefaultType);
+      config = _extends({}, this.constructor.Default, $__default['default'](this._element).data(), config);
+      Util.typeCheckConfig(NAME$4, config, this.constructor.DefaultType);
       return config;
     };
 
@@ -7148,16 +5858,16 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
     };
 
     _proto._getPlacement = function _getPlacement() {
-      var $parentDropdown = $__default["default"](this._element.parentNode);
+      var $parentDropdown = $__default['default'](this._element.parentNode);
       var placement = PLACEMENT_BOTTOM; // Handle dropup
 
       if ($parentDropdown.hasClass(CLASS_NAME_DROPUP)) {
-        placement = $__default["default"](this._menu).hasClass(CLASS_NAME_MENURIGHT) ? PLACEMENT_TOPEND : PLACEMENT_TOP;
+        placement = $__default['default'](this._menu).hasClass(CLASS_NAME_MENURIGHT) ? PLACEMENT_TOPEND : PLACEMENT_TOP;
       } else if ($parentDropdown.hasClass(CLASS_NAME_DROPRIGHT)) {
         placement = PLACEMENT_RIGHT;
       } else if ($parentDropdown.hasClass(CLASS_NAME_DROPLEFT)) {
         placement = PLACEMENT_LEFT;
-      } else if ($__default["default"](this._menu).hasClass(CLASS_NAME_MENURIGHT)) {
+      } else if ($__default['default'](this._menu).hasClass(CLASS_NAME_MENURIGHT)) {
         placement = PLACEMENT_BOTTOMEND;
       }
 
@@ -7165,7 +5875,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
     };
 
     _proto._detectNavbar = function _detectNavbar() {
-      return $__default["default"](this._element).closest('.navbar').length > 0;
+      return $__default['default'](this._element).closest('.navbar').length > 0;
     };
 
     _proto._getOffset = function _getOffset() {
@@ -7175,7 +5885,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
       if (typeof this._config.offset === 'function') {
         offset.fn = function (data) {
-          data.offsets = _extends({}, data.offsets, _this2._config.offset(data.offsets, _this2._element));
+          data.offsets = _extends({}, data.offsets, _this2._config.offset(data.offsets, _this2._element) || {});
           return data;
         };
       } else {
@@ -7211,13 +5921,13 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
     Dropdown._jQueryInterface = function _jQueryInterface(config) {
       return this.each(function () {
-        var data = $__default["default"](this).data(DATA_KEY$6);
+        var data = $__default['default'](this).data(DATA_KEY$4);
 
         var _config = typeof config === 'object' ? config : null;
 
         if (!data) {
           data = new Dropdown(this, _config);
-          $__default["default"](this).data(DATA_KEY$6, data);
+          $__default['default'](this).data(DATA_KEY$4, data);
         }
 
         if (typeof config === 'string') {
@@ -7240,7 +5950,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
       for (var i = 0, len = toggles.length; i < len; i++) {
         var parent = Dropdown._getParentFromElement(toggles[i]);
 
-        var context = $__default["default"](toggles[i]).data(DATA_KEY$6);
+        var context = $__default['default'](toggles[i]).data(DATA_KEY$4);
         var relatedTarget = {
           relatedTarget: toggles[i]
         };
@@ -7255,16 +5965,16 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
         var dropdownMenu = context._menu;
 
-        if (!$__default["default"](parent).hasClass(CLASS_NAME_SHOW$5)) {
+        if (!$__default['default'](parent).hasClass(CLASS_NAME_SHOW$2)) {
           continue;
         }
 
-        if (event && (event.type === 'click' && /input|textarea/i.test(event.target.tagName) || event.type === 'keyup' && event.which === TAB_KEYCODE) && $__default["default"].contains(parent, event.target)) {
+        if (event && (event.type === 'click' && /input|textarea/i.test(event.target.tagName) || event.type === 'keyup' && event.which === TAB_KEYCODE) && $__default['default'].contains(parent, event.target)) {
           continue;
         }
 
-        var hideEvent = $__default["default"].Event(EVENT_HIDE$3, relatedTarget);
-        $__default["default"](parent).trigger(hideEvent);
+        var hideEvent = $__default['default'].Event(EVENT_HIDE$1, relatedTarget);
+        $__default['default'](parent).trigger(hideEvent);
 
         if (hideEvent.isDefaultPrevented()) {
           continue;
@@ -7273,7 +5983,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 
         if ('ontouchstart' in document.documentElement) {
-          $__default["default"](document.body).children().off('mouseover', null, $__default["default"].noop);
+          $__default['default'](document.body).children().off('mouseover', null, $__default['default'].noop);
         }
 
         toggles[i].setAttribute('aria-expanded', 'false');
@@ -7282,8 +5992,8 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
           context._popper.destroy();
         }
 
-        $__default["default"](dropdownMenu).removeClass(CLASS_NAME_SHOW$5);
-        $__default["default"](parent).removeClass(CLASS_NAME_SHOW$5).trigger($__default["default"].Event(EVENT_HIDDEN$3, relatedTarget));
+        $__default['default'](dropdownMenu).removeClass(CLASS_NAME_SHOW$2);
+        $__default['default'](parent).removeClass(CLASS_NAME_SHOW$2).trigger($__default['default'].Event(EVENT_HIDDEN$1, relatedTarget));
       }
     };
 
@@ -7307,36 +6017,36 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
       //  - If key is other than escape
       //    - If key is not up or down => not a dropdown command
       //    - If trigger inside the menu => not a dropdown command
-      if (/input|textarea/i.test(event.target.tagName) ? event.which === SPACE_KEYCODE || event.which !== ESCAPE_KEYCODE$1 && (event.which !== ARROW_DOWN_KEYCODE && event.which !== ARROW_UP_KEYCODE || $__default["default"](event.target).closest(SELECTOR_MENU).length) : !REGEXP_KEYDOWN.test(event.which)) {
+      if (/input|textarea/i.test(event.target.tagName) ? event.which === SPACE_KEYCODE || event.which !== ESCAPE_KEYCODE && (event.which !== ARROW_DOWN_KEYCODE && event.which !== ARROW_UP_KEYCODE || $__default['default'](event.target).closest(SELECTOR_MENU).length) : !REGEXP_KEYDOWN.test(event.which)) {
         return;
       }
 
-      if (this.disabled || $__default["default"](this).hasClass(CLASS_NAME_DISABLED$1)) {
+      if (this.disabled || $__default['default'](this).hasClass(CLASS_NAME_DISABLED)) {
         return;
       }
 
       var parent = Dropdown._getParentFromElement(this);
 
-      var isActive = $__default["default"](parent).hasClass(CLASS_NAME_SHOW$5);
+      var isActive = $__default['default'](parent).hasClass(CLASS_NAME_SHOW$2);
 
-      if (!isActive && event.which === ESCAPE_KEYCODE$1) {
+      if (!isActive && event.which === ESCAPE_KEYCODE) {
         return;
       }
 
       event.preventDefault();
       event.stopPropagation();
 
-      if (!isActive || event.which === ESCAPE_KEYCODE$1 || event.which === SPACE_KEYCODE) {
-        if (event.which === ESCAPE_KEYCODE$1) {
-          $__default["default"](parent.querySelector(SELECTOR_DATA_TOGGLE$2)).trigger('focus');
+      if (!isActive || event.which === ESCAPE_KEYCODE || event.which === SPACE_KEYCODE) {
+        if (event.which === ESCAPE_KEYCODE) {
+          $__default['default'](parent.querySelector(SELECTOR_DATA_TOGGLE$2)).trigger('focus');
         }
 
-        $__default["default"](this).trigger('click');
+        $__default['default'](this).trigger('click');
         return;
       }
 
       var items = [].slice.call(parent.querySelectorAll(SELECTOR_VISIBLE_ITEMS)).filter(function (item) {
-        return $__default["default"](item).is(':visible');
+        return $__default['default'](item).is(':visible');
       });
 
       if (items.length === 0) {
@@ -7365,66 +6075,77 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
     _createClass(Dropdown, null, [{
       key: "VERSION",
       get: function get() {
-        return VERSION$6;
+        return VERSION$4;
       }
     }, {
       key: "Default",
       get: function get() {
-        return Default$5;
+        return Default$2;
       }
     }, {
       key: "DefaultType",
       get: function get() {
-        return DefaultType$5;
+        return DefaultType$2;
       }
     }]);
 
     return Dropdown;
   }();
   /**
-   * Data API implementation
+   * ------------------------------------------------------------------------
+   * Data Api implementation
+   * ------------------------------------------------------------------------
    */
 
 
-  $__default["default"](document).on(EVENT_KEYDOWN_DATA_API, SELECTOR_DATA_TOGGLE$2, Dropdown._dataApiKeydownHandler).on(EVENT_KEYDOWN_DATA_API, SELECTOR_MENU, Dropdown._dataApiKeydownHandler).on(EVENT_CLICK_DATA_API$2 + " " + EVENT_KEYUP_DATA_API, Dropdown._clearMenus).on(EVENT_CLICK_DATA_API$2, SELECTOR_DATA_TOGGLE$2, function (event) {
+  $__default['default'](document).on(EVENT_KEYDOWN_DATA_API, SELECTOR_DATA_TOGGLE$2, Dropdown._dataApiKeydownHandler).on(EVENT_KEYDOWN_DATA_API, SELECTOR_MENU, Dropdown._dataApiKeydownHandler).on(EVENT_CLICK_DATA_API$4 + " " + EVENT_KEYUP_DATA_API, Dropdown._clearMenus).on(EVENT_CLICK_DATA_API$4, SELECTOR_DATA_TOGGLE$2, function (event) {
     event.preventDefault();
     event.stopPropagation();
 
-    Dropdown._jQueryInterface.call($__default["default"](this), 'toggle');
-  }).on(EVENT_CLICK_DATA_API$2, SELECTOR_FORM_CHILD, function (e) {
+    Dropdown._jQueryInterface.call($__default['default'](this), 'toggle');
+  }).on(EVENT_CLICK_DATA_API$4, SELECTOR_FORM_CHILD, function (e) {
     e.stopPropagation();
   });
   /**
+   * ------------------------------------------------------------------------
    * jQuery
+   * ------------------------------------------------------------------------
    */
 
-  $__default["default"].fn[NAME$6] = Dropdown._jQueryInterface;
-  $__default["default"].fn[NAME$6].Constructor = Dropdown;
+  $__default['default'].fn[NAME$4] = Dropdown._jQueryInterface;
+  $__default['default'].fn[NAME$4].Constructor = Dropdown;
 
-  $__default["default"].fn[NAME$6].noConflict = function () {
-    $__default["default"].fn[NAME$6] = JQUERY_NO_CONFLICT$6;
+  $__default['default'].fn[NAME$4].noConflict = function () {
+    $__default['default'].fn[NAME$4] = JQUERY_NO_CONFLICT$4;
     return Dropdown._jQueryInterface;
   };
 
   /**
+   * ------------------------------------------------------------------------
    * Constants
+   * ------------------------------------------------------------------------
    */
 
   var NAME$5 = 'modal';
-  var VERSION$5 = '4.6.1';
+  var VERSION$5 = '4.6.0';
   var DATA_KEY$5 = 'bs.modal';
   var EVENT_KEY$5 = "." + DATA_KEY$5;
-  var DATA_API_KEY$2 = '.data-api';
-  var JQUERY_NO_CONFLICT$5 = $__default["default"].fn[NAME$5];
-  var ESCAPE_KEYCODE = 27; // KeyboardEvent.which value for Escape (Esc) key
+  var DATA_API_KEY$5 = '.data-api';
+  var JQUERY_NO_CONFLICT$5 = $__default['default'].fn[NAME$5];
+  var ESCAPE_KEYCODE$1 = 27; // KeyboardEvent.which value for Escape (Esc) key
 
-  var CLASS_NAME_SCROLLABLE = 'modal-dialog-scrollable';
-  var CLASS_NAME_SCROLLBAR_MEASURER = 'modal-scrollbar-measure';
-  var CLASS_NAME_BACKDROP = 'modal-backdrop';
-  var CLASS_NAME_OPEN = 'modal-open';
-  var CLASS_NAME_FADE$4 = 'fade';
-  var CLASS_NAME_SHOW$4 = 'show';
-  var CLASS_NAME_STATIC = 'modal-static';
+  var Default$3 = {
+    backdrop: true,
+    keyboard: true,
+    focus: true,
+    show: true
+  };
+  var DefaultType$3 = {
+    backdrop: '(boolean|string)',
+    keyboard: 'boolean',
+    focus: 'boolean',
+    show: 'boolean'
+  };
   var EVENT_HIDE$2 = "hide" + EVENT_KEY$5;
   var EVENT_HIDE_PREVENTED = "hidePrevented" + EVENT_KEY$5;
   var EVENT_HIDDEN$2 = "hidden" + EVENT_KEY$5;
@@ -7432,31 +6153,28 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
   var EVENT_SHOWN$2 = "shown" + EVENT_KEY$5;
   var EVENT_FOCUSIN = "focusin" + EVENT_KEY$5;
   var EVENT_RESIZE = "resize" + EVENT_KEY$5;
-  var EVENT_CLICK_DISMISS$1 = "click.dismiss" + EVENT_KEY$5;
+  var EVENT_CLICK_DISMISS = "click.dismiss" + EVENT_KEY$5;
   var EVENT_KEYDOWN_DISMISS = "keydown.dismiss" + EVENT_KEY$5;
   var EVENT_MOUSEUP_DISMISS = "mouseup.dismiss" + EVENT_KEY$5;
   var EVENT_MOUSEDOWN_DISMISS = "mousedown.dismiss" + EVENT_KEY$5;
-  var EVENT_CLICK_DATA_API$1 = "click" + EVENT_KEY$5 + DATA_API_KEY$2;
+  var EVENT_CLICK_DATA_API$5 = "click" + EVENT_KEY$5 + DATA_API_KEY$5;
+  var CLASS_NAME_SCROLLABLE = 'modal-dialog-scrollable';
+  var CLASS_NAME_SCROLLBAR_MEASURER = 'modal-scrollbar-measure';
+  var CLASS_NAME_BACKDROP = 'modal-backdrop';
+  var CLASS_NAME_OPEN = 'modal-open';
+  var CLASS_NAME_FADE$1 = 'fade';
+  var CLASS_NAME_SHOW$3 = 'show';
+  var CLASS_NAME_STATIC = 'modal-static';
   var SELECTOR_DIALOG = '.modal-dialog';
   var SELECTOR_MODAL_BODY = '.modal-body';
-  var SELECTOR_DATA_TOGGLE$1 = '[data-toggle="modal"]';
-  var SELECTOR_DATA_DISMISS$1 = '[data-dismiss="modal"]';
+  var SELECTOR_DATA_TOGGLE$3 = '[data-toggle="modal"]';
+  var SELECTOR_DATA_DISMISS = '[data-dismiss="modal"]';
   var SELECTOR_FIXED_CONTENT = '.fixed-top, .fixed-bottom, .is-fixed, .sticky-top';
   var SELECTOR_STICKY_CONTENT = '.sticky-top';
-  var Default$4 = {
-    backdrop: true,
-    keyboard: true,
-    focus: true,
-    show: true
-  };
-  var DefaultType$4 = {
-    backdrop: '(boolean|string)',
-    keyboard: 'boolean',
-    focus: 'boolean',
-    show: 'boolean'
-  };
   /**
-   * Class definition
+   * ------------------------------------------------------------------------
+   * Class Definition
+   * ------------------------------------------------------------------------
    */
 
   var Modal = /*#__PURE__*/function () {
@@ -7487,20 +6205,20 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
         return;
       }
 
-      var showEvent = $__default["default"].Event(EVENT_SHOW$2, {
+      if ($__default['default'](this._element).hasClass(CLASS_NAME_FADE$1)) {
+        this._isTransitioning = true;
+      }
+
+      var showEvent = $__default['default'].Event(EVENT_SHOW$2, {
         relatedTarget: relatedTarget
       });
-      $__default["default"](this._element).trigger(showEvent);
+      $__default['default'](this._element).trigger(showEvent);
 
-      if (showEvent.isDefaultPrevented()) {
+      if (this._isShown || showEvent.isDefaultPrevented()) {
         return;
       }
 
       this._isShown = true;
-
-      if ($__default["default"](this._element).hasClass(CLASS_NAME_FADE$4)) {
-        this._isTransitioning = true;
-      }
 
       this._checkScrollbar();
 
@@ -7512,12 +6230,12 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
       this._setResizeEvent();
 
-      $__default["default"](this._element).on(EVENT_CLICK_DISMISS$1, SELECTOR_DATA_DISMISS$1, function (event) {
+      $__default['default'](this._element).on(EVENT_CLICK_DISMISS, SELECTOR_DATA_DISMISS, function (event) {
         return _this.hide(event);
       });
-      $__default["default"](this._dialog).on(EVENT_MOUSEDOWN_DISMISS, function () {
-        $__default["default"](_this._element).one(EVENT_MOUSEUP_DISMISS, function (event) {
-          if ($__default["default"](event.target).is(_this._element)) {
+      $__default['default'](this._dialog).on(EVENT_MOUSEDOWN_DISMISS, function () {
+        $__default['default'](_this._element).one(EVENT_MOUSEUP_DISMISS, function (event) {
+          if ($__default['default'](event.target).is(_this._element)) {
             _this._ignoreBackdropClick = true;
           }
         });
@@ -7539,15 +6257,15 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
         return;
       }
 
-      var hideEvent = $__default["default"].Event(EVENT_HIDE$2);
-      $__default["default"](this._element).trigger(hideEvent);
+      var hideEvent = $__default['default'].Event(EVENT_HIDE$2);
+      $__default['default'](this._element).trigger(hideEvent);
 
       if (!this._isShown || hideEvent.isDefaultPrevented()) {
         return;
       }
 
       this._isShown = false;
-      var transition = $__default["default"](this._element).hasClass(CLASS_NAME_FADE$4);
+      var transition = $__default['default'](this._element).hasClass(CLASS_NAME_FADE$1);
 
       if (transition) {
         this._isTransitioning = true;
@@ -7557,14 +6275,14 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
       this._setResizeEvent();
 
-      $__default["default"](document).off(EVENT_FOCUSIN);
-      $__default["default"](this._element).removeClass(CLASS_NAME_SHOW$4);
-      $__default["default"](this._element).off(EVENT_CLICK_DISMISS$1);
-      $__default["default"](this._dialog).off(EVENT_MOUSEDOWN_DISMISS);
+      $__default['default'](document).off(EVENT_FOCUSIN);
+      $__default['default'](this._element).removeClass(CLASS_NAME_SHOW$3);
+      $__default['default'](this._element).off(EVENT_CLICK_DISMISS);
+      $__default['default'](this._dialog).off(EVENT_MOUSEDOWN_DISMISS);
 
       if (transition) {
         var transitionDuration = Util.getTransitionDurationFromElement(this._element);
-        $__default["default"](this._element).one(Util.TRANSITION_END, function (event) {
+        $__default['default'](this._element).one(Util.TRANSITION_END, function (event) {
           return _this2._hideModal(event);
         }).emulateTransitionEnd(transitionDuration);
       } else {
@@ -7574,7 +6292,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
     _proto.dispose = function dispose() {
       [window, this._element, this._dialog].forEach(function (htmlElement) {
-        return $__default["default"](htmlElement).off(EVENT_KEY$5);
+        return $__default['default'](htmlElement).off(EVENT_KEY$5);
       });
       /**
        * `document` has 2 events `EVENT_FOCUSIN` and `EVENT_CLICK_DATA_API`
@@ -7582,8 +6300,8 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
        * It will remove `EVENT_CLICK_DATA_API` event that should remain
        */
 
-      $__default["default"](document).off(EVENT_FOCUSIN);
-      $__default["default"].removeData(this._element, DATA_KEY$5);
+      $__default['default'](document).off(EVENT_FOCUSIN);
+      $__default['default'].removeData(this._element, DATA_KEY$5);
       this._config = null;
       this._element = null;
       this._dialog = null;
@@ -7601,16 +6319,16 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
     ;
 
     _proto._getConfig = function _getConfig(config) {
-      config = _extends({}, Default$4, config);
-      Util.typeCheckConfig(NAME$5, config, DefaultType$4);
+      config = _extends({}, Default$3, config);
+      Util.typeCheckConfig(NAME$5, config, DefaultType$3);
       return config;
     };
 
     _proto._triggerBackdropTransition = function _triggerBackdropTransition() {
       var _this3 = this;
 
-      var hideEventPrevented = $__default["default"].Event(EVENT_HIDE_PREVENTED);
-      $__default["default"](this._element).trigger(hideEventPrevented);
+      var hideEventPrevented = $__default['default'].Event(EVENT_HIDE_PREVENTED);
+      $__default['default'](this._element).trigger(hideEventPrevented);
 
       if (hideEventPrevented.isDefaultPrevented()) {
         return;
@@ -7625,12 +6343,12 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
       this._element.classList.add(CLASS_NAME_STATIC);
 
       var modalTransitionDuration = Util.getTransitionDurationFromElement(this._dialog);
-      $__default["default"](this._element).off(Util.TRANSITION_END);
-      $__default["default"](this._element).one(Util.TRANSITION_END, function () {
+      $__default['default'](this._element).off(Util.TRANSITION_END);
+      $__default['default'](this._element).one(Util.TRANSITION_END, function () {
         _this3._element.classList.remove(CLASS_NAME_STATIC);
 
         if (!isModalOverflowing) {
-          $__default["default"](_this3._element).one(Util.TRANSITION_END, function () {
+          $__default['default'](_this3._element).one(Util.TRANSITION_END, function () {
             _this3._element.style.overflowY = '';
           }).emulateTransitionEnd(_this3._element, modalTransitionDuration);
         }
@@ -7642,7 +6360,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
     _proto._showElement = function _showElement(relatedTarget) {
       var _this4 = this;
 
-      var transition = $__default["default"](this._element).hasClass(CLASS_NAME_FADE$4);
+      var transition = $__default['default'](this._element).hasClass(CLASS_NAME_FADE$1);
       var modalBody = this._dialog ? this._dialog.querySelector(SELECTOR_MODAL_BODY) : null;
 
       if (!this._element.parentNode || this._element.parentNode.nodeType !== Node.ELEMENT_NODE) {
@@ -7658,7 +6376,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
       this._element.setAttribute('role', 'dialog');
 
-      if ($__default["default"](this._dialog).hasClass(CLASS_NAME_SCROLLABLE) && modalBody) {
+      if ($__default['default'](this._dialog).hasClass(CLASS_NAME_SCROLLABLE) && modalBody) {
         modalBody.scrollTop = 0;
       } else {
         this._element.scrollTop = 0;
@@ -7668,13 +6386,13 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
         Util.reflow(this._element);
       }
 
-      $__default["default"](this._element).addClass(CLASS_NAME_SHOW$4);
+      $__default['default'](this._element).addClass(CLASS_NAME_SHOW$3);
 
       if (this._config.focus) {
         this._enforceFocus();
       }
 
-      var shownEvent = $__default["default"].Event(EVENT_SHOWN$2, {
+      var shownEvent = $__default['default'].Event(EVENT_SHOWN$2, {
         relatedTarget: relatedTarget
       });
 
@@ -7684,12 +6402,12 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
         }
 
         _this4._isTransitioning = false;
-        $__default["default"](_this4._element).trigger(shownEvent);
+        $__default['default'](_this4._element).trigger(shownEvent);
       };
 
       if (transition) {
         var transitionDuration = Util.getTransitionDurationFromElement(this._dialog);
-        $__default["default"](this._dialog).one(Util.TRANSITION_END, transitionComplete).emulateTransitionEnd(transitionDuration);
+        $__default['default'](this._dialog).one(Util.TRANSITION_END, transitionComplete).emulateTransitionEnd(transitionDuration);
       } else {
         transitionComplete();
       }
@@ -7698,9 +6416,9 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
     _proto._enforceFocus = function _enforceFocus() {
       var _this5 = this;
 
-      $__default["default"](document).off(EVENT_FOCUSIN) // Guard against infinite focus loop
+      $__default['default'](document).off(EVENT_FOCUSIN) // Guard against infinite focus loop
       .on(EVENT_FOCUSIN, function (event) {
-        if (document !== event.target && _this5._element !== event.target && $__default["default"](_this5._element).has(event.target).length === 0) {
+        if (document !== event.target && _this5._element !== event.target && $__default['default'](_this5._element).has(event.target).length === 0) {
           _this5._element.focus();
         }
       });
@@ -7710,17 +6428,17 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
       var _this6 = this;
 
       if (this._isShown) {
-        $__default["default"](this._element).on(EVENT_KEYDOWN_DISMISS, function (event) {
-          if (_this6._config.keyboard && event.which === ESCAPE_KEYCODE) {
+        $__default['default'](this._element).on(EVENT_KEYDOWN_DISMISS, function (event) {
+          if (_this6._config.keyboard && event.which === ESCAPE_KEYCODE$1) {
             event.preventDefault();
 
             _this6.hide();
-          } else if (!_this6._config.keyboard && event.which === ESCAPE_KEYCODE) {
+          } else if (!_this6._config.keyboard && event.which === ESCAPE_KEYCODE$1) {
             _this6._triggerBackdropTransition();
           }
         });
       } else if (!this._isShown) {
-        $__default["default"](this._element).off(EVENT_KEYDOWN_DISMISS);
+        $__default['default'](this._element).off(EVENT_KEYDOWN_DISMISS);
       }
     };
 
@@ -7728,11 +6446,11 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
       var _this7 = this;
 
       if (this._isShown) {
-        $__default["default"](window).on(EVENT_RESIZE, function (event) {
+        $__default['default'](window).on(EVENT_RESIZE, function (event) {
           return _this7.handleUpdate(event);
         });
       } else {
-        $__default["default"](window).off(EVENT_RESIZE);
+        $__default['default'](window).off(EVENT_RESIZE);
       }
     };
 
@@ -7750,19 +6468,19 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
       this._isTransitioning = false;
 
       this._showBackdrop(function () {
-        $__default["default"](document.body).removeClass(CLASS_NAME_OPEN);
+        $__default['default'](document.body).removeClass(CLASS_NAME_OPEN);
 
         _this8._resetAdjustments();
 
         _this8._resetScrollbar();
 
-        $__default["default"](_this8._element).trigger(EVENT_HIDDEN$2);
+        $__default['default'](_this8._element).trigger(EVENT_HIDDEN$2);
       });
     };
 
     _proto._removeBackdrop = function _removeBackdrop() {
       if (this._backdrop) {
-        $__default["default"](this._backdrop).remove();
+        $__default['default'](this._backdrop).remove();
         this._backdrop = null;
       }
     };
@@ -7770,7 +6488,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
     _proto._showBackdrop = function _showBackdrop(callback) {
       var _this9 = this;
 
-      var animate = $__default["default"](this._element).hasClass(CLASS_NAME_FADE$4) ? CLASS_NAME_FADE$4 : '';
+      var animate = $__default['default'](this._element).hasClass(CLASS_NAME_FADE$1) ? CLASS_NAME_FADE$1 : '';
 
       if (this._isShown && this._config.backdrop) {
         this._backdrop = document.createElement('div');
@@ -7780,8 +6498,8 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
           this._backdrop.classList.add(animate);
         }
 
-        $__default["default"](this._backdrop).appendTo(document.body);
-        $__default["default"](this._element).on(EVENT_CLICK_DISMISS$1, function (event) {
+        $__default['default'](this._backdrop).appendTo(document.body);
+        $__default['default'](this._element).on(EVENT_CLICK_DISMISS, function (event) {
           if (_this9._ignoreBackdropClick) {
             _this9._ignoreBackdropClick = false;
             return;
@@ -7802,7 +6520,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
           Util.reflow(this._backdrop);
         }
 
-        $__default["default"](this._backdrop).addClass(CLASS_NAME_SHOW$4);
+        $__default['default'](this._backdrop).addClass(CLASS_NAME_SHOW$3);
 
         if (!callback) {
           return;
@@ -7814,9 +6532,9 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
         }
 
         var backdropTransitionDuration = Util.getTransitionDurationFromElement(this._backdrop);
-        $__default["default"](this._backdrop).one(Util.TRANSITION_END, callback).emulateTransitionEnd(backdropTransitionDuration);
+        $__default['default'](this._backdrop).one(Util.TRANSITION_END, callback).emulateTransitionEnd(backdropTransitionDuration);
       } else if (!this._isShown && this._backdrop) {
-        $__default["default"](this._backdrop).removeClass(CLASS_NAME_SHOW$4);
+        $__default['default'](this._backdrop).removeClass(CLASS_NAME_SHOW$3);
 
         var callbackRemove = function callbackRemove() {
           _this9._removeBackdrop();
@@ -7826,10 +6544,10 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
           }
         };
 
-        if ($__default["default"](this._element).hasClass(CLASS_NAME_FADE$4)) {
+        if ($__default['default'](this._element).hasClass(CLASS_NAME_FADE$1)) {
           var _backdropTransitionDuration = Util.getTransitionDurationFromElement(this._backdrop);
 
-          $__default["default"](this._backdrop).one(Util.TRANSITION_END, callbackRemove).emulateTransitionEnd(_backdropTransitionDuration);
+          $__default['default'](this._backdrop).one(Util.TRANSITION_END, callbackRemove).emulateTransitionEnd(_backdropTransitionDuration);
         } else {
           callbackRemove();
         }
@@ -7874,46 +6592,46 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
         var fixedContent = [].slice.call(document.querySelectorAll(SELECTOR_FIXED_CONTENT));
         var stickyContent = [].slice.call(document.querySelectorAll(SELECTOR_STICKY_CONTENT)); // Adjust fixed content padding
 
-        $__default["default"](fixedContent).each(function (index, element) {
+        $__default['default'](fixedContent).each(function (index, element) {
           var actualPadding = element.style.paddingRight;
-          var calculatedPadding = $__default["default"](element).css('padding-right');
-          $__default["default"](element).data('padding-right', actualPadding).css('padding-right', parseFloat(calculatedPadding) + _this10._scrollbarWidth + "px");
+          var calculatedPadding = $__default['default'](element).css('padding-right');
+          $__default['default'](element).data('padding-right', actualPadding).css('padding-right', parseFloat(calculatedPadding) + _this10._scrollbarWidth + "px");
         }); // Adjust sticky content margin
 
-        $__default["default"](stickyContent).each(function (index, element) {
+        $__default['default'](stickyContent).each(function (index, element) {
           var actualMargin = element.style.marginRight;
-          var calculatedMargin = $__default["default"](element).css('margin-right');
-          $__default["default"](element).data('margin-right', actualMargin).css('margin-right', parseFloat(calculatedMargin) - _this10._scrollbarWidth + "px");
+          var calculatedMargin = $__default['default'](element).css('margin-right');
+          $__default['default'](element).data('margin-right', actualMargin).css('margin-right', parseFloat(calculatedMargin) - _this10._scrollbarWidth + "px");
         }); // Adjust body padding
 
         var actualPadding = document.body.style.paddingRight;
-        var calculatedPadding = $__default["default"](document.body).css('padding-right');
-        $__default["default"](document.body).data('padding-right', actualPadding).css('padding-right', parseFloat(calculatedPadding) + this._scrollbarWidth + "px");
+        var calculatedPadding = $__default['default'](document.body).css('padding-right');
+        $__default['default'](document.body).data('padding-right', actualPadding).css('padding-right', parseFloat(calculatedPadding) + this._scrollbarWidth + "px");
       }
 
-      $__default["default"](document.body).addClass(CLASS_NAME_OPEN);
+      $__default['default'](document.body).addClass(CLASS_NAME_OPEN);
     };
 
     _proto._resetScrollbar = function _resetScrollbar() {
       // Restore fixed content padding
       var fixedContent = [].slice.call(document.querySelectorAll(SELECTOR_FIXED_CONTENT));
-      $__default["default"](fixedContent).each(function (index, element) {
-        var padding = $__default["default"](element).data('padding-right');
-        $__default["default"](element).removeData('padding-right');
+      $__default['default'](fixedContent).each(function (index, element) {
+        var padding = $__default['default'](element).data('padding-right');
+        $__default['default'](element).removeData('padding-right');
         element.style.paddingRight = padding ? padding : '';
       }); // Restore sticky content
 
       var elements = [].slice.call(document.querySelectorAll("" + SELECTOR_STICKY_CONTENT));
-      $__default["default"](elements).each(function (index, element) {
-        var margin = $__default["default"](element).data('margin-right');
+      $__default['default'](elements).each(function (index, element) {
+        var margin = $__default['default'](element).data('margin-right');
 
         if (typeof margin !== 'undefined') {
-          $__default["default"](element).css('margin-right', margin).removeData('margin-right');
+          $__default['default'](element).css('margin-right', margin).removeData('margin-right');
         }
       }); // Restore body padding
 
-      var padding = $__default["default"](document.body).data('padding-right');
-      $__default["default"](document.body).removeData('padding-right');
+      var padding = $__default['default'](document.body).data('padding-right');
+      $__default['default'](document.body).removeData('padding-right');
       document.body.style.paddingRight = padding ? padding : '';
     };
 
@@ -7930,13 +6648,13 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
     Modal._jQueryInterface = function _jQueryInterface(config, relatedTarget) {
       return this.each(function () {
-        var data = $__default["default"](this).data(DATA_KEY$5);
+        var data = $__default['default'](this).data(DATA_KEY$5);
 
-        var _config = _extends({}, Default$4, $__default["default"](this).data(), typeof config === 'object' && config ? config : {});
+        var _config = _extends({}, Default$3, $__default['default'](this).data(), typeof config === 'object' && config ? config : {});
 
         if (!data) {
           data = new Modal(this, _config);
-          $__default["default"](this).data(DATA_KEY$5, data);
+          $__default['default'](this).data(DATA_KEY$5, data);
         }
 
         if (typeof config === 'string') {
@@ -7959,18 +6677,20 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
     }, {
       key: "Default",
       get: function get() {
-        return Default$4;
+        return Default$3;
       }
     }]);
 
     return Modal;
   }();
   /**
-   * Data API implementation
+   * ------------------------------------------------------------------------
+   * Data Api implementation
+   * ------------------------------------------------------------------------
    */
 
 
-  $__default["default"](document).on(EVENT_CLICK_DATA_API$1, SELECTOR_DATA_TOGGLE$1, function (event) {
+  $__default['default'](document).on(EVENT_CLICK_DATA_API$5, SELECTOR_DATA_TOGGLE$3, function (event) {
     var _this11 = this;
 
     var target;
@@ -7980,42 +6700,44 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
       target = document.querySelector(selector);
     }
 
-    var config = $__default["default"](target).data(DATA_KEY$5) ? 'toggle' : _extends({}, $__default["default"](target).data(), $__default["default"](this).data());
+    var config = $__default['default'](target).data(DATA_KEY$5) ? 'toggle' : _extends({}, $__default['default'](target).data(), $__default['default'](this).data());
 
     if (this.tagName === 'A' || this.tagName === 'AREA') {
       event.preventDefault();
     }
 
-    var $target = $__default["default"](target).one(EVENT_SHOW$2, function (showEvent) {
+    var $target = $__default['default'](target).one(EVENT_SHOW$2, function (showEvent) {
       if (showEvent.isDefaultPrevented()) {
         // Only register focus restorer if modal will actually get shown
         return;
       }
 
       $target.one(EVENT_HIDDEN$2, function () {
-        if ($__default["default"](_this11).is(':visible')) {
+        if ($__default['default'](_this11).is(':visible')) {
           _this11.focus();
         }
       });
     });
 
-    Modal._jQueryInterface.call($__default["default"](target), config, this);
+    Modal._jQueryInterface.call($__default['default'](target), config, this);
   });
   /**
+   * ------------------------------------------------------------------------
    * jQuery
+   * ------------------------------------------------------------------------
    */
 
-  $__default["default"].fn[NAME$5] = Modal._jQueryInterface;
-  $__default["default"].fn[NAME$5].Constructor = Modal;
+  $__default['default'].fn[NAME$5] = Modal._jQueryInterface;
+  $__default['default'].fn[NAME$5].Constructor = Modal;
 
-  $__default["default"].fn[NAME$5].noConflict = function () {
-    $__default["default"].fn[NAME$5] = JQUERY_NO_CONFLICT$5;
+  $__default['default'].fn[NAME$5].noConflict = function () {
+    $__default['default'].fn[NAME$5] = JQUERY_NO_CONFLICT$5;
     return Modal._jQueryInterface;
   };
 
   /**
    * --------------------------------------------------------------------------
-   * Bootstrap (v4.6.1): tools/sanitizer.js
+   * Bootstrap (v4.6.0): tools/sanitizer.js
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
    * --------------------------------------------------------------------------
    */
@@ -8057,14 +6779,14 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
   /**
    * A pattern that recognizes a commonly useful subset of URLs that are safe.
    *
-   * Shoutout to Angular https://github.com/angular/angular/blob/12.2.x/packages/core/src/sanitization/url_sanitizer.ts
+   * Shoutout to Angular 7 https://github.com/angular/angular/blob/7.2.4/packages/core/src/sanitization/url_sanitizer.ts
    */
 
-  var SAFE_URL_PATTERN = /^(?:(?:https?|mailto|ftp|tel|file|sms):|[^#&/:?]*(?:[#/?]|$))/i;
+  var SAFE_URL_PATTERN = /^(?:(?:https?|mailto|ftp|tel|file):|[^#&/:?]*(?:[#/?]|$))/gi;
   /**
    * A pattern that matches safe data URLs. Only matches image, video and audio types.
    *
-   * Shoutout to Angular https://github.com/angular/angular/blob/12.2.x/packages/core/src/sanitization/url_sanitizer.ts
+   * Shoutout to Angular 7 https://github.com/angular/angular/blob/7.2.4/packages/core/src/sanitization/url_sanitizer.ts
    */
 
   var DATA_URL_PATTERN = /^data:(?:image\/(?:bmp|gif|jpeg|jpg|png|tiff|webp)|video\/(?:mpeg|mp4|ogg|webm)|audio\/(?:mp3|oga|ogg|opus));base64,[\d+/a-z]+=*$/i;
@@ -8074,7 +6796,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
     if (allowedAttributeList.indexOf(attrName) !== -1) {
       if (uriAttrs.indexOf(attrName) !== -1) {
-        return Boolean(SAFE_URL_PATTERN.test(attr.nodeValue) || DATA_URL_PATTERN.test(attr.nodeValue));
+        return Boolean(attr.nodeValue.match(SAFE_URL_PATTERN) || attr.nodeValue.match(DATA_URL_PATTERN));
       }
 
       return true;
@@ -8085,7 +6807,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
     }); // Check if a regular expression validates the attribute.
 
     for (var i = 0, len = regExp.length; i < len; i++) {
-      if (regExp[i].test(attrName)) {
+      if (attrName.match(regExp[i])) {
         return true;
       }
     }
@@ -8116,8 +6838,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
         return "continue";
       }
 
-      var attributeList = [].slice.call(el.attributes); // eslint-disable-next-line unicorn/prefer-spread
-
+      var attributeList = [].slice.call(el.attributes);
       var whitelistedAttributes = [].concat(whiteList['*'] || [], whiteList[elName] || []);
       attributeList.forEach(function (attr) {
         if (!allowedAttribute(attr, whitelistedAttributes)) {
@@ -8136,54 +6857,20 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
   }
 
   /**
+   * ------------------------------------------------------------------------
    * Constants
+   * ------------------------------------------------------------------------
    */
 
-  var NAME$4 = 'tooltip';
-  var VERSION$4 = '4.6.1';
-  var DATA_KEY$4 = 'bs.tooltip';
-  var EVENT_KEY$4 = "." + DATA_KEY$4;
-  var JQUERY_NO_CONFLICT$4 = $__default["default"].fn[NAME$4];
-  var CLASS_PREFIX$1 = 'bs-tooltip';
-  var BSCLS_PREFIX_REGEX$1 = new RegExp("(^|\\s)" + CLASS_PREFIX$1 + "\\S+", 'g');
+  var NAME$6 = 'tooltip';
+  var VERSION$6 = '4.6.0';
+  var DATA_KEY$6 = 'bs.tooltip';
+  var EVENT_KEY$6 = "." + DATA_KEY$6;
+  var JQUERY_NO_CONFLICT$6 = $__default['default'].fn[NAME$6];
+  var CLASS_PREFIX = 'bs-tooltip';
+  var BSCLS_PREFIX_REGEX = new RegExp("(^|\\s)" + CLASS_PREFIX + "\\S+", 'g');
   var DISALLOWED_ATTRIBUTES = ['sanitize', 'whiteList', 'sanitizeFn'];
-  var CLASS_NAME_FADE$3 = 'fade';
-  var CLASS_NAME_SHOW$3 = 'show';
-  var HOVER_STATE_SHOW = 'show';
-  var HOVER_STATE_OUT = 'out';
-  var SELECTOR_TOOLTIP_INNER = '.tooltip-inner';
-  var SELECTOR_ARROW = '.arrow';
-  var TRIGGER_HOVER = 'hover';
-  var TRIGGER_FOCUS = 'focus';
-  var TRIGGER_CLICK = 'click';
-  var TRIGGER_MANUAL = 'manual';
-  var AttachmentMap = {
-    AUTO: 'auto',
-    TOP: 'top',
-    RIGHT: 'right',
-    BOTTOM: 'bottom',
-    LEFT: 'left'
-  };
-  var Default$3 = {
-    animation: true,
-    template: '<div class="tooltip" role="tooltip">' + '<div class="arrow"></div>' + '<div class="tooltip-inner"></div></div>',
-    trigger: 'hover focus',
-    title: '',
-    delay: 0,
-    html: false,
-    selector: false,
-    placement: 'top',
-    offset: 0,
-    container: false,
-    fallbackPlacement: 'flip',
-    boundary: 'scrollParent',
-    customClass: '',
-    sanitize: true,
-    sanitizeFn: null,
-    whiteList: DefaultWhitelist,
-    popperConfig: null
-  };
-  var DefaultType$3 = {
+  var DefaultType$4 = {
     animation: 'boolean',
     template: 'string',
     title: '(string|element|function)',
@@ -8202,27 +6889,65 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
     whiteList: 'object',
     popperConfig: '(null|object)'
   };
-  var Event$1 = {
-    HIDE: "hide" + EVENT_KEY$4,
-    HIDDEN: "hidden" + EVENT_KEY$4,
-    SHOW: "show" + EVENT_KEY$4,
-    SHOWN: "shown" + EVENT_KEY$4,
-    INSERTED: "inserted" + EVENT_KEY$4,
-    CLICK: "click" + EVENT_KEY$4,
-    FOCUSIN: "focusin" + EVENT_KEY$4,
-    FOCUSOUT: "focusout" + EVENT_KEY$4,
-    MOUSEENTER: "mouseenter" + EVENT_KEY$4,
-    MOUSELEAVE: "mouseleave" + EVENT_KEY$4
+  var AttachmentMap = {
+    AUTO: 'auto',
+    TOP: 'top',
+    RIGHT: 'right',
+    BOTTOM: 'bottom',
+    LEFT: 'left'
   };
+  var Default$4 = {
+    animation: true,
+    template: '<div class="tooltip" role="tooltip">' + '<div class="arrow"></div>' + '<div class="tooltip-inner"></div></div>',
+    trigger: 'hover focus',
+    title: '',
+    delay: 0,
+    html: false,
+    selector: false,
+    placement: 'top',
+    offset: 0,
+    container: false,
+    fallbackPlacement: 'flip',
+    boundary: 'scrollParent',
+    customClass: '',
+    sanitize: true,
+    sanitizeFn: null,
+    whiteList: DefaultWhitelist,
+    popperConfig: null
+  };
+  var HOVER_STATE_SHOW = 'show';
+  var HOVER_STATE_OUT = 'out';
+  var Event = {
+    HIDE: "hide" + EVENT_KEY$6,
+    HIDDEN: "hidden" + EVENT_KEY$6,
+    SHOW: "show" + EVENT_KEY$6,
+    SHOWN: "shown" + EVENT_KEY$6,
+    INSERTED: "inserted" + EVENT_KEY$6,
+    CLICK: "click" + EVENT_KEY$6,
+    FOCUSIN: "focusin" + EVENT_KEY$6,
+    FOCUSOUT: "focusout" + EVENT_KEY$6,
+    MOUSEENTER: "mouseenter" + EVENT_KEY$6,
+    MOUSELEAVE: "mouseleave" + EVENT_KEY$6
+  };
+  var CLASS_NAME_FADE$2 = 'fade';
+  var CLASS_NAME_SHOW$4 = 'show';
+  var SELECTOR_TOOLTIP_INNER = '.tooltip-inner';
+  var SELECTOR_ARROW = '.arrow';
+  var TRIGGER_HOVER = 'hover';
+  var TRIGGER_FOCUS = 'focus';
+  var TRIGGER_CLICK = 'click';
+  var TRIGGER_MANUAL = 'manual';
   /**
-   * Class definition
+   * ------------------------------------------------------------------------
+   * Class Definition
+   * ------------------------------------------------------------------------
    */
 
   var Tooltip = /*#__PURE__*/function () {
     function Tooltip(element, config) {
-      if (typeof Popper__default["default"] === 'undefined') {
+      if (typeof Popper__default['default'] === 'undefined') {
         throw new TypeError('Bootstrap\'s tooltips require Popper (https://popper.js.org)');
-      } // Private
+      } // private
 
 
       this._isEnabled = true;
@@ -8261,11 +6986,11 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
       if (event) {
         var dataKey = this.constructor.DATA_KEY;
-        var context = $__default["default"](event.currentTarget).data(dataKey);
+        var context = $__default['default'](event.currentTarget).data(dataKey);
 
         if (!context) {
           context = new this.constructor(event.currentTarget, this._getDelegateConfig());
-          $__default["default"](event.currentTarget).data(dataKey, context);
+          $__default['default'](event.currentTarget).data(dataKey, context);
         }
 
         context._activeTrigger.click = !context._activeTrigger.click;
@@ -8276,7 +7001,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
           context._leave(null, context);
         }
       } else {
-        if ($__default["default"](this.getTipElement()).hasClass(CLASS_NAME_SHOW$3)) {
+        if ($__default['default'](this.getTipElement()).hasClass(CLASS_NAME_SHOW$4)) {
           this._leave(null, this);
 
           return;
@@ -8288,12 +7013,12 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
     _proto.dispose = function dispose() {
       clearTimeout(this._timeout);
-      $__default["default"].removeData(this.element, this.constructor.DATA_KEY);
-      $__default["default"](this.element).off(this.constructor.EVENT_KEY);
-      $__default["default"](this.element).closest('.modal').off('hide.bs.modal', this._hideModalHandler);
+      $__default['default'].removeData(this.element, this.constructor.DATA_KEY);
+      $__default['default'](this.element).off(this.constructor.EVENT_KEY);
+      $__default['default'](this.element).closest('.modal').off('hide.bs.modal', this._hideModalHandler);
 
       if (this.tip) {
-        $__default["default"](this.tip).remove();
+        $__default['default'](this.tip).remove();
       }
 
       this._isEnabled = null;
@@ -8314,16 +7039,16 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
     _proto.show = function show() {
       var _this = this;
 
-      if ($__default["default"](this.element).css('display') === 'none') {
+      if ($__default['default'](this.element).css('display') === 'none') {
         throw new Error('Please use show on visible elements');
       }
 
-      var showEvent = $__default["default"].Event(this.constructor.Event.SHOW);
+      var showEvent = $__default['default'].Event(this.constructor.Event.SHOW);
 
       if (this.isWithContent() && this._isEnabled) {
-        $__default["default"](this.element).trigger(showEvent);
+        $__default['default'](this.element).trigger(showEvent);
         var shadowRoot = Util.findShadowRoot(this.element);
-        var isInTheDom = $__default["default"].contains(shadowRoot !== null ? shadowRoot : this.element.ownerDocument.documentElement, this.element);
+        var isInTheDom = $__default['default'].contains(shadowRoot !== null ? shadowRoot : this.element.ownerDocument.documentElement, this.element);
 
         if (showEvent.isDefaultPrevented() || !isInTheDom) {
           return;
@@ -8336,7 +7061,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
         this.setContent();
 
         if (this.config.animation) {
-          $__default["default"](tip).addClass(CLASS_NAME_FADE$3);
+          $__default['default'](tip).addClass(CLASS_NAME_FADE$2);
         }
 
         var placement = typeof this.config.placement === 'function' ? this.config.placement.call(this, tip, this.element) : this.config.placement;
@@ -8347,22 +7072,22 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
         var container = this._getContainer();
 
-        $__default["default"](tip).data(this.constructor.DATA_KEY, this);
+        $__default['default'](tip).data(this.constructor.DATA_KEY, this);
 
-        if (!$__default["default"].contains(this.element.ownerDocument.documentElement, this.tip)) {
-          $__default["default"](tip).appendTo(container);
+        if (!$__default['default'].contains(this.element.ownerDocument.documentElement, this.tip)) {
+          $__default['default'](tip).appendTo(container);
         }
 
-        $__default["default"](this.element).trigger(this.constructor.Event.INSERTED);
-        this._popper = new Popper__default["default"](this.element, tip, this._getPopperConfig(attachment));
-        $__default["default"](tip).addClass(CLASS_NAME_SHOW$3);
-        $__default["default"](tip).addClass(this.config.customClass); // If this is a touch-enabled device we add extra
+        $__default['default'](this.element).trigger(this.constructor.Event.INSERTED);
+        this._popper = new Popper__default['default'](this.element, tip, this._getPopperConfig(attachment));
+        $__default['default'](tip).addClass(CLASS_NAME_SHOW$4);
+        $__default['default'](tip).addClass(this.config.customClass); // If this is a touch-enabled device we add extra
         // empty mouseover listeners to the body's immediate children;
         // only needed because of broken event delegation on iOS
         // https://www.quirksmode.org/blog/archives/2014/02/mouse_event_bub.html
 
         if ('ontouchstart' in document.documentElement) {
-          $__default["default"](document.body).children().on('mouseover', null, $__default["default"].noop);
+          $__default['default'](document.body).children().on('mouseover', null, $__default['default'].noop);
         }
 
         var complete = function complete() {
@@ -8372,16 +7097,16 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
           var prevHoverState = _this._hoverState;
           _this._hoverState = null;
-          $__default["default"](_this.element).trigger(_this.constructor.Event.SHOWN);
+          $__default['default'](_this.element).trigger(_this.constructor.Event.SHOWN);
 
           if (prevHoverState === HOVER_STATE_OUT) {
             _this._leave(null, _this);
           }
         };
 
-        if ($__default["default"](this.tip).hasClass(CLASS_NAME_FADE$3)) {
+        if ($__default['default'](this.tip).hasClass(CLASS_NAME_FADE$2)) {
           var transitionDuration = Util.getTransitionDurationFromElement(this.tip);
-          $__default["default"](this.tip).one(Util.TRANSITION_END, complete).emulateTransitionEnd(transitionDuration);
+          $__default['default'](this.tip).one(Util.TRANSITION_END, complete).emulateTransitionEnd(transitionDuration);
         } else {
           complete();
         }
@@ -8392,7 +7117,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
       var _this2 = this;
 
       var tip = this.getTipElement();
-      var hideEvent = $__default["default"].Event(this.constructor.Event.HIDE);
+      var hideEvent = $__default['default'].Event(this.constructor.Event.HIDE);
 
       var complete = function complete() {
         if (_this2._hoverState !== HOVER_STATE_SHOW && tip.parentNode) {
@@ -8403,7 +7128,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
         _this2.element.removeAttribute('aria-describedby');
 
-        $__default["default"](_this2.element).trigger(_this2.constructor.Event.HIDDEN);
+        $__default['default'](_this2.element).trigger(_this2.constructor.Event.HIDDEN);
 
         if (_this2._popper !== null) {
           _this2._popper.destroy();
@@ -8414,26 +7139,26 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
         }
       };
 
-      $__default["default"](this.element).trigger(hideEvent);
+      $__default['default'](this.element).trigger(hideEvent);
 
       if (hideEvent.isDefaultPrevented()) {
         return;
       }
 
-      $__default["default"](tip).removeClass(CLASS_NAME_SHOW$3); // If this is a touch-enabled device we remove the extra
+      $__default['default'](tip).removeClass(CLASS_NAME_SHOW$4); // If this is a touch-enabled device we remove the extra
       // empty mouseover listeners we added for iOS support
 
       if ('ontouchstart' in document.documentElement) {
-        $__default["default"](document.body).children().off('mouseover', null, $__default["default"].noop);
+        $__default['default'](document.body).children().off('mouseover', null, $__default['default'].noop);
       }
 
       this._activeTrigger[TRIGGER_CLICK] = false;
       this._activeTrigger[TRIGGER_FOCUS] = false;
       this._activeTrigger[TRIGGER_HOVER] = false;
 
-      if ($__default["default"](this.tip).hasClass(CLASS_NAME_FADE$3)) {
+      if ($__default['default'](this.tip).hasClass(CLASS_NAME_FADE$2)) {
         var transitionDuration = Util.getTransitionDurationFromElement(tip);
-        $__default["default"](tip).one(Util.TRANSITION_END, complete).emulateTransitionEnd(transitionDuration);
+        $__default['default'](tip).one(Util.TRANSITION_END, complete).emulateTransitionEnd(transitionDuration);
       } else {
         complete();
       }
@@ -8453,29 +7178,29 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
     };
 
     _proto.addAttachmentClass = function addAttachmentClass(attachment) {
-      $__default["default"](this.getTipElement()).addClass(CLASS_PREFIX$1 + "-" + attachment);
+      $__default['default'](this.getTipElement()).addClass(CLASS_PREFIX + "-" + attachment);
     };
 
     _proto.getTipElement = function getTipElement() {
-      this.tip = this.tip || $__default["default"](this.config.template)[0];
+      this.tip = this.tip || $__default['default'](this.config.template)[0];
       return this.tip;
     };
 
     _proto.setContent = function setContent() {
       var tip = this.getTipElement();
-      this.setElementContent($__default["default"](tip.querySelectorAll(SELECTOR_TOOLTIP_INNER)), this.getTitle());
-      $__default["default"](tip).removeClass(CLASS_NAME_FADE$3 + " " + CLASS_NAME_SHOW$3);
+      this.setElementContent($__default['default'](tip.querySelectorAll(SELECTOR_TOOLTIP_INNER)), this.getTitle());
+      $__default['default'](tip).removeClass(CLASS_NAME_FADE$2 + " " + CLASS_NAME_SHOW$4);
     };
 
     _proto.setElementContent = function setElementContent($element, content) {
       if (typeof content === 'object' && (content.nodeType || content.jquery)) {
         // Content is a DOM node or a jQuery
         if (this.config.html) {
-          if (!$__default["default"](content).parent().is($element)) {
+          if (!$__default['default'](content).parent().is($element)) {
             $element.empty().append(content);
           }
         } else {
-          $element.text($__default["default"](content).text());
+          $element.text($__default['default'](content).text());
         }
 
         return;
@@ -8539,7 +7264,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
       if (typeof this.config.offset === 'function') {
         offset.fn = function (data) {
-          data.offsets = _extends({}, data.offsets, _this4.config.offset(data.offsets, _this4.element));
+          data.offsets = _extends({}, data.offsets, _this4.config.offset(data.offsets, _this4.element) || {});
           return data;
         };
       } else {
@@ -8555,10 +7280,10 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
       }
 
       if (Util.isElement(this.config.container)) {
-        return $__default["default"](this.config.container);
+        return $__default['default'](this.config.container);
       }
 
-      return $__default["default"](document).find(this.config.container);
+      return $__default['default'](document).find(this.config.container);
     };
 
     _proto._getAttachment = function _getAttachment(placement) {
@@ -8571,13 +7296,13 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
       var triggers = this.config.trigger.split(' ');
       triggers.forEach(function (trigger) {
         if (trigger === 'click') {
-          $__default["default"](_this5.element).on(_this5.constructor.Event.CLICK, _this5.config.selector, function (event) {
+          $__default['default'](_this5.element).on(_this5.constructor.Event.CLICK, _this5.config.selector, function (event) {
             return _this5.toggle(event);
           });
         } else if (trigger !== TRIGGER_MANUAL) {
           var eventIn = trigger === TRIGGER_HOVER ? _this5.constructor.Event.MOUSEENTER : _this5.constructor.Event.FOCUSIN;
           var eventOut = trigger === TRIGGER_HOVER ? _this5.constructor.Event.MOUSELEAVE : _this5.constructor.Event.FOCUSOUT;
-          $__default["default"](_this5.element).on(eventIn, _this5.config.selector, function (event) {
+          $__default['default'](_this5.element).on(eventIn, _this5.config.selector, function (event) {
             return _this5._enter(event);
           }).on(eventOut, _this5.config.selector, function (event) {
             return _this5._leave(event);
@@ -8591,7 +7316,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
         }
       };
 
-      $__default["default"](this.element).closest('.modal').on('hide.bs.modal', this._hideModalHandler);
+      $__default['default'](this.element).closest('.modal').on('hide.bs.modal', this._hideModalHandler);
 
       if (this.config.selector) {
         this.config = _extends({}, this.config, {
@@ -8614,18 +7339,18 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
     _proto._enter = function _enter(event, context) {
       var dataKey = this.constructor.DATA_KEY;
-      context = context || $__default["default"](event.currentTarget).data(dataKey);
+      context = context || $__default['default'](event.currentTarget).data(dataKey);
 
       if (!context) {
         context = new this.constructor(event.currentTarget, this._getDelegateConfig());
-        $__default["default"](event.currentTarget).data(dataKey, context);
+        $__default['default'](event.currentTarget).data(dataKey, context);
       }
 
       if (event) {
         context._activeTrigger[event.type === 'focusin' ? TRIGGER_FOCUS : TRIGGER_HOVER] = true;
       }
 
-      if ($__default["default"](context.getTipElement()).hasClass(CLASS_NAME_SHOW$3) || context._hoverState === HOVER_STATE_SHOW) {
+      if ($__default['default'](context.getTipElement()).hasClass(CLASS_NAME_SHOW$4) || context._hoverState === HOVER_STATE_SHOW) {
         context._hoverState = HOVER_STATE_SHOW;
         return;
       }
@@ -8647,11 +7372,11 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
     _proto._leave = function _leave(event, context) {
       var dataKey = this.constructor.DATA_KEY;
-      context = context || $__default["default"](event.currentTarget).data(dataKey);
+      context = context || $__default['default'](event.currentTarget).data(dataKey);
 
       if (!context) {
         context = new this.constructor(event.currentTarget, this._getDelegateConfig());
-        $__default["default"](event.currentTarget).data(dataKey, context);
+        $__default['default'](event.currentTarget).data(dataKey, context);
       }
 
       if (event) {
@@ -8688,7 +7413,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
     };
 
     _proto._getConfig = function _getConfig(config) {
-      var dataAttributes = $__default["default"](this.element).data();
+      var dataAttributes = $__default['default'](this.element).data();
       Object.keys(dataAttributes).forEach(function (dataAttr) {
         if (DISALLOWED_ATTRIBUTES.indexOf(dataAttr) !== -1) {
           delete dataAttributes[dataAttr];
@@ -8711,7 +7436,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
         config.content = config.content.toString();
       }
 
-      Util.typeCheckConfig(NAME$4, config, this.constructor.DefaultType);
+      Util.typeCheckConfig(NAME$6, config, this.constructor.DefaultType);
 
       if (config.sanitize) {
         config.template = sanitizeHtml(config.template, config.whiteList, config.sanitizeFn);
@@ -8735,8 +7460,8 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
     };
 
     _proto._cleanTipClass = function _cleanTipClass() {
-      var $tip = $__default["default"](this.getTipElement());
-      var tabClass = $tip.attr('class').match(BSCLS_PREFIX_REGEX$1);
+      var $tip = $__default['default'](this.getTipElement());
+      var tabClass = $tip.attr('class').match(BSCLS_PREFIX_REGEX);
 
       if (tabClass !== null && tabClass.length) {
         $tip.removeClass(tabClass.join(''));
@@ -8759,7 +7484,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
         return;
       }
 
-      $__default["default"](tip).removeClass(CLASS_NAME_FADE$3);
+      $__default['default'](tip).removeClass(CLASS_NAME_FADE$2);
       this.config.animation = false;
       this.hide();
       this.show();
@@ -8769,8 +7494,8 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
     Tooltip._jQueryInterface = function _jQueryInterface(config) {
       return this.each(function () {
-        var $element = $__default["default"](this);
-        var data = $element.data(DATA_KEY$4);
+        var $element = $__default['default'](this);
+        var data = $element.data(DATA_KEY$6);
 
         var _config = typeof config === 'object' && config;
 
@@ -8780,7 +7505,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
         if (!data) {
           data = new Tooltip(this, _config);
-          $element.data(DATA_KEY$4, data);
+          $element.data(DATA_KEY$6, data);
         }
 
         if (typeof config === 'string') {
@@ -8796,96 +7521,102 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
     _createClass(Tooltip, null, [{
       key: "VERSION",
       get: function get() {
-        return VERSION$4;
+        return VERSION$6;
       }
     }, {
       key: "Default",
       get: function get() {
-        return Default$3;
+        return Default$4;
       }
     }, {
       key: "NAME",
       get: function get() {
-        return NAME$4;
+        return NAME$6;
       }
     }, {
       key: "DATA_KEY",
       get: function get() {
-        return DATA_KEY$4;
+        return DATA_KEY$6;
       }
     }, {
       key: "Event",
       get: function get() {
-        return Event$1;
+        return Event;
       }
     }, {
       key: "EVENT_KEY",
       get: function get() {
-        return EVENT_KEY$4;
+        return EVENT_KEY$6;
       }
     }, {
       key: "DefaultType",
       get: function get() {
-        return DefaultType$3;
+        return DefaultType$4;
       }
     }]);
 
     return Tooltip;
   }();
   /**
+   * ------------------------------------------------------------------------
    * jQuery
+   * ------------------------------------------------------------------------
    */
 
 
-  $__default["default"].fn[NAME$4] = Tooltip._jQueryInterface;
-  $__default["default"].fn[NAME$4].Constructor = Tooltip;
+  $__default['default'].fn[NAME$6] = Tooltip._jQueryInterface;
+  $__default['default'].fn[NAME$6].Constructor = Tooltip;
 
-  $__default["default"].fn[NAME$4].noConflict = function () {
-    $__default["default"].fn[NAME$4] = JQUERY_NO_CONFLICT$4;
+  $__default['default'].fn[NAME$6].noConflict = function () {
+    $__default['default'].fn[NAME$6] = JQUERY_NO_CONFLICT$6;
     return Tooltip._jQueryInterface;
   };
 
   /**
+   * ------------------------------------------------------------------------
    * Constants
+   * ------------------------------------------------------------------------
    */
 
-  var NAME$3 = 'popover';
-  var VERSION$3 = '4.6.1';
-  var DATA_KEY$3 = 'bs.popover';
-  var EVENT_KEY$3 = "." + DATA_KEY$3;
-  var JQUERY_NO_CONFLICT$3 = $__default["default"].fn[NAME$3];
-  var CLASS_PREFIX = 'bs-popover';
-  var BSCLS_PREFIX_REGEX = new RegExp("(^|\\s)" + CLASS_PREFIX + "\\S+", 'g');
-  var CLASS_NAME_FADE$2 = 'fade';
-  var CLASS_NAME_SHOW$2 = 'show';
-  var SELECTOR_TITLE = '.popover-header';
-  var SELECTOR_CONTENT = '.popover-body';
+  var NAME$7 = 'popover';
+  var VERSION$7 = '4.6.0';
+  var DATA_KEY$7 = 'bs.popover';
+  var EVENT_KEY$7 = "." + DATA_KEY$7;
+  var JQUERY_NO_CONFLICT$7 = $__default['default'].fn[NAME$7];
+  var CLASS_PREFIX$1 = 'bs-popover';
+  var BSCLS_PREFIX_REGEX$1 = new RegExp("(^|\\s)" + CLASS_PREFIX$1 + "\\S+", 'g');
 
-  var Default$2 = _extends({}, Tooltip.Default, {
+  var Default$5 = _extends({}, Tooltip.Default, {
     placement: 'right',
     trigger: 'click',
     content: '',
     template: '<div class="popover" role="tooltip">' + '<div class="arrow"></div>' + '<h3 class="popover-header"></h3>' + '<div class="popover-body"></div></div>'
   });
 
-  var DefaultType$2 = _extends({}, Tooltip.DefaultType, {
+  var DefaultType$5 = _extends({}, Tooltip.DefaultType, {
     content: '(string|element|function)'
   });
 
-  var Event = {
-    HIDE: "hide" + EVENT_KEY$3,
-    HIDDEN: "hidden" + EVENT_KEY$3,
-    SHOW: "show" + EVENT_KEY$3,
-    SHOWN: "shown" + EVENT_KEY$3,
-    INSERTED: "inserted" + EVENT_KEY$3,
-    CLICK: "click" + EVENT_KEY$3,
-    FOCUSIN: "focusin" + EVENT_KEY$3,
-    FOCUSOUT: "focusout" + EVENT_KEY$3,
-    MOUSEENTER: "mouseenter" + EVENT_KEY$3,
-    MOUSELEAVE: "mouseleave" + EVENT_KEY$3
+  var CLASS_NAME_FADE$3 = 'fade';
+  var CLASS_NAME_SHOW$5 = 'show';
+  var SELECTOR_TITLE = '.popover-header';
+  var SELECTOR_CONTENT = '.popover-body';
+  var Event$1 = {
+    HIDE: "hide" + EVENT_KEY$7,
+    HIDDEN: "hidden" + EVENT_KEY$7,
+    SHOW: "show" + EVENT_KEY$7,
+    SHOWN: "shown" + EVENT_KEY$7,
+    INSERTED: "inserted" + EVENT_KEY$7,
+    CLICK: "click" + EVENT_KEY$7,
+    FOCUSIN: "focusin" + EVENT_KEY$7,
+    FOCUSOUT: "focusout" + EVENT_KEY$7,
+    MOUSEENTER: "mouseenter" + EVENT_KEY$7,
+    MOUSELEAVE: "mouseleave" + EVENT_KEY$7
   };
   /**
-   * Class definition
+   * ------------------------------------------------------------------------
+   * Class Definition
+   * ------------------------------------------------------------------------
    */
 
   var Popover = /*#__PURE__*/function (_Tooltip) {
@@ -8903,16 +7634,16 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
     };
 
     _proto.addAttachmentClass = function addAttachmentClass(attachment) {
-      $__default["default"](this.getTipElement()).addClass(CLASS_PREFIX + "-" + attachment);
+      $__default['default'](this.getTipElement()).addClass(CLASS_PREFIX$1 + "-" + attachment);
     };
 
     _proto.getTipElement = function getTipElement() {
-      this.tip = this.tip || $__default["default"](this.config.template)[0];
+      this.tip = this.tip || $__default['default'](this.config.template)[0];
       return this.tip;
     };
 
     _proto.setContent = function setContent() {
-      var $tip = $__default["default"](this.getTipElement()); // We use append for html objects to maintain js events
+      var $tip = $__default['default'](this.getTipElement()); // We use append for html objects to maintain js events
 
       this.setElementContent($tip.find(SELECTOR_TITLE), this.getTitle());
 
@@ -8923,7 +7654,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
       }
 
       this.setElementContent($tip.find(SELECTOR_CONTENT), content);
-      $tip.removeClass(CLASS_NAME_FADE$2 + " " + CLASS_NAME_SHOW$2);
+      $tip.removeClass(CLASS_NAME_FADE$3 + " " + CLASS_NAME_SHOW$5);
     } // Private
     ;
 
@@ -8932,8 +7663,8 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
     };
 
     _proto._cleanTipClass = function _cleanTipClass() {
-      var $tip = $__default["default"](this.getTipElement());
-      var tabClass = $tip.attr('class').match(BSCLS_PREFIX_REGEX);
+      var $tip = $__default['default'](this.getTipElement());
+      var tabClass = $tip.attr('class').match(BSCLS_PREFIX_REGEX$1);
 
       if (tabClass !== null && tabClass.length > 0) {
         $tip.removeClass(tabClass.join(''));
@@ -8943,7 +7674,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
     Popover._jQueryInterface = function _jQueryInterface(config) {
       return this.each(function () {
-        var data = $__default["default"](this).data(DATA_KEY$3);
+        var data = $__default['default'](this).data(DATA_KEY$7);
 
         var _config = typeof config === 'object' ? config : null;
 
@@ -8953,7 +7684,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
         if (!data) {
           data = new Popover(this, _config);
-          $__default["default"](this).data(DATA_KEY$3, data);
+          $__default['default'](this).data(DATA_KEY$7, data);
         }
 
         if (typeof config === 'string') {
@@ -8968,94 +7699,100 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
     _createClass(Popover, null, [{
       key: "VERSION",
-      get: // Getters
-      function get() {
-        return VERSION$3;
+      // Getters
+      get: function get() {
+        return VERSION$7;
       }
     }, {
       key: "Default",
       get: function get() {
-        return Default$2;
+        return Default$5;
       }
     }, {
       key: "NAME",
       get: function get() {
-        return NAME$3;
+        return NAME$7;
       }
     }, {
       key: "DATA_KEY",
       get: function get() {
-        return DATA_KEY$3;
+        return DATA_KEY$7;
       }
     }, {
       key: "Event",
       get: function get() {
-        return Event;
+        return Event$1;
       }
     }, {
       key: "EVENT_KEY",
       get: function get() {
-        return EVENT_KEY$3;
+        return EVENT_KEY$7;
       }
     }, {
       key: "DefaultType",
       get: function get() {
-        return DefaultType$2;
+        return DefaultType$5;
       }
     }]);
 
     return Popover;
   }(Tooltip);
   /**
+   * ------------------------------------------------------------------------
    * jQuery
+   * ------------------------------------------------------------------------
    */
 
 
-  $__default["default"].fn[NAME$3] = Popover._jQueryInterface;
-  $__default["default"].fn[NAME$3].Constructor = Popover;
+  $__default['default'].fn[NAME$7] = Popover._jQueryInterface;
+  $__default['default'].fn[NAME$7].Constructor = Popover;
 
-  $__default["default"].fn[NAME$3].noConflict = function () {
-    $__default["default"].fn[NAME$3] = JQUERY_NO_CONFLICT$3;
+  $__default['default'].fn[NAME$7].noConflict = function () {
+    $__default['default'].fn[NAME$7] = JQUERY_NO_CONFLICT$7;
     return Popover._jQueryInterface;
   };
 
   /**
+   * ------------------------------------------------------------------------
    * Constants
+   * ------------------------------------------------------------------------
    */
 
-  var NAME$2 = 'scrollspy';
-  var VERSION$2 = '4.6.1';
-  var DATA_KEY$2 = 'bs.scrollspy';
-  var EVENT_KEY$2 = "." + DATA_KEY$2;
-  var DATA_API_KEY$1 = '.data-api';
-  var JQUERY_NO_CONFLICT$2 = $__default["default"].fn[NAME$2];
-  var CLASS_NAME_DROPDOWN_ITEM = 'dropdown-item';
-  var CLASS_NAME_ACTIVE$1 = 'active';
-  var EVENT_ACTIVATE = "activate" + EVENT_KEY$2;
-  var EVENT_SCROLL = "scroll" + EVENT_KEY$2;
-  var EVENT_LOAD_DATA_API = "load" + EVENT_KEY$2 + DATA_API_KEY$1;
-  var METHOD_OFFSET = 'offset';
-  var METHOD_POSITION = 'position';
-  var SELECTOR_DATA_SPY = '[data-spy="scroll"]';
-  var SELECTOR_NAV_LIST_GROUP$1 = '.nav, .list-group';
-  var SELECTOR_NAV_LINKS = '.nav-link';
-  var SELECTOR_NAV_ITEMS = '.nav-item';
-  var SELECTOR_LIST_ITEMS = '.list-group-item';
-  var SELECTOR_DROPDOWN$1 = '.dropdown';
-  var SELECTOR_DROPDOWN_ITEMS = '.dropdown-item';
-  var SELECTOR_DROPDOWN_TOGGLE$1 = '.dropdown-toggle';
-  var Default$1 = {
+  var NAME$8 = 'scrollspy';
+  var VERSION$8 = '4.6.0';
+  var DATA_KEY$8 = 'bs.scrollspy';
+  var EVENT_KEY$8 = "." + DATA_KEY$8;
+  var DATA_API_KEY$6 = '.data-api';
+  var JQUERY_NO_CONFLICT$8 = $__default['default'].fn[NAME$8];
+  var Default$6 = {
     offset: 10,
     method: 'auto',
     target: ''
   };
-  var DefaultType$1 = {
+  var DefaultType$6 = {
     offset: 'number',
     method: 'string',
     target: '(string|element)'
   };
+  var EVENT_ACTIVATE = "activate" + EVENT_KEY$8;
+  var EVENT_SCROLL = "scroll" + EVENT_KEY$8;
+  var EVENT_LOAD_DATA_API$2 = "load" + EVENT_KEY$8 + DATA_API_KEY$6;
+  var CLASS_NAME_DROPDOWN_ITEM = 'dropdown-item';
+  var CLASS_NAME_ACTIVE$2 = 'active';
+  var SELECTOR_DATA_SPY = '[data-spy="scroll"]';
+  var SELECTOR_NAV_LIST_GROUP = '.nav, .list-group';
+  var SELECTOR_NAV_LINKS = '.nav-link';
+  var SELECTOR_NAV_ITEMS = '.nav-item';
+  var SELECTOR_LIST_ITEMS = '.list-group-item';
+  var SELECTOR_DROPDOWN = '.dropdown';
+  var SELECTOR_DROPDOWN_ITEMS = '.dropdown-item';
+  var SELECTOR_DROPDOWN_TOGGLE = '.dropdown-toggle';
+  var METHOD_OFFSET = 'offset';
+  var METHOD_POSITION = 'position';
   /**
-   * Class definition
+   * ------------------------------------------------------------------------
+   * Class Definition
+   * ------------------------------------------------------------------------
    */
 
   var ScrollSpy = /*#__PURE__*/function () {
@@ -9070,7 +7807,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
       this._targets = [];
       this._activeTarget = null;
       this._scrollHeight = 0;
-      $__default["default"](this._scrollElement).on(EVENT_SCROLL, function (event) {
+      $__default['default'](this._scrollElement).on(EVENT_SCROLL, function (event) {
         return _this._process(event);
       });
       this.refresh();
@@ -9105,7 +7842,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
           if (targetBCR.width || targetBCR.height) {
             // TODO (fat): remove sketch reliance on jQuery position/offset
-            return [$__default["default"](target)[offsetMethod]().top + offsetBase, targetSelector];
+            return [$__default['default'](target)[offsetMethod]().top + offsetBase, targetSelector];
           }
         }
 
@@ -9122,8 +7859,8 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
     };
 
     _proto.dispose = function dispose() {
-      $__default["default"].removeData(this._element, DATA_KEY$2);
-      $__default["default"](this._scrollElement).off(EVENT_KEY$2);
+      $__default['default'].removeData(this._element, DATA_KEY$8);
+      $__default['default'](this._scrollElement).off(EVENT_KEY$8);
       this._element = null;
       this._scrollElement = null;
       this._config = null;
@@ -9136,20 +7873,20 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
     ;
 
     _proto._getConfig = function _getConfig(config) {
-      config = _extends({}, Default$1, typeof config === 'object' && config ? config : {});
+      config = _extends({}, Default$6, typeof config === 'object' && config ? config : {});
 
       if (typeof config.target !== 'string' && Util.isElement(config.target)) {
-        var id = $__default["default"](config.target).attr('id');
+        var id = $__default['default'](config.target).attr('id');
 
         if (!id) {
-          id = Util.getUID(NAME$2);
-          $__default["default"](config.target).attr('id', id);
+          id = Util.getUID(NAME$8);
+          $__default['default'](config.target).attr('id', id);
         }
 
         config.target = "#" + id;
       }
 
-      Util.typeCheckConfig(NAME$2, config, DefaultType$1);
+      Util.typeCheckConfig(NAME$8, config, DefaultType$6);
       return config;
     };
 
@@ -9212,44 +7949,44 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
         return selector + "[data-target=\"" + target + "\"]," + selector + "[href=\"" + target + "\"]";
       });
 
-      var $link = $__default["default"]([].slice.call(document.querySelectorAll(queries.join(','))));
+      var $link = $__default['default']([].slice.call(document.querySelectorAll(queries.join(','))));
 
       if ($link.hasClass(CLASS_NAME_DROPDOWN_ITEM)) {
-        $link.closest(SELECTOR_DROPDOWN$1).find(SELECTOR_DROPDOWN_TOGGLE$1).addClass(CLASS_NAME_ACTIVE$1);
-        $link.addClass(CLASS_NAME_ACTIVE$1);
+        $link.closest(SELECTOR_DROPDOWN).find(SELECTOR_DROPDOWN_TOGGLE).addClass(CLASS_NAME_ACTIVE$2);
+        $link.addClass(CLASS_NAME_ACTIVE$2);
       } else {
         // Set triggered link as active
-        $link.addClass(CLASS_NAME_ACTIVE$1); // Set triggered links parents as active
+        $link.addClass(CLASS_NAME_ACTIVE$2); // Set triggered links parents as active
         // With both <ul> and <nav> markup a parent is the previous sibling of any nav ancestor
 
-        $link.parents(SELECTOR_NAV_LIST_GROUP$1).prev(SELECTOR_NAV_LINKS + ", " + SELECTOR_LIST_ITEMS).addClass(CLASS_NAME_ACTIVE$1); // Handle special case when .nav-link is inside .nav-item
+        $link.parents(SELECTOR_NAV_LIST_GROUP).prev(SELECTOR_NAV_LINKS + ", " + SELECTOR_LIST_ITEMS).addClass(CLASS_NAME_ACTIVE$2); // Handle special case when .nav-link is inside .nav-item
 
-        $link.parents(SELECTOR_NAV_LIST_GROUP$1).prev(SELECTOR_NAV_ITEMS).children(SELECTOR_NAV_LINKS).addClass(CLASS_NAME_ACTIVE$1);
+        $link.parents(SELECTOR_NAV_LIST_GROUP).prev(SELECTOR_NAV_ITEMS).children(SELECTOR_NAV_LINKS).addClass(CLASS_NAME_ACTIVE$2);
       }
 
-      $__default["default"](this._scrollElement).trigger(EVENT_ACTIVATE, {
+      $__default['default'](this._scrollElement).trigger(EVENT_ACTIVATE, {
         relatedTarget: target
       });
     };
 
     _proto._clear = function _clear() {
       [].slice.call(document.querySelectorAll(this._selector)).filter(function (node) {
-        return node.classList.contains(CLASS_NAME_ACTIVE$1);
+        return node.classList.contains(CLASS_NAME_ACTIVE$2);
       }).forEach(function (node) {
-        return node.classList.remove(CLASS_NAME_ACTIVE$1);
+        return node.classList.remove(CLASS_NAME_ACTIVE$2);
       });
     } // Static
     ;
 
     ScrollSpy._jQueryInterface = function _jQueryInterface(config) {
       return this.each(function () {
-        var data = $__default["default"](this).data(DATA_KEY$2);
+        var data = $__default['default'](this).data(DATA_KEY$8);
 
         var _config = typeof config === 'object' && config;
 
         if (!data) {
           data = new ScrollSpy(this, _config);
-          $__default["default"](this).data(DATA_KEY$2, data);
+          $__default['default'](this).data(DATA_KEY$8, data);
         }
 
         if (typeof config === 'string') {
@@ -9265,73 +8002,81 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
     _createClass(ScrollSpy, null, [{
       key: "VERSION",
       get: function get() {
-        return VERSION$2;
+        return VERSION$8;
       }
     }, {
       key: "Default",
       get: function get() {
-        return Default$1;
+        return Default$6;
       }
     }]);
 
     return ScrollSpy;
   }();
   /**
-   * Data API implementation
+   * ------------------------------------------------------------------------
+   * Data Api implementation
+   * ------------------------------------------------------------------------
    */
 
 
-  $__default["default"](window).on(EVENT_LOAD_DATA_API, function () {
+  $__default['default'](window).on(EVENT_LOAD_DATA_API$2, function () {
     var scrollSpys = [].slice.call(document.querySelectorAll(SELECTOR_DATA_SPY));
     var scrollSpysLength = scrollSpys.length;
 
     for (var i = scrollSpysLength; i--;) {
-      var $spy = $__default["default"](scrollSpys[i]);
+      var $spy = $__default['default'](scrollSpys[i]);
 
       ScrollSpy._jQueryInterface.call($spy, $spy.data());
     }
   });
   /**
+   * ------------------------------------------------------------------------
    * jQuery
+   * ------------------------------------------------------------------------
    */
 
-  $__default["default"].fn[NAME$2] = ScrollSpy._jQueryInterface;
-  $__default["default"].fn[NAME$2].Constructor = ScrollSpy;
+  $__default['default'].fn[NAME$8] = ScrollSpy._jQueryInterface;
+  $__default['default'].fn[NAME$8].Constructor = ScrollSpy;
 
-  $__default["default"].fn[NAME$2].noConflict = function () {
-    $__default["default"].fn[NAME$2] = JQUERY_NO_CONFLICT$2;
+  $__default['default'].fn[NAME$8].noConflict = function () {
+    $__default['default'].fn[NAME$8] = JQUERY_NO_CONFLICT$8;
     return ScrollSpy._jQueryInterface;
   };
 
   /**
+   * ------------------------------------------------------------------------
    * Constants
+   * ------------------------------------------------------------------------
    */
 
-  var NAME$1 = 'tab';
-  var VERSION$1 = '4.6.1';
-  var DATA_KEY$1 = 'bs.tab';
-  var EVENT_KEY$1 = "." + DATA_KEY$1;
-  var DATA_API_KEY = '.data-api';
-  var JQUERY_NO_CONFLICT$1 = $__default["default"].fn[NAME$1];
+  var NAME$9 = 'tab';
+  var VERSION$9 = '4.6.0';
+  var DATA_KEY$9 = 'bs.tab';
+  var EVENT_KEY$9 = "." + DATA_KEY$9;
+  var DATA_API_KEY$7 = '.data-api';
+  var JQUERY_NO_CONFLICT$9 = $__default['default'].fn[NAME$9];
+  var EVENT_HIDE$3 = "hide" + EVENT_KEY$9;
+  var EVENT_HIDDEN$3 = "hidden" + EVENT_KEY$9;
+  var EVENT_SHOW$3 = "show" + EVENT_KEY$9;
+  var EVENT_SHOWN$3 = "shown" + EVENT_KEY$9;
+  var EVENT_CLICK_DATA_API$6 = "click" + EVENT_KEY$9 + DATA_API_KEY$7;
   var CLASS_NAME_DROPDOWN_MENU = 'dropdown-menu';
-  var CLASS_NAME_ACTIVE = 'active';
-  var CLASS_NAME_DISABLED = 'disabled';
-  var CLASS_NAME_FADE$1 = 'fade';
-  var CLASS_NAME_SHOW$1 = 'show';
-  var EVENT_HIDE$1 = "hide" + EVENT_KEY$1;
-  var EVENT_HIDDEN$1 = "hidden" + EVENT_KEY$1;
-  var EVENT_SHOW$1 = "show" + EVENT_KEY$1;
-  var EVENT_SHOWN$1 = "shown" + EVENT_KEY$1;
-  var EVENT_CLICK_DATA_API = "click" + EVENT_KEY$1 + DATA_API_KEY;
-  var SELECTOR_DROPDOWN = '.dropdown';
-  var SELECTOR_NAV_LIST_GROUP = '.nav, .list-group';
-  var SELECTOR_ACTIVE = '.active';
+  var CLASS_NAME_ACTIVE$3 = 'active';
+  var CLASS_NAME_DISABLED$1 = 'disabled';
+  var CLASS_NAME_FADE$4 = 'fade';
+  var CLASS_NAME_SHOW$6 = 'show';
+  var SELECTOR_DROPDOWN$1 = '.dropdown';
+  var SELECTOR_NAV_LIST_GROUP$1 = '.nav, .list-group';
+  var SELECTOR_ACTIVE$2 = '.active';
   var SELECTOR_ACTIVE_UL = '> li > .active';
-  var SELECTOR_DATA_TOGGLE = '[data-toggle="tab"], [data-toggle="pill"], [data-toggle="list"]';
-  var SELECTOR_DROPDOWN_TOGGLE = '.dropdown-toggle';
+  var SELECTOR_DATA_TOGGLE$4 = '[data-toggle="tab"], [data-toggle="pill"], [data-toggle="list"]';
+  var SELECTOR_DROPDOWN_TOGGLE$1 = '.dropdown-toggle';
   var SELECTOR_DROPDOWN_ACTIVE_CHILD = '> .dropdown-menu .active';
   /**
-   * Class definition
+   * ------------------------------------------------------------------------
+   * Class Definition
+   * ------------------------------------------------------------------------
    */
 
   var Tab = /*#__PURE__*/function () {
@@ -9346,33 +8091,33 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
     _proto.show = function show() {
       var _this = this;
 
-      if (this._element.parentNode && this._element.parentNode.nodeType === Node.ELEMENT_NODE && $__default["default"](this._element).hasClass(CLASS_NAME_ACTIVE) || $__default["default"](this._element).hasClass(CLASS_NAME_DISABLED)) {
+      if (this._element.parentNode && this._element.parentNode.nodeType === Node.ELEMENT_NODE && $__default['default'](this._element).hasClass(CLASS_NAME_ACTIVE$3) || $__default['default'](this._element).hasClass(CLASS_NAME_DISABLED$1)) {
         return;
       }
 
       var target;
       var previous;
-      var listElement = $__default["default"](this._element).closest(SELECTOR_NAV_LIST_GROUP)[0];
+      var listElement = $__default['default'](this._element).closest(SELECTOR_NAV_LIST_GROUP$1)[0];
       var selector = Util.getSelectorFromElement(this._element);
 
       if (listElement) {
-        var itemSelector = listElement.nodeName === 'UL' || listElement.nodeName === 'OL' ? SELECTOR_ACTIVE_UL : SELECTOR_ACTIVE;
-        previous = $__default["default"].makeArray($__default["default"](listElement).find(itemSelector));
+        var itemSelector = listElement.nodeName === 'UL' || listElement.nodeName === 'OL' ? SELECTOR_ACTIVE_UL : SELECTOR_ACTIVE$2;
+        previous = $__default['default'].makeArray($__default['default'](listElement).find(itemSelector));
         previous = previous[previous.length - 1];
       }
 
-      var hideEvent = $__default["default"].Event(EVENT_HIDE$1, {
+      var hideEvent = $__default['default'].Event(EVENT_HIDE$3, {
         relatedTarget: this._element
       });
-      var showEvent = $__default["default"].Event(EVENT_SHOW$1, {
+      var showEvent = $__default['default'].Event(EVENT_SHOW$3, {
         relatedTarget: previous
       });
 
       if (previous) {
-        $__default["default"](previous).trigger(hideEvent);
+        $__default['default'](previous).trigger(hideEvent);
       }
 
-      $__default["default"](this._element).trigger(showEvent);
+      $__default['default'](this._element).trigger(showEvent);
 
       if (showEvent.isDefaultPrevented() || hideEvent.isDefaultPrevented()) {
         return;
@@ -9385,14 +8130,14 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
       this._activate(this._element, listElement);
 
       var complete = function complete() {
-        var hiddenEvent = $__default["default"].Event(EVENT_HIDDEN$1, {
+        var hiddenEvent = $__default['default'].Event(EVENT_HIDDEN$3, {
           relatedTarget: _this._element
         });
-        var shownEvent = $__default["default"].Event(EVENT_SHOWN$1, {
+        var shownEvent = $__default['default'].Event(EVENT_SHOWN$3, {
           relatedTarget: previous
         });
-        $__default["default"](previous).trigger(hiddenEvent);
-        $__default["default"](_this._element).trigger(shownEvent);
+        $__default['default'](previous).trigger(hiddenEvent);
+        $__default['default'](_this._element).trigger(shownEvent);
       };
 
       if (target) {
@@ -9403,7 +8148,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
     };
 
     _proto.dispose = function dispose() {
-      $__default["default"].removeData(this._element, DATA_KEY$1);
+      $__default['default'].removeData(this._element, DATA_KEY$9);
       this._element = null;
     } // Private
     ;
@@ -9411,9 +8156,9 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
     _proto._activate = function _activate(element, container, callback) {
       var _this2 = this;
 
-      var activeElements = container && (container.nodeName === 'UL' || container.nodeName === 'OL') ? $__default["default"](container).find(SELECTOR_ACTIVE_UL) : $__default["default"](container).children(SELECTOR_ACTIVE);
+      var activeElements = container && (container.nodeName === 'UL' || container.nodeName === 'OL') ? $__default['default'](container).find(SELECTOR_ACTIVE_UL) : $__default['default'](container).children(SELECTOR_ACTIVE$2);
       var active = activeElements[0];
-      var isTransitioning = callback && active && $__default["default"](active).hasClass(CLASS_NAME_FADE$1);
+      var isTransitioning = callback && active && $__default['default'](active).hasClass(CLASS_NAME_FADE$4);
 
       var complete = function complete() {
         return _this2._transitionComplete(element, active, callback);
@@ -9421,7 +8166,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
       if (active && isTransitioning) {
         var transitionDuration = Util.getTransitionDurationFromElement(active);
-        $__default["default"](active).removeClass(CLASS_NAME_SHOW$1).one(Util.TRANSITION_END, complete).emulateTransitionEnd(transitionDuration);
+        $__default['default'](active).removeClass(CLASS_NAME_SHOW$6).one(Util.TRANSITION_END, complete).emulateTransitionEnd(transitionDuration);
       } else {
         complete();
       }
@@ -9429,11 +8174,11 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
     _proto._transitionComplete = function _transitionComplete(element, active, callback) {
       if (active) {
-        $__default["default"](active).removeClass(CLASS_NAME_ACTIVE);
-        var dropdownChild = $__default["default"](active.parentNode).find(SELECTOR_DROPDOWN_ACTIVE_CHILD)[0];
+        $__default['default'](active).removeClass(CLASS_NAME_ACTIVE$3);
+        var dropdownChild = $__default['default'](active.parentNode).find(SELECTOR_DROPDOWN_ACTIVE_CHILD)[0];
 
         if (dropdownChild) {
-          $__default["default"](dropdownChild).removeClass(CLASS_NAME_ACTIVE);
+          $__default['default'](dropdownChild).removeClass(CLASS_NAME_ACTIVE$3);
         }
 
         if (active.getAttribute('role') === 'tab') {
@@ -9441,7 +8186,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
         }
       }
 
-      $__default["default"](element).addClass(CLASS_NAME_ACTIVE);
+      $__default['default'](element).addClass(CLASS_NAME_ACTIVE$3);
 
       if (element.getAttribute('role') === 'tab') {
         element.setAttribute('aria-selected', true);
@@ -9449,22 +8194,16 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
       Util.reflow(element);
 
-      if (element.classList.contains(CLASS_NAME_FADE$1)) {
-        element.classList.add(CLASS_NAME_SHOW$1);
+      if (element.classList.contains(CLASS_NAME_FADE$4)) {
+        element.classList.add(CLASS_NAME_SHOW$6);
       }
 
-      var parent = element.parentNode;
-
-      if (parent && parent.nodeName === 'LI') {
-        parent = parent.parentNode;
-      }
-
-      if (parent && $__default["default"](parent).hasClass(CLASS_NAME_DROPDOWN_MENU)) {
-        var dropdownElement = $__default["default"](element).closest(SELECTOR_DROPDOWN)[0];
+      if (element.parentNode && $__default['default'](element.parentNode).hasClass(CLASS_NAME_DROPDOWN_MENU)) {
+        var dropdownElement = $__default['default'](element).closest(SELECTOR_DROPDOWN$1)[0];
 
         if (dropdownElement) {
-          var dropdownToggleList = [].slice.call(dropdownElement.querySelectorAll(SELECTOR_DROPDOWN_TOGGLE));
-          $__default["default"](dropdownToggleList).addClass(CLASS_NAME_ACTIVE);
+          var dropdownToggleList = [].slice.call(dropdownElement.querySelectorAll(SELECTOR_DROPDOWN_TOGGLE$1));
+          $__default['default'](dropdownToggleList).addClass(CLASS_NAME_ACTIVE$3);
         }
 
         element.setAttribute('aria-expanded', true);
@@ -9478,12 +8217,12 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
     Tab._jQueryInterface = function _jQueryInterface(config) {
       return this.each(function () {
-        var $this = $__default["default"](this);
-        var data = $this.data(DATA_KEY$1);
+        var $this = $__default['default'](this);
+        var data = $this.data(DATA_KEY$9);
 
         if (!data) {
           data = new Tab(this);
-          $this.data(DATA_KEY$1, data);
+          $this.data(DATA_KEY$9, data);
         }
 
         if (typeof config === 'string') {
@@ -9499,65 +8238,73 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
     _createClass(Tab, null, [{
       key: "VERSION",
       get: function get() {
-        return VERSION$1;
+        return VERSION$9;
       }
     }]);
 
     return Tab;
   }();
   /**
-   * Data API implementation
+   * ------------------------------------------------------------------------
+   * Data Api implementation
+   * ------------------------------------------------------------------------
    */
 
 
-  $__default["default"](document).on(EVENT_CLICK_DATA_API, SELECTOR_DATA_TOGGLE, function (event) {
+  $__default['default'](document).on(EVENT_CLICK_DATA_API$6, SELECTOR_DATA_TOGGLE$4, function (event) {
     event.preventDefault();
 
-    Tab._jQueryInterface.call($__default["default"](this), 'show');
+    Tab._jQueryInterface.call($__default['default'](this), 'show');
   });
   /**
+   * ------------------------------------------------------------------------
    * jQuery
+   * ------------------------------------------------------------------------
    */
 
-  $__default["default"].fn[NAME$1] = Tab._jQueryInterface;
-  $__default["default"].fn[NAME$1].Constructor = Tab;
+  $__default['default'].fn[NAME$9] = Tab._jQueryInterface;
+  $__default['default'].fn[NAME$9].Constructor = Tab;
 
-  $__default["default"].fn[NAME$1].noConflict = function () {
-    $__default["default"].fn[NAME$1] = JQUERY_NO_CONFLICT$1;
+  $__default['default'].fn[NAME$9].noConflict = function () {
+    $__default['default'].fn[NAME$9] = JQUERY_NO_CONFLICT$9;
     return Tab._jQueryInterface;
   };
 
   /**
+   * ------------------------------------------------------------------------
    * Constants
+   * ------------------------------------------------------------------------
    */
 
-  var NAME = 'toast';
-  var VERSION = '4.6.1';
-  var DATA_KEY = 'bs.toast';
-  var EVENT_KEY = "." + DATA_KEY;
-  var JQUERY_NO_CONFLICT = $__default["default"].fn[NAME];
-  var CLASS_NAME_FADE = 'fade';
+  var NAME$a = 'toast';
+  var VERSION$a = '4.6.0';
+  var DATA_KEY$a = 'bs.toast';
+  var EVENT_KEY$a = "." + DATA_KEY$a;
+  var JQUERY_NO_CONFLICT$a = $__default['default'].fn[NAME$a];
+  var EVENT_CLICK_DISMISS$1 = "click.dismiss" + EVENT_KEY$a;
+  var EVENT_HIDE$4 = "hide" + EVENT_KEY$a;
+  var EVENT_HIDDEN$4 = "hidden" + EVENT_KEY$a;
+  var EVENT_SHOW$4 = "show" + EVENT_KEY$a;
+  var EVENT_SHOWN$4 = "shown" + EVENT_KEY$a;
+  var CLASS_NAME_FADE$5 = 'fade';
   var CLASS_NAME_HIDE = 'hide';
-  var CLASS_NAME_SHOW = 'show';
+  var CLASS_NAME_SHOW$7 = 'show';
   var CLASS_NAME_SHOWING = 'showing';
-  var EVENT_CLICK_DISMISS = "click.dismiss" + EVENT_KEY;
-  var EVENT_HIDE = "hide" + EVENT_KEY;
-  var EVENT_HIDDEN = "hidden" + EVENT_KEY;
-  var EVENT_SHOW = "show" + EVENT_KEY;
-  var EVENT_SHOWN = "shown" + EVENT_KEY;
-  var SELECTOR_DATA_DISMISS = '[data-dismiss="toast"]';
-  var Default = {
-    animation: true,
-    autohide: true,
-    delay: 500
-  };
-  var DefaultType = {
+  var DefaultType$7 = {
     animation: 'boolean',
     autohide: 'boolean',
     delay: 'number'
   };
+  var Default$7 = {
+    animation: true,
+    autohide: true,
+    delay: 500
+  };
+  var SELECTOR_DATA_DISMISS$1 = '[data-dismiss="toast"]';
   /**
-   * Class definition
+   * ------------------------------------------------------------------------
+   * Class Definition
+   * ------------------------------------------------------------------------
    */
 
   var Toast = /*#__PURE__*/function () {
@@ -9576,8 +8323,8 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
     _proto.show = function show() {
       var _this = this;
 
-      var showEvent = $__default["default"].Event(EVENT_SHOW);
-      $__default["default"](this._element).trigger(showEvent);
+      var showEvent = $__default['default'].Event(EVENT_SHOW$4);
+      $__default['default'](this._element).trigger(showEvent);
 
       if (showEvent.isDefaultPrevented()) {
         return;
@@ -9586,15 +8333,15 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
       this._clearTimeout();
 
       if (this._config.animation) {
-        this._element.classList.add(CLASS_NAME_FADE);
+        this._element.classList.add(CLASS_NAME_FADE$5);
       }
 
       var complete = function complete() {
         _this._element.classList.remove(CLASS_NAME_SHOWING);
 
-        _this._element.classList.add(CLASS_NAME_SHOW);
+        _this._element.classList.add(CLASS_NAME_SHOW$7);
 
-        $__default["default"](_this._element).trigger(EVENT_SHOWN);
+        $__default['default'](_this._element).trigger(EVENT_SHOWN$4);
 
         if (_this._config.autohide) {
           _this._timeout = setTimeout(function () {
@@ -9611,19 +8358,19 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
       if (this._config.animation) {
         var transitionDuration = Util.getTransitionDurationFromElement(this._element);
-        $__default["default"](this._element).one(Util.TRANSITION_END, complete).emulateTransitionEnd(transitionDuration);
+        $__default['default'](this._element).one(Util.TRANSITION_END, complete).emulateTransitionEnd(transitionDuration);
       } else {
         complete();
       }
     };
 
     _proto.hide = function hide() {
-      if (!this._element.classList.contains(CLASS_NAME_SHOW)) {
+      if (!this._element.classList.contains(CLASS_NAME_SHOW$7)) {
         return;
       }
 
-      var hideEvent = $__default["default"].Event(EVENT_HIDE);
-      $__default["default"](this._element).trigger(hideEvent);
+      var hideEvent = $__default['default'].Event(EVENT_HIDE$4);
+      $__default['default'](this._element).trigger(hideEvent);
 
       if (hideEvent.isDefaultPrevented()) {
         return;
@@ -9635,27 +8382,27 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
     _proto.dispose = function dispose() {
       this._clearTimeout();
 
-      if (this._element.classList.contains(CLASS_NAME_SHOW)) {
-        this._element.classList.remove(CLASS_NAME_SHOW);
+      if (this._element.classList.contains(CLASS_NAME_SHOW$7)) {
+        this._element.classList.remove(CLASS_NAME_SHOW$7);
       }
 
-      $__default["default"](this._element).off(EVENT_CLICK_DISMISS);
-      $__default["default"].removeData(this._element, DATA_KEY);
+      $__default['default'](this._element).off(EVENT_CLICK_DISMISS$1);
+      $__default['default'].removeData(this._element, DATA_KEY$a);
       this._element = null;
       this._config = null;
     } // Private
     ;
 
     _proto._getConfig = function _getConfig(config) {
-      config = _extends({}, Default, $__default["default"](this._element).data(), typeof config === 'object' && config ? config : {});
-      Util.typeCheckConfig(NAME, config, this.constructor.DefaultType);
+      config = _extends({}, Default$7, $__default['default'](this._element).data(), typeof config === 'object' && config ? config : {});
+      Util.typeCheckConfig(NAME$a, config, this.constructor.DefaultType);
       return config;
     };
 
     _proto._setListeners = function _setListeners() {
       var _this2 = this;
 
-      $__default["default"](this._element).on(EVENT_CLICK_DISMISS, SELECTOR_DATA_DISMISS, function () {
+      $__default['default'](this._element).on(EVENT_CLICK_DISMISS$1, SELECTOR_DATA_DISMISS$1, function () {
         return _this2.hide();
       });
     };
@@ -9666,14 +8413,14 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
       var complete = function complete() {
         _this3._element.classList.add(CLASS_NAME_HIDE);
 
-        $__default["default"](_this3._element).trigger(EVENT_HIDDEN);
+        $__default['default'](_this3._element).trigger(EVENT_HIDDEN$4);
       };
 
-      this._element.classList.remove(CLASS_NAME_SHOW);
+      this._element.classList.remove(CLASS_NAME_SHOW$7);
 
       if (this._config.animation) {
         var transitionDuration = Util.getTransitionDurationFromElement(this._element);
-        $__default["default"](this._element).one(Util.TRANSITION_END, complete).emulateTransitionEnd(transitionDuration);
+        $__default['default'](this._element).one(Util.TRANSITION_END, complete).emulateTransitionEnd(transitionDuration);
       } else {
         complete();
       }
@@ -9687,14 +8434,14 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
     Toast._jQueryInterface = function _jQueryInterface(config) {
       return this.each(function () {
-        var $element = $__default["default"](this);
-        var data = $element.data(DATA_KEY);
+        var $element = $__default['default'](this);
+        var data = $element.data(DATA_KEY$a);
 
         var _config = typeof config === 'object' && config;
 
         if (!data) {
           data = new Toast(this, _config);
-          $element.data(DATA_KEY, data);
+          $element.data(DATA_KEY$a, data);
         }
 
         if (typeof config === 'string') {
@@ -9710,32 +8457,34 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
     _createClass(Toast, null, [{
       key: "VERSION",
       get: function get() {
-        return VERSION;
+        return VERSION$a;
       }
     }, {
       key: "DefaultType",
       get: function get() {
-        return DefaultType;
+        return DefaultType$7;
       }
     }, {
       key: "Default",
       get: function get() {
-        return Default;
+        return Default$7;
       }
     }]);
 
     return Toast;
   }();
   /**
+   * ------------------------------------------------------------------------
    * jQuery
+   * ------------------------------------------------------------------------
    */
 
 
-  $__default["default"].fn[NAME] = Toast._jQueryInterface;
-  $__default["default"].fn[NAME].Constructor = Toast;
+  $__default['default'].fn[NAME$a] = Toast._jQueryInterface;
+  $__default['default'].fn[NAME$a].Constructor = Toast;
 
-  $__default["default"].fn[NAME].noConflict = function () {
-    $__default["default"].fn[NAME] = JQUERY_NO_CONFLICT;
+  $__default['default'].fn[NAME$a].noConflict = function () {
+    $__default['default'].fn[NAME$a] = JQUERY_NO_CONFLICT$a;
     return Toast._jQueryInterface;
   };
 
@@ -9754,7 +8503,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
   Object.defineProperty(exports, '__esModule', { value: true });
 
-}));
+})));
 //# sourceMappingURL=bootstrap.js.map
 
 
@@ -40709,7 +39458,7 @@ process.umask = function() { return 0; };
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"_from":"axios@^0.21","_id":"axios@0.21.4","_inBundle":false,"_integrity":"sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg==","_location":"/axios","_phantomChildren":{},"_requested":{"type":"range","registry":true,"raw":"axios@^0.21","name":"axios","escapedName":"axios","rawSpec":"^0.21","saveSpec":null,"fetchSpec":"^0.21"},"_requiredBy":["#DEV:/"],"_resolved":"https://registry.npmjs.org/axios/-/axios-0.21.4.tgz","_shasum":"c67b90dc0568e5c1cf2b0b858c43ba28e2eda575","_spec":"axios@^0.21","_where":"C:\\\\Laravel Projects\\\\tvku-peminjaman","author":{"name":"Matt Zabriskie"},"browser":{"./lib/adapters/http.js":"./lib/adapters/xhr.js"},"bugs":{"url":"https://github.com/axios/axios/issues"},"bundleDependencies":false,"bundlesize":[{"path":"./dist/axios.min.js","threshold":"5kB"}],"dependencies":{"follow-redirects":"^1.14.0"},"deprecated":false,"description":"Promise based HTTP client for the browser and node.js","devDependencies":{"coveralls":"^3.0.0","es6-promise":"^4.2.4","grunt":"^1.3.0","grunt-banner":"^0.6.0","grunt-cli":"^1.2.0","grunt-contrib-clean":"^1.1.0","grunt-contrib-watch":"^1.0.0","grunt-eslint":"^23.0.0","grunt-karma":"^4.0.0","grunt-mocha-test":"^0.13.3","grunt-ts":"^6.0.0-beta.19","grunt-webpack":"^4.0.2","istanbul-instrumenter-loader":"^1.0.0","jasmine-core":"^2.4.1","karma":"^6.3.2","karma-chrome-launcher":"^3.1.0","karma-firefox-launcher":"^2.1.0","karma-jasmine":"^1.1.1","karma-jasmine-ajax":"^0.1.13","karma-safari-launcher":"^1.0.0","karma-sauce-launcher":"^4.3.6","karma-sinon":"^1.0.5","karma-sourcemap-loader":"^0.3.8","karma-webpack":"^4.0.2","load-grunt-tasks":"^3.5.2","minimist":"^1.2.0","mocha":"^8.2.1","sinon":"^4.5.0","terser-webpack-plugin":"^4.2.3","typescript":"^4.0.5","url-search-params":"^0.10.0","webpack":"^4.44.2","webpack-dev-server":"^3.11.0"},"homepage":"https://axios-http.com","jsdelivr":"dist/axios.min.js","keywords":["xhr","http","ajax","promise","node"],"license":"MIT","main":"index.js","name":"axios","repository":{"type":"git","url":"git+https://github.com/axios/axios.git"},"scripts":{"build":"NODE_ENV=production grunt build","coveralls":"cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js","examples":"node ./examples/server.js","fix":"eslint --fix lib/**/*.js","postversion":"git push && git push --tags","preversion":"npm test","start":"node ./sandbox/server.js","test":"grunt test","version":"npm run build && grunt version && git add -A dist && git add CHANGELOG.md bower.json package.json"},"typings":"./index.d.ts","unpkg":"dist/axios.min.js","version":"0.21.4"}');
+module.exports = JSON.parse('{"_from":"axios@^0.21","_id":"axios@0.21.4","_inBundle":false,"_integrity":"sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg==","_location":"/axios","_phantomChildren":{},"_requested":{"type":"range","registry":true,"raw":"axios@^0.21","name":"axios","escapedName":"axios","rawSpec":"^0.21","saveSpec":null,"fetchSpec":"^0.21"},"_requiredBy":["#DEV:/"],"_resolved":"https://registry.npmjs.org/axios/-/axios-0.21.4.tgz","_shasum":"c67b90dc0568e5c1cf2b0b858c43ba28e2eda575","_spec":"axios@^0.21","_where":"C:\\\\Laravel Projects\\\\tvku-spp","author":{"name":"Matt Zabriskie"},"browser":{"./lib/adapters/http.js":"./lib/adapters/xhr.js"},"bugs":{"url":"https://github.com/axios/axios/issues"},"bundleDependencies":false,"bundlesize":[{"path":"./dist/axios.min.js","threshold":"5kB"}],"dependencies":{"follow-redirects":"^1.14.0"},"deprecated":false,"description":"Promise based HTTP client for the browser and node.js","devDependencies":{"coveralls":"^3.0.0","es6-promise":"^4.2.4","grunt":"^1.3.0","grunt-banner":"^0.6.0","grunt-cli":"^1.2.0","grunt-contrib-clean":"^1.1.0","grunt-contrib-watch":"^1.0.0","grunt-eslint":"^23.0.0","grunt-karma":"^4.0.0","grunt-mocha-test":"^0.13.3","grunt-ts":"^6.0.0-beta.19","grunt-webpack":"^4.0.2","istanbul-instrumenter-loader":"^1.0.0","jasmine-core":"^2.4.1","karma":"^6.3.2","karma-chrome-launcher":"^3.1.0","karma-firefox-launcher":"^2.1.0","karma-jasmine":"^1.1.1","karma-jasmine-ajax":"^0.1.13","karma-safari-launcher":"^1.0.0","karma-sauce-launcher":"^4.3.6","karma-sinon":"^1.0.5","karma-sourcemap-loader":"^0.3.8","karma-webpack":"^4.0.2","load-grunt-tasks":"^3.5.2","minimist":"^1.2.0","mocha":"^8.2.1","sinon":"^4.5.0","terser-webpack-plugin":"^4.2.3","typescript":"^4.0.5","url-search-params":"^0.10.0","webpack":"^4.44.2","webpack-dev-server":"^3.11.0"},"homepage":"https://axios-http.com","jsdelivr":"dist/axios.min.js","keywords":["xhr","http","ajax","promise","node"],"license":"MIT","main":"index.js","name":"axios","repository":{"type":"git","url":"git+https://github.com/axios/axios.git"},"scripts":{"build":"NODE_ENV=production grunt build","coveralls":"cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js","examples":"node ./examples/server.js","fix":"eslint --fix lib/**/*.js","postversion":"git push && git push --tags","preversion":"npm test","start":"node ./sandbox/server.js","test":"grunt test","version":"npm run build && grunt version && git add -A dist && git add CHANGELOG.md bower.json package.json"},"typings":"./index.d.ts","unpkg":"dist/axios.min.js","version":"0.21.4"}');
 
 /***/ })
 
