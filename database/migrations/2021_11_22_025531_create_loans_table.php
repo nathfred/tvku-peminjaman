@@ -17,6 +17,7 @@ class CreateLoansTable extends Migration
             $table->id();
             $table->text('quantity');
             $table->text('item');
+            $table->text('code');
             $table->string('program');
             $table->string('location');
             $table->date('created')->nullable();

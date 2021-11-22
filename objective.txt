@@ -3,7 +3,7 @@
 -Import Mazer (DONE)
 -Import Vendors (DONE)
 -Create Model & Eloquent (DONE)
--Set up Factory & Seeder
+-Set up Factory & Seeder (DONE)
 -Routing
 -Middleware
 -User : Logistik & Divisi
