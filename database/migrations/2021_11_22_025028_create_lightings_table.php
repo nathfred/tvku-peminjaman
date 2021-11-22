@@ -15,8 +15,8 @@ class CreateLightingsTable extends Migration
     {
         Schema::create('lightings', function (Blueprint $table) {
             $table->id();
-            $table->text('quantity');
-            $table->text('items');
+            $table->integer('quantity')->nullable();
+            $table->string('item');
             $table->timestamps();
         });
     }

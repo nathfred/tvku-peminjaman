@@ -15,7 +15,6 @@ class Additional extends Model
      * @var string[]
      */
     protected $fillable = [
-        'quantity',
-        'items',
+        'id',
     ];
 }

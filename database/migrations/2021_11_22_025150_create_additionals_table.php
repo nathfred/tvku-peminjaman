@@ -15,8 +15,8 @@ class CreateAdditionalsTable extends Migration
     {
         Schema::create('additionals', function (Blueprint $table) {
             $table->id();
-            $table->text('quantity');
-            $table->text('items');
+            $table->integer('quantity')->nullable();
+            $table->string('item');
             $table->timestamps();
         });
     }

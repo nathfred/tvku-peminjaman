@@ -14,8 +14,7 @@ class Video extends Model
      *
      * @var string[]
      */
-    protected $fillable = [
-        'quantity',
-        'items',
+    protected $guarded = [
+        'id',
     ];
 }

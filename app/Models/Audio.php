@@ -14,8 +14,7 @@ class Audio extends Model
      *
      * @var string[]
      */
-    protected $fillable = [
-        'quantity',
-        'items',
+    protected $guarded = [
+        'id',
     ];
 }
