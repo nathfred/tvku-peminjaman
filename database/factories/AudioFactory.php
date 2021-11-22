@@ -13,8 +13,11 @@ class AudioFactory extends Factory
      */
     public function definition()
     {
+        $item_array = ['Clip On', 'Hand Mic', 'Boom Mic', 'Headphone', 'Mixer', 'Speaker', 'Stand', 'Audio Cable', 'Connector'];
+
         return [
-            //
+            'quantity' => mt_rand(1, 5),
+            'item' => $item_array[array_rand($item_array)],
         ];
     }
 }

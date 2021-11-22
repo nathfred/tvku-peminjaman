@@ -13,9 +13,11 @@ class VideoFactory extends Factory
      */
     public function definition()
     {
+        $item_array = ['Camera X', 'Camera Y', 'Battery A', 'Battery AA', 'Charger B', 'Charger BB', 'Lens 14', 'Lens 21', 'Tripod', 'Monopod', 'Portajib', 'Dolly Track', 'Slider', 'Shoulder Mount', 'Video Cable'];
+
         return [
-            'quantity' => '',
-            'items' => '',
+            'quantity' => mt_rand(1, 5),
+            'item' => $item_array[array_rand($item_array)],
         ];
     }
 }

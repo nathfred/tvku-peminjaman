@@ -13,8 +13,11 @@ class LightingFactory extends Factory
      */
     public function definition()
     {
+        $item_array = ['Cold Light', 'Read Head', 'Blonde', 'LED Light', 'LED Portable', 'Filter', 'Unomax', 'Reflector', 'Stand'];
+
         return [
-            //
+            'quantity' => mt_rand(1, 5),
+            'item' => $item_array[array_rand($item_array)],
         ];
     }
 }
