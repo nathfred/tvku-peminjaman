@@ -24,28 +24,31 @@ class LoanFactory extends Factory
 
         $quantity = '';
         for ($i = 0; $i < 4; $i++) {
-            $quantity = $quantity . mt_rand(1, 5) . '\n';
+            $quantity = $quantity . mt_rand(1, 5) . PHP_EOL;
         }
+        // dd($quantity);
 
-        $videos = Video::random();
-        $audios = Audio::random();
-        $lightings = Lighting::random();
-        $additionals = Additional::random();
+        $videos = Video::inRandomOrder()->first();
+        $audios = Audio::inRandomOrder()->first();
+        $lightings = Lighting::inRandomOrder()->first();
+        $additionals = Additional::inRandomOrder()->first();
+        // dd($videos->item);
         $item = '';
         for ($i = 0; $i < 4; $i++) {
             if ($i == 0) {
-                $item = $item . $videos->item . '\n';
+                $item = $item . $videos->item . PHP_EOL;
             }
             if ($i == 1) {
-                $item = $item . $audios->item . '\n';
+                $item = $item . $audios->item . PHP_EOL;
             }
             if ($i == 2) {
-                $item = $item . $lightings->item . '\n';
+                $item = $item . $lightings->item . PHP_EOL;
             }
             if ($i == 3) {
-                $item = $item . $additionals->item . '\n';
+                $item = $item . $additionals->item . PHP_EOL;
             }
         }
+        // dd($item);
 
         $program_array = ['Program A', 'Program B', 'Program C'];
         $division_array = ['Produksi', 'News', 'Studio', 'Lain-lain'];
