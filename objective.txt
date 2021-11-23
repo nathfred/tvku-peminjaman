@@ -2,8 +2,9 @@
 -Install Breeze (DONE)
 -Import Mazer (DONE)
 -Import Vendors (DONE)
+-Design Tables (Need UPDATE??)
 -Create Model & Eloquent (DONE)
 -Set up Factory & Seeder (DONE)
--Routing
+-Routing (Need UPDATE??)
 -Middleware
 -User : Logistik & Divisi
