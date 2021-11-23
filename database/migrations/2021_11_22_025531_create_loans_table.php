@@ -15,9 +15,11 @@ class CreateLoansTable extends Migration
     {
         Schema::create('loans', function (Blueprint $table) {
             $table->id();
-            $table->text('quantity');
-            $table->text('item');
-            $table->text('code');
+            // $table->text('quantity');
+            // $table->text('item');
+            // $table->text('code');
+            $table->boolean('approval');
+            $table->boolean('return');
             $table->string('program');
             $table->string('location');
             $table->date('created')->nullable();

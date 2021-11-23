@@ -33,37 +33,37 @@ class LoanFactory extends Factory
         }
         // dd($quantity);
 
-        // ITEM
-        $videos = Video::inRandomOrder()->get();
-        $audios = Audio::inRandomOrder()->get();
-        $lightings = Lighting::inRandomOrder()->get();
-        $additionals = Additional::inRandomOrder()->get();
-        // dd($videos->item);
-        $item = '';
-        for ($i = 0; $i < $number; $i++) {
-            $j = 0;
-            if ($j == 0) {
-                $video = $videos->random();
-                $item = $item . $video->item . PHP_EOL;
-                $j++;
-            }
-            if ($j == 1) {
-                $audio = $audios->random();
-                $item = $item . $audio->item . PHP_EOL;
-                $j++;
-            }
-            if ($j == 2) {
-                $lighting = $lightings->random();
-                $item = $item . $lighting->item . PHP_EOL;
-                $j++;
-            }
-            if ($j == 3) {
-                $additional = $additionals->random();
-                $item = $item . $additional->item . PHP_EOL;
-                $j++;
-            }
-        }
-        // dd($item);
+        // // ITEM
+        // $videos = Video::inRandomOrder()->get();
+        // $audios = Audio::inRandomOrder()->get();
+        // $lightings = Lighting::inRandomOrder()->get();
+        // $additionals = Additional::inRandomOrder()->get();
+        // // dd($videos->item);
+        // $item = '';
+        // for ($i = 0; $i < $number; $i++) {
+        //     $j = 0;
+        //     if ($j == 0) {
+        //         $video = $videos->random();
+        //         $item = $item . $video->item . PHP_EOL;
+        //         $j++;
+        //     }
+        //     if ($j == 1) {
+        //         $audio = $audios->random();
+        //         $item = $item . $audio->item . PHP_EOL;
+        //         $j++;
+        //     }
+        //     if ($j == 2) {
+        //         $lighting = $lightings->random();
+        //         $item = $item . $lighting->item . PHP_EOL;
+        //         $j++;
+        //     }
+        //     if ($j == 3) {
+        //         $additional = $additionals->random();
+        //         $item = $item . $additional->item . PHP_EOL;
+        //         $j++;
+        //     }
+        // }
+        // // dd($item);
 
         // CODE
         $code = '';
@@ -76,9 +76,11 @@ class LoanFactory extends Factory
         $crew_division_array = ['Campers', 'Audio', 'Lighting'];
 
         return [
-            'quantity' => $quantity,
-            'item' => $item,
-            'code' => $code,
+            // 'quantity' => $quantity,
+            // 'item' => $item,
+            // 'code' => $code,
+            'approval' => FALSE,
+            'return' => FALSE,
             'program' => $program_array[array_rand($program_array)],
             'location' => 'TVKU UDINUS',
             'created' => $today,
