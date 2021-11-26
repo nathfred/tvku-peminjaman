@@ -39,9 +39,16 @@ Route::group(['middleware' => ['auth', 'logistik'], 'prefix' => 'logistik'], fun
 
     // ITEMS
     Route::get('/item/show', [LogistikController::class, 'show_items'])->name('logistik-items'); // READ ALL (TABLE)
+    Route::get('/item/create', [LogistikController::class, 'create_item'])->name('logistik-create-item'); // CREATE NEW ITEM (FORM)
     Route::get('/item/detail/{id}', [LogistikController::class, 'detail_item'])->name('logistik-detail-item'); // SHOW SINGLE (FORM)
     Route::post('/item/detail/{id}', [LogistikController::class, 'save_item'])->name('logistik-save-item'); // POST REQUEST EDIT ITEM
     Route::get('/item/delete/{id}', [LogistikController::class, 'delete_item'])->name('logistik-delete-item'); // DELETE SINGLE ITEM
+});
+
+// PDF EXPORT 
+Route::group(['middleware' => ['auth']], function () {
+    Route::get('/pdf/view/{id}', [UserController::class, 'test_DOMPDF'])->name('test-DOMPDF');
+    Route::get('/pdf/show/{id}', [DOMPDFController::class, 'show_pdf'])->name('show-pdf');
 });
 
 require __DIR__ . '/auth.php';
