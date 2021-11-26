@@ -1,4 +1,4 @@
-@extends('layouts.director.app')
+@extends('layouts.logistik.app')
 
 @section('content')
     <header class="mb-3">
@@ -153,8 +153,7 @@
                     <div class="card-body py-4 px-5">
                         <div class="d-flex align-items-center">
                             <div class="avatar avatar-xl">
-                                    <img src="{{ asset('images/faces/female') }}.png">
-                                @endif
+                                <img src="{{ asset('images/faces/female') }}.png">
                             </div>
                             <div class="ms-3 name">
                                 <h5 class="font-bold">{{ $user->name }}</h5>
@@ -171,8 +170,8 @@
                         <h4>Peminjaman Terbaru</h4>
                     </div>
                     <div class="card-content pb-4">
-                        @if ($recent_loans->isNotEmpty())
-                            @foreach ($recent_loans as $loan)
+                        @if ($recent_loan->isNotEmpty())
+                            @foreach ($recent_loan as $loan)
                                 <div class="recent-message d-flex px-4 py-3">
                                     <div class="avatar avatar-lg">
                                         <img src="{{ asset('img/document') }}.png">

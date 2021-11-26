@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 use App\Models\User;
-use App\Providers\RouteServiceProvider;
-use Illuminate\Auth\Events\Registered;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rules;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\Rules;
-use Illuminate\Support\Str;
+use Illuminate\Auth\Events\Registered;
+use App\Providers\RouteServiceProvider;
 
 class RegisteredUserController extends Controller
 {
@@ -44,11 +45,13 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
+        $now = Carbon::now('GMT+7');
         if ($request->code == env('LOGISTIK_CODE', 'logistiktvkuch49')) {
             $user = User::create([
                 'name' => $request->name,
                 'role' => 'logistik',
                 'email' => $request->email,
+                'email_verified_at' => $now,
                 'password' => Hash::make($request->password),
                 'remember_token' => Str::random(10),
             ]);
@@ -57,6 +60,7 @@ class RegisteredUserController extends Controller
                 'name' => $request->name,
                 'role' => 'divisi',
                 'email' => $request->email,
+                'email_verified_at' => $now,
                 'password' => Hash::make($request->password),
                 'remember_token' => Str::random(10),
             ]);

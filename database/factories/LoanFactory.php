@@ -96,7 +96,7 @@ class LoanFactory extends Factory
             'crew_division' => $crew_division_array[array_rand($crew_division_array)],
             'app_name' => $faker->name(),
             'app_phone' => $faker->phoneNumber(),
-            'app_signed' => FALSE,
+            'app_signed' => NULL,
         ];
     }
 }
