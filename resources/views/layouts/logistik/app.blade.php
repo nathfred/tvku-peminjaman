@@ -19,6 +19,11 @@
     <link rel="stylesheet" href="{{ asset('css/app-mazer.css') }}">
 
     <link rel="shortcut icon" href="{{ asset('img/tvku_favicon.png') }}" type="image/x-icon">
+
+    {{-- Datatables --}}
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/fixedheader/3.2.0/css/fixedHeader.dataTables.min.css">
 </head>
 
 <body>
@@ -42,21 +47,21 @@
 
                         <li class="sidebar-item {{ ($active === "index") ? 'active' : '' }}">
                             <a href="{{ route('logistik-index') }}" class='sidebar-link'>
-                                <i class="bi bi-person-badge-fill"></i>
+                                <i class="bi bi-bounding-box"></i>
                                 <span>Dashboard</span>
                             </a>
                         </li>
                         
                         <li class="sidebar-item {{ ($active === "loan") ? 'active' : '' }}">
                             <a href="{{ route('logistik-show-loans') }}" class='sidebar-link'>
-                                <i class="bi bi-stack"></i>
+                                <i class="bi bi-card-checklist"></i>
                                 <span>Peminjaman</span>
                             </a>
                         </li>
 
                         <li class="sidebar-item has-sub {{ ($active === "item") ? 'active' : '' }}">
                             <a href="#" class='sidebar-link'>
-                                <i class="bi bi-stack"></i>
+                                <i class="bi bi-camera-reels-fill"></i>
                                 <span>Barang</span>
                             </a>
                             <ul class="submenu">

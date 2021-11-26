@@ -137,7 +137,7 @@ class DatabaseSeeder extends Seeder
                     'loan_id' => $i + 1,
                     'item_id' => $random_item->id,
                     'name' => $random_item->name,
-                    'item_category' => $random_item->category,
+                    'category' => $random_item->category,
                     'code' => $code,
                 ]);
             }

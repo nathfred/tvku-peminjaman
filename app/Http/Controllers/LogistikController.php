@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Loan;
+use App\Models\LoanItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -142,5 +143,64 @@ class LogistikController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function show_loans()
+    {
+        $user_id = Auth::id();
+        $user = User::where('id', $user_id)->first();
+        $today = Carbon::today('GMT+7');
+
+        $loans = Loan::orderBy('created', 'desc')->get();
+
+        // UBAH FORMAT 'created' DATE (Y-m-d menjadi d-m-Y)
+        foreach ($loans as $loan) {
+            // UBAH KE FORMAT CARBON
+            $loan->created = Carbon::createFromFormat('Y-m-d', $loan->created);
+            $loan->book_date = Carbon::createFromFormat('Y-m-d', $loan->book_date);
+            $loan->book_time = Carbon::createFromFormat('H:i:s', $loan->book_time);
+            // UBAH FORMAT KE d-m-Y
+            $loan->created = $loan->created->format('d-m-Y');
+            $loan->book_date = $loan->book_date->format('d-m-Y');
+            $loan->book_time = $loan->book_time->format('H:i');
+        }
+
+        return view('logistik.loans', [
+            'title' => 'Index',
+            'active' => 'loan',
+            'user' => $user,
+            'loans' => $loans,
+        ]);
+    }
+
+    public function detail_loan($id)
+    {
+        $loan = Loan::find($id);
+        // VALIDASI APAKAH LOAN ADA
+        if ($loan === NULL) {
+            return back()->with('message', 'loan-not-found');
+        }
+
+        $loan_items = LoanItem::where('loan_id', $id)->orderBy('item_category', 'asc')->get();
+
+        return view('logistik.loan_detail', [
+            'title' => 'Detail Peminjaman',
+            'active' => 'loan',
+            'loan' => $loan,
+            'items' => $loan_items,
+        ]);
+    }
+
+    public function delete_loan($id)
+    {
+        $loan = Loan::find($id);
+
+        // VALIDASI APAKAH LOAN ADA
+        if ($loan === NULL) {
+            return back()->with('message', 'loan-not-found');
+        }
+
+        $loan->delete();
+        return back()->with('message', 'success-delete-loan');
     }
 }

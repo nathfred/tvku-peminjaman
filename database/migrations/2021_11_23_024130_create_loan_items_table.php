@@ -22,7 +22,7 @@ class CreateLoanItemsTable extends Migration
             // $table->foreignId('loan_id')->constrained('loans');
             // $table->foreignId('item_id')->constrained('items');
             $table->string('name');
-            $table->string('item_category');
+            $table->string('category');
             $table->string('code')->nullable();
             $table->timestamps();
         });
