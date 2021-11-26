@@ -40,6 +40,18 @@ class LogistikController extends Controller
         }
 
         // UBAH FORMAT 'created' DATE (Y-m-d menjadi d-m-Y)
+        foreach ($unresponed_loans as $loan) {
+            // UBAH KE FORMAT CARBON
+            $loan->created = Carbon::createFromFormat('Y-m-d', $loan->created);
+            $loan->book_date = Carbon::createFromFormat('Y-m-d', $loan->book_date);
+            $loan->book_time = Carbon::createFromFormat('H:i:s', $loan->book_time);
+            // UBAH FORMAT KE d-m-Y
+            $loan->created = $loan->created->format('d-m-Y');
+            $loan->book_date = $loan->book_date->format('d-m-Y');
+            $loan->book_time = $loan->book_time->format('H:i');
+        }
+
+        // UBAH FORMAT 'created' DATE (Y-m-d menjadi d-m-Y)
         foreach ($recent_loans as $loan) {
             // UBAH KE FORMAT CARBON
             $loan->created = Carbon::createFromFormat('Y-m-d', $loan->created);
