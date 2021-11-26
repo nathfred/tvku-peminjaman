@@ -1,8 +1,9 @@
+<title>TVKU Peminjaman | {{ $title }}</title>
 <x-guest-layout>
     <x-auth-card>
         <x-slot name="logo">
             <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
+                <img class="h-20 fill-current text-gray-500" src="{{ asset('img/tvku_logo_ori.png') }}">
             </a>
         </x-slot>
 
@@ -41,13 +42,25 @@
             </div>
 
             <div class="flex items-center justify-end mt-4">
+                <!--
                 @if (Route::has('password.request'))
                     <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('password.request') }}">
                         {{ __('Forgot your password?') }}
                     </a>
                 @endif
+                -->
+                <div class="col">
+                    <div class="row">
+                        <a class="underline text-sm text-gray-600 hover:text-gray-900 text-right" style="" href="{{ route('password.request') }}">Lupa password?</a>
+                    </div>
+                    <div class="row">
+                        <a class="underline text-sm text-gray-600 hover:text-gray-900 text-right" href="{{ route('register') }}">Belum punya akun?</a>
+                    </div>
+                </div>
+                {{-- <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('password.request') }}">Lupa password?</a>
+                <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('register') }}">Belum punya akun?</a> --}}
 
-                <x-button class="ml-3">
+                <x-button class="ml-3 btn btn-primary">
                     {{ __('Log in') }}
                 </x-button>
             </div>
