@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
+use Illuminate\Support\Str;
 
 class RegisteredUserController extends Controller
 {
@@ -38,19 +39,42 @@ class RegisteredUserController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
+            'code' => ['required'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
+        if ($request->code == env('LOGISTIK_CODE', 'logistiktvkuch49')) {
+            $user = User::create([
+                'name' => $request->name,
+                'role' => 'logistik',
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'remember_token' => Str::random(10),
+            ]);
+        } elseif ($request->code == env('DIVISI_CODE', 'tvkuch49')) {
+            $user = User::create([
+                'name' => $request->name,
+                'role' => 'divisi',
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'remember_token' => Str::random(10),
+            ]);
+        } else {
+            return back()->with('message', 'code-error');
+        }
 
         event(new Registered($user));
 
         Auth::login($user);
+
+        if ($request->code == env('LOGISTIK_CODE', 'logistiktvkuch49')) {
+            return redirect(RouteServiceProvider::HOME_LOGISTIK);
+        } elseif ($request->code == env('DIVISI_CODE', 'tvkuch49')) {
+            return redirect(RouteServiceProvider::HOME_DIVISI);
+        } else {
+            return back()->with('message', 'code-error');
+        }
 
         return redirect(RouteServiceProvider::HOME);
     }

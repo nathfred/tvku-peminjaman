@@ -8,15 +8,20 @@
 -Middleware (DONE)
 
 -Routing (Need UPDATE??)
--Setup Register
--Setup Login
 -Install DOMPDF
 -Export PDF
+
+Auth
+-Register
+-Login
+-Alerts
 
 Logistik
 -Layout
 -Views
+-Alerts
 
 Divisi
 -Layout
 -Views
+-Alerts
