@@ -5,6 +5,14 @@
 -Design Tables (Need UPDATE??)
 -Create Model & Eloquent (DONE)
 -Set up Factory & Seeder (DONE)
+-Middleware (DONE)
+
 -Routing (Need UPDATE??)
--Middleware
--User : Logistik & Divisi
+-Install DOMPDF
+-Export PDF
+
+Logistik
+-Views
+
+Divisi
+-Views
