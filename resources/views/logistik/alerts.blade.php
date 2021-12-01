@@ -20,7 +20,7 @@
         })
     </script>
 
-{{-- Assignment Controller --}}
+{{-- Logistik Controller --}}
 @elseif (Session::has('message') && Session::get('message') == 'success-delete-loan')
     <script>
         Swal.fire({
@@ -45,6 +45,15 @@
             icon: 'success',
             title: 'Merubah Peminjaman!',
             text: 'Berhasil Merubah Data Peminjaman',
+            showConfirmButton: true,
+        })
+    </script>
+@elseif (Session::has('message') && Session::get('message') == 'success-set-code')
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Berhasil Apporoval Logistik!',
+            text: 'Kode Barang & Approval Diberikan',
             showConfirmButton: true,
         })
     </script>

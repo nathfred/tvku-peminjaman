@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
-use App\Models\User;
 use App\Models\Loan;
+use App\Models\User;
 use App\Models\LoanItem;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 class LogistikController extends Controller
@@ -181,7 +182,17 @@ class LogistikController extends Controller
             return back()->with('message', 'loan-not-found');
         }
 
-        $loan_items = LoanItem::where('loan_id', $id)->orderBy('item_category', 'asc')->get();
+        // UBAH FORMAT 'created' DATE (Y-m-d menjadi d-m-Y)
+        // UBAH KE FORMAT CARBON
+        $loan->created = Carbon::createFromFormat('Y-m-d', $loan->created);
+        $loan->book_date = Carbon::createFromFormat('Y-m-d', $loan->book_date);
+        $loan->book_time = Carbon::createFromFormat('H:i:s', $loan->book_time);
+        // UBAH FORMAT KE d-m-Y
+        $loan->created = $loan->created->format('d-m-Y');
+        $loan->book_date = $loan->book_date->format('d-m-Y');
+        $loan->book_time = $loan->book_time->format('H:i');
+
+        $loan_items = LoanItem::where('loan_id', $id)->orderBy('category', 'asc')->get();
 
         return view('logistik.loan_detail', [
             'title' => 'Detail Peminjaman',
@@ -194,7 +205,6 @@ class LogistikController extends Controller
     public function delete_loan($id)
     {
         $loan = Loan::find($id);
-
         // VALIDASI APAKAH LOAN ADA
         if ($loan === NULL) {
             return back()->with('message', 'loan-not-found');
@@ -202,5 +212,37 @@ class LogistikController extends Controller
 
         $loan->delete();
         return back()->with('message', 'success-delete-loan');
+    }
+
+    public function set_item_loan_code(Request $request, $id)
+    {
+        // GET REQUEST DATA (ITEM LOAN CODES ONLY)
+        $data = $request->except(['_token', '_method', 'app_name', 'app_phone', 'app_signed']);
+
+        // LOOP THROUGH REQUEST
+        foreach ($data as $key => $value) {
+            // SET CODE TO EACH LOAN ITEM BY REQUEST DATA
+            $affected = LoanItem::where('id', $key)->update(['code' => $value]);
+        }
+
+        $loan = Loan::find($id);
+        // VALIDASI APAKAH LOAN ADA
+        if ($loan === NULL) {
+            return back()->with('message', 'loan-not-found');
+        }
+
+        // VALIDASI APPROVAL LOGISTIK
+        $request->validate([
+            'app_name' => 'string|required',
+            'app_phone' => 'string|required',
+            'app_signed' => 'boolean|required',
+        ]);
+
+        $loan->app_name = $request->app_name;
+        $loan->app_phone = $request->app_phone;
+        $loan->app_signed = $request->app_signed;
+        $loan->save();
+
+        return back()->with('message', 'success-set-code');
     }
 }

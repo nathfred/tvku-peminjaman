@@ -34,7 +34,8 @@ Route::group(['middleware' => ['auth', 'logistik'], 'prefix' => 'logistik'], fun
     // LOAN
     Route::get('/loan/show', [LogistikController::class, 'show_loans'])->name('logistik-show-loans'); // READ ALL (TABLE)
     Route::get('/loan/detail/{id}', [LogistikController::class, 'detail_loan'])->name('logistik-detail-loan'); // SHOW SINGLE (FORM)
-    Route::post('/loan/detail/{id}/{approve', [LogistikController::class, 'approve_loan'])->name('logistik-approve-loan'); // SET LOAN APPROVAL (BOOLEAN)
+    Route::post('/loan/detail/{id}', [LogistikController::class, 'set_item_loan_code'])->name('logistik-set-code'); // SET ITEM LOAN CODE & LOAN APPROVAL (BOOLEAN)
+    Route::get('/loan/set_approval/{id}/{approval}', [LogistikController::class, 'approve_loan'])->name('logistik-approve-loan'); // SET LOAN APPROVAL (BOOLEAN)
     Route::get('/loan/delete/{id}', [LogistikController::class, 'delete_loan'])->name('logistik-delete-loan'); // DELETE SINGLE LOAN
 
     // ITEMS
