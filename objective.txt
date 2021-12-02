@@ -17,9 +17,9 @@ Auth
 -Alerts
 
 Logistik
--Layout
--Views
--Alerts
+-Layout (Done)
+-Views (Done)
+-Alerts (Done)
 
 Divisi
 -Layout

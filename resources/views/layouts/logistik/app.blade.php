@@ -66,7 +66,7 @@
                             </a>
                             <ul class="submenu">
                                 <li class="submenu-item">
-                                    <a href="{{ route('logistik-items') }}">Daftar Barang</a>
+                                    <a href="{{ route('logistik-show-items') }}">Daftar Barang</a>
                                 </li>
                                 <li class="submenu-item">
                                     <a href="{{ route('logistik-create-item') }}">Input Barang</a>

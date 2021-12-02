@@ -39,8 +39,9 @@ Route::group(['middleware' => ['auth', 'logistik'], 'prefix' => 'logistik'], fun
     Route::get('/loan/delete/{id}', [LogistikController::class, 'delete_loan'])->name('logistik-delete-loan'); // DELETE SINGLE LOAN
 
     // ITEMS
-    Route::get('/item/show', [LogistikController::class, 'show_items'])->name('logistik-items'); // READ ALL (TABLE)
+    Route::get('/item/show', [LogistikController::class, 'show_items'])->name('logistik-show-items'); // READ ALL (TABLE)
     Route::get('/item/create', [LogistikController::class, 'create_item'])->name('logistik-create-item'); // CREATE NEW ITEM (FORM)
+    Route::post('/item/create', [LogistikController::class, 'store_item'])->name('logistik-store-item'); // POST CREATE ITEM
     Route::get('/item/detail/{id}', [LogistikController::class, 'detail_item'])->name('logistik-detail-item'); // SHOW SINGLE (FORM)
     Route::post('/item/detail/{id}', [LogistikController::class, 'save_item'])->name('logistik-save-item'); // POST REQUEST EDIT ITEM
     Route::get('/item/delete/{id}', [LogistikController::class, 'delete_item'])->name('logistik-delete-item'); // DELETE SINGLE ITEM

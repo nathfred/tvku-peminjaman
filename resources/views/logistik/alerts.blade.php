@@ -57,5 +57,41 @@
             showConfirmButton: true,
         })
     </script>
+@elseif (Session::has('message') && Session::get('message') == 'success-create-item')
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Berhasil Membuat Barang!',
+            text: 'Barang Baru Terdaftar',
+            showConfirmButton: true,
+        })
+    </script>
+@elseif (Session::has('message') && Session::get('message') == 'item-not-found')
+    <script>
+        Swal.fire({
+            icon: 'warning',
+            title: 'Barang Tidak Ditemukan!',
+            text: 'Terjadi Kesalahan, ID Tidak Ditemukan',
+            showConfirmButton: true,
+        })
+    </script>
+@elseif (Session::has('message') && Session::get('message') == 'success-edit-item')
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Berhasil Edit Barang!',
+            text: 'Data Barang Diubah',
+            showConfirmButton: true,
+        })
+    </script>
+@elseif (Session::has('message') && Session::get('message') == 'success-delete-item')
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Berhasil Hapus Barang!',
+            text: 'Data Barang Terhapus',
+            showConfirmButton: true,
+        })
+    </script>
 
 @endif

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
+use App\Models\Item;
 use App\Models\Loan;
 use App\Models\User;
 use App\Models\LoanItem;
@@ -202,18 +203,6 @@ class LogistikController extends Controller
         ]);
     }
 
-    public function delete_loan($id)
-    {
-        $loan = Loan::find($id);
-        // VALIDASI APAKAH LOAN ADA
-        if ($loan === NULL) {
-            return back()->with('message', 'loan-not-found');
-        }
-
-        $loan->delete();
-        return back()->with('message', 'success-delete-loan');
-    }
-
     public function set_item_loan_code(Request $request, $id)
     {
         // GET REQUEST DATA (ITEM LOAN CODES ONLY)
@@ -244,5 +233,110 @@ class LogistikController extends Controller
         $loan->save();
 
         return back()->with('message', 'success-set-code');
+    }
+
+    public function delete_loan($id)
+    {
+        $loan = Loan::find($id);
+        // VALIDASI APAKAH LOAN ADA
+        if ($loan === NULL) {
+            return back()->with('message', 'loan-not-found');
+        }
+
+        $loan->delete();
+        return back()->with('message', 'success-delete-loan');
+    }
+
+    public function show_items()
+    {
+        $items = Item::orderBy('category', 'desc')->get();
+
+        // UBAH ADDITIONAL KE LAIN-LAIN
+        foreach ($items as $item) {
+            if ($item->category == 'Additional') {
+                $item->category = 'Lain-lain';
+            }
+        }
+
+        return view('logistik.items', [
+            'title' => 'Daftar Barang',
+            'active' => 'item',
+            'items' => $items,
+        ]);
+    }
+
+    public function detail_item($id)
+    {
+        $item = Item::find($id);
+        // VALIDASI APAKAH ITEM ADA
+        if ($item === NULL) {
+            return back()->with('message', 'item-not-found');
+        }
+
+        // dd($item);
+
+        return view('logistik.item_detail', [
+            'title' => 'Daftar Barang',
+            'active' => 'item',
+            'item' => $item,
+        ]);
+    }
+
+    public function create_item()
+    {
+        return view('logistik.item_create', [
+            'title' => 'Buat Barang',
+            'active' => 'item',
+            'item' => NULL,
+        ]);
+    }
+
+    public function store_item(Request $request)
+    {
+        // VALIDASI POST REQUEST
+        $request->validate([
+            'name' => 'string|required',
+            'category' => 'string|required',
+        ]);
+
+        Item::create([
+            'name' => $request->name,
+            'category' => $request->category,
+        ]);
+
+        return redirect(route('logistik-show-items'))->with('message', 'success-create-item');
+    }
+
+    public function save_item(Request $request, $id)
+    {
+        $item = Item::find($id);
+        // VALIDASI APAKAH ITEM ADA
+        if ($item === NULL) {
+            return back()->with('message', 'item-not-found');
+        }
+
+        // VALIDASI POST REQUEST
+        $request->validate([
+            'name' => 'string|required',
+            'category' => 'string|required',
+        ]);
+
+        $item->name = $request->name;
+        $item->category = $request->category;
+        $item->save();
+
+        return redirect(route('logistik-detail-item', ['id' => $id]))->with('message', 'success-edit-item');
+    }
+
+    public function delete_item($id)
+    {
+        $item = Item::find($id);
+        // VALIDASI APAKAH ITEM ADA
+        if ($item === NULL) {
+            return back()->with('message', 'item-not-found');
+        }
+
+        $item->delete();
+        return back()->with('message', 'success-delete-item');
     }
 }
