@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\DivisiController;
 use App\Http\Controllers\LogistikController;
 
 /*
@@ -45,6 +46,17 @@ Route::group(['middleware' => ['auth', 'logistik'], 'prefix' => 'logistik'], fun
     Route::get('/item/detail/{id}', [LogistikController::class, 'detail_item'])->name('logistik-detail-item'); // SHOW SINGLE (FORM)
     Route::post('/item/detail/{id}', [LogistikController::class, 'save_item'])->name('logistik-save-item'); // POST REQUEST EDIT ITEM
     Route::get('/item/delete/{id}', [LogistikController::class, 'delete_item'])->name('logistik-delete-item'); // DELETE SINGLE ITEM
+});
+
+// DIVISI
+Route::group(['middleware' => ['auth', 'divisi'], 'prefix' => 'divisi'], function () {
+    Route::get('/index', [DivisiController::class, 'index'])->name('divisi-index'); // INDEX
+
+    // LOAN
+    Route::get('/loan/show', [DivisiController::class, 'show_loans'])->name('divisi-show-loans'); // READ ALL (TABLE)
+    Route::get('/loan/create', [DivisiController::class, 'create_loan'])->name('divisi-create-loan'); // CREATE SINGLE LOAN (FORM)
+    Route::get('/loan/detail/{id}', [DivisiController::class, 'detail_loan'])->name('divisi-detail-loan'); // SHOW SINGLE (EDIT FORM)
+    Route::get('/loan/delete/{id}', [DivisiController::class, 'delete_loan'])->name('divisi-delete-loan'); // DELETE SINGLE LOAN
 });
 
 // PDF EXPORT 

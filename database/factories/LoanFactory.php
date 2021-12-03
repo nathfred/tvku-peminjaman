@@ -76,9 +76,7 @@ class LoanFactory extends Factory
         $crew_division_array = ['Campers', 'Audio', 'Lighting'];
 
         return [
-            // 'quantity' => $quantity,
-            // 'item' => $item,
-            // 'code' => $code,
+            'user_id' => mt_rand(2, 9),
             'approval' => FALSE,
             'return' => FALSE,
             'program' => $program_array[array_rand($program_array)],
