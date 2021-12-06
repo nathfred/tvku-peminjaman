@@ -76,6 +76,12 @@
                                         @endif
                                         <!-- Aksi -->
                                         <td>
+                                            <!-- Return -->
+                                            @if ($loan->return == 1)
+                                                <a href="#" class="btn btn-primary"><i class="bi bi-check-square"></i></a>
+                                            @else
+                                                <a href="#" class="btn btn-warning"><i class="bi bi-slash-square"></i></a>
+                                            @endif
                                             <a href="{{ route('logistik-detail-loan', ['id' => $loan->id]) }}" class="btn btn-info"><i class="bi bi-arrow-left-square"></i></a>
                                             <a href="{{ route('show-pdf', ['id' => $loan->id]) }}" target="_blank" class="btn btn-success"><i class="bi bi-printer-fill"></i></a>
                                             <button class="btn btn-danger" onclick="delete_confirm('{{ $loan->id }}')"><i class="bi bi-x-square"></i></button>

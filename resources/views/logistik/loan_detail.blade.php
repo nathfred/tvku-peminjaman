@@ -295,6 +295,21 @@
                                                         <label class="form-check-label" for="app_signed">Decline</label>
                                                     </div>
                                                 </div>
+                                                @if ($loan->app_signed == 1)
+                                                    <div class="col-md-4">
+                                                        <label>Pengembalian</label>
+                                                    </div>
+                                                    <div class="col-md-8 form-group">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio" name="return" id="return" value="1" {{ ($loan->return === TRUE || $loan->return == 1) ? 'checked' : '' }}>
+                                                            <label class="form-check-label" for="return">Sudah Dikembalikan</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio" name="return" id="return" value="0" {{ ($loan->return == 0 && !empty($loan->app_name)) ? 'checked' : '' }}>
+                                                            <label class="form-check-label" for="return">Belum Dikembalikan</label>
+                                                        </div>
+                                                    </div>
+                                                @endif
                                                 <div class="col-sm-12 d-flex justify-content-end">
                                                     {{-- <a href="javascript:history.back()" class="btn btn-secondary me-1 mb-1">Cancel</a> --}}
                                                     <a href="{{ route('logistik-show-loans') }}" class="btn btn-secondary me-1 mb-1">Cancel</a>

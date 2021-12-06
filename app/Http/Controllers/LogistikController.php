@@ -230,6 +230,8 @@ class LogistikController extends Controller
         $loan->app_name = $request->app_name;
         $loan->app_phone = $request->app_phone;
         $loan->app_signed = $request->app_signed;
+        $loan->approval = $request->app_signed;
+        $loan->return = $request->return;
         $loan->save();
 
         return back()->with('message', 'success-set-code');
