@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Models\LoanItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class DivisiController extends Controller
 {
@@ -192,7 +193,6 @@ class DivisiController extends Controller
 
     public function store_loan(Request $request)
     {
-        // dd($request);
         $user_id = Auth::id();
         $user = User::where('id', $user_id)->first();
         $today = Carbon::today('GMT+7');
@@ -214,6 +214,21 @@ class DivisiController extends Controller
             'crew_division' => 'string|max:255',
         ]);
 
+        // GET REQUEST DATA (ITEM LOAN CODES ONLY)
+        $data = $request->except(['_token', '_method', 'program', 'location', 'created', 'book_date', 'book_time', 'division', 'req_name', 'req_phone', 'crew_name', 'crew_phone', 'crew_division']);
+
+        // BOOLEAN FOR REQ & CREW SIGN
+        if (!empty($request->req_name)) {
+            $req_signed = TRUE;
+        } else {
+            $req_signed = FALSE;
+        }
+        if (!empty($request->crew_name)) {
+            $crew_signed = TRUE;
+        } else {
+            $crew_signed = FALSE;
+        }
+
         Loan::create([
             'user_id' => $user_id,
             'approval' => FALSE,
@@ -226,18 +241,14 @@ class DivisiController extends Controller
             'division' => $request->division,
             'req_name' => $request->req_name,
             'req_phone' => $request->req_phone,
-            'req_signed' => $request->req_signed,
+            'req_signed' => $req_signed,
             'crew_name' => $request->crew_name,
             'crew_phone' => $request->crew_phone,
-            'crew_signed' => $request->crew_signed,
+            'crew_signed' => $crew_signed,
             'crew_division' => $request->crew_division,
         ]);
 
         $latest_loan = Loan::latest()->first();
-
-        // GET REQUEST DATA (ITEM LOAN CODES ONLY)
-        $data = $request->except(['_token', '_method', 'program', 'location', 'created', 'book_date', 'book_time', 'division', 'req_name', 'req_phone', 'crew_name', 'crew_phone', 'crew_division']);
-        // dd($data);
         foreach ($data as $key => $value) {
             // JIKA BARANG TERISI
             if (!empty($value)) {
@@ -259,6 +270,117 @@ class DivisiController extends Controller
         return redirect(route('divisi-show-loans'))->with('message', 'success-create-loan');
     }
 
+    public function detail_loan($id)
+    {
+        $loan = Loan::find($id);
+        // VALIDASI APAKAH LOAN ADA
+        if ($loan === NULL) {
+            return back()->with('message', 'loan-not-found');
+        }
+
+        // GET ALL ITEMS
+        $items = Item::orderBy('category', 'asc')->get();
+
+        // GET ALL LOANED ITEMS
+        $loaned_items = LoanItem::where('loan_id', $id)->orderBy('category', 'asc')->get();
+
+        // COUNT LOANED ITEM QUANTITY (EACH ITEMS)
+        foreach ($items as $item) {
+            $item->loan_quantity = LoanItem::where('loan_id', $id)->where('item_id', $item->id)->count();
+            if ($item->loan_quantity == 0) {
+                $item->loan_quantity = NULL; // SET TO NULL SUPAYA DI VIEWS TIDAK KELUAR ANGKA 0
+            }
+        }
+
+        return view('divisi.loan_detail', [
+            'title' => 'Detail Peminjaman',
+            'active' => 'loan',
+            'loan' => $loan,
+            'items' => $items,
+        ]);
+    }
+
+    public function save_loan(Request $request, $id)
+    {
+        $user_id = Auth::id();
+        $user = User::where('id', $user_id)->first();
+        $today = Carbon::today('GMT+7');
+
+        $loan = Loan::find($id);
+        if ($loan === NULL) {
+            return back()->with('message', 'loan-not-found');
+        }
+
+        // VALIDATE REQUEST
+        $request->validate([
+            'program' => 'string|max:255',
+            'location' => 'string|max:255',
+            'created' => 'date',
+            'book_date' => 'date',
+            'book_time' => '',
+            'division' => 'string|max:255',
+            'req_name' => 'string|max:255',
+            'req_phone' => 'string|max:255',
+            'req_signed' => 'string|max:255',
+            'crew_name' => 'string|max:255',
+            'crew_phone' => 'string|max:255',
+            'crew_signed' => 'string|max:255',
+            'crew_division' => 'string|max:255',
+        ]);
+
+        // GET REQUEST DATA (ITEM LOAN CODES ONLY)
+        $data = $request->except(['_token', '_method', 'program', 'location', 'created', 'book_date', 'book_time', 'division', 'req_name', 'req_phone', 'crew_name', 'crew_phone', 'crew_division']);
+
+        // BOOLEAN FOR REQ & CREW SIGN
+        if (!empty($request->req_name)) {
+            $req_signed = TRUE;
+        } else {
+            $req_signed = FALSE;
+        }
+        if (!empty($request->crew_name)) {
+            $crew_signed = TRUE;
+        } else {
+            $crew_signed = FALSE;
+        }
+
+        $loan->user_id = $user_id;
+        $loan->program = $request->program;
+        $loan->location = $request->location;
+        $loan->created = $request->created;
+        $loan->book_date = $request->book_date;
+        $loan->book_time = $request->book_time;
+        $loan->division = $request->division;
+        $loan->req_name = $request->req_name;
+        $loan->req_phone = $request->req_phone;
+        $loan->req_signed = $req_signed;
+        $loan->crew_name = $request->crew_name;
+        $loan->crew_phone = $request->crew_phone;
+        $loan->crew_signed = $crew_signed;
+        $loan->crew_division = $request->division;
+        $loan->save();
+
+        // DELETE LOAN ITEMS AND CREATE NEW
+        LoanItem::where('loan_id', $id)->delete();
+        foreach ($data as $key => $value) {
+            // JIKA BARANG TERISI
+            if (!empty($value)) {
+                // dd($key);
+                // LOOP SESUAI QUANTITY ITEM YANG DIPINJAM
+                for ($i = 0; $i < $value; $i++) {
+                    $item = Item::where('id', $key)->first();
+                    LoanItem::create([
+                        'loan_id' => $id,
+                        'item_id' => $key,
+                        'name' => $item->name,
+                        'category' => $item->category,
+                        'code' => $item->code,
+                    ]);
+                }
+            }
+        }
+
+        return redirect(route('divisi-detail-loan', ['id' => $loan]))->with('message', 'success-edit-loan');
+    }
     public function delete_loan($id)
     {
         $loan = Loan::find($id);

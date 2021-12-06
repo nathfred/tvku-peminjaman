@@ -23,7 +23,7 @@ Logistik
 
 Divisi
 -Layout (Done)
--Views (Progress)
--Alerts (Progress)
+-Views (Done)
+-Alerts (Done)
 
 -Auto Delete 7 Hari (Cronjob)

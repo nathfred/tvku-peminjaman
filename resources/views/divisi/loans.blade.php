@@ -75,7 +75,7 @@
                                         @endif
                                         <!-- Aksi -->
                                         <td>
-                                            <a href="{{ route('logistik-detail-loan', ['id' => $loan->id]) }}" class="btn btn-info"><i class="bi bi-arrow-left-square"></i></a>
+                                            <a href="{{ route('divisi-detail-loan', ['id' => $loan->id]) }}" class="btn btn-info"><i class="bi bi-arrow-left-square"></i></a>
                                             <a href="{{ route('show-pdf', ['id' => $loan->id]) }}" target="_blank" class="btn btn-success"><i class="bi bi-printer-fill"></i></a>
                                             @if ($loan->app_signed === NULL && $loan->app_name === NULL)
                                                 <button class="btn btn-danger" onclick="delete_confirm('{{ $loan->id }}')"><i class="bi bi-x-square"></i></button>
@@ -198,6 +198,6 @@
         }
     </script>
 
-@include('logistik.alerts')
+@include('divisi.alerts')
 
 @endsection
