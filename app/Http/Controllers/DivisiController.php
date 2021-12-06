@@ -192,6 +192,7 @@ class DivisiController extends Controller
 
     public function store_loan(Request $request)
     {
+        // dd($request);
         $user_id = Auth::id();
         $user = User::where('id', $user_id)->first();
         $today = Carbon::today('GMT+7');
@@ -202,7 +203,7 @@ class DivisiController extends Controller
             'location' => 'string|max:255',
             'created' => 'date',
             'book_date' => 'date',
-            'book_time' => 'time',
+            'book_time' => '',
             'division' => 'string|max:255',
             'req_name' => 'string|max:255',
             'req_phone' => 'string|max:255',
@@ -232,23 +233,41 @@ class DivisiController extends Controller
             'crew_division' => $request->crew_division,
         ]);
 
-        $latest_loan = Loan::latest();
+        $latest_loan = Loan::latest()->first();
 
         // GET REQUEST DATA (ITEM LOAN CODES ONLY)
-        $data = $request->except(['_token', '_method']);
+        $data = $request->except(['_token', '_method', 'program', 'location', 'created', 'book_date', 'book_time', 'division', 'req_name', 'req_phone', 'crew_name', 'crew_phone', 'crew_division']);
+        // dd($data);
         foreach ($data as $key => $value) {
+            // JIKA BARANG TERISI
             if (!empty($value)) {
-                $item = Item::where('id', $key)->first();
-                LoanItem::create([
-                    'loan_id' => $latest_loan->id,
-                    'item_id' => $key,
-                    'name' => $item->name,
-                    'category' => $item->category,
-                    'code' => $item->code,
-                ]);
+                // dd($key);
+                // LOOP SESUAI QUANTITY ITEM YANG DIPINJAM
+                for ($i = 0; $i < $value; $i++) {
+                    $item = Item::where('id', $key)->first();
+                    LoanItem::create([
+                        'loan_id' => $latest_loan->id,
+                        'item_id' => $key,
+                        'name' => $item->name,
+                        'category' => $item->category,
+                        'code' => $item->code,
+                    ]);
+                }
             }
         }
 
         return redirect(route('divisi-show-loans'))->with('message', 'success-create-loan');
+    }
+
+    public function delete_loan($id)
+    {
+        $loan = Loan::find($id);
+        // VALIDASI APAKAH LOAN ADA
+        if ($loan === NULL) {
+            return back()->with('message', 'loan-not-found');
+        }
+
+        $loan->delete();
+        return back()->with('message', 'success-delete-loan');
     }
 }

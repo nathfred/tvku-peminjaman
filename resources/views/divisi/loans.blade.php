@@ -174,7 +174,7 @@
     <script>
         function delete_confirm(loan_id) {
             var loan_id = loan_id;
-            var url = '{{ route("logistik-delete-loan", ":slug") }}';
+            var url = '{{ route("divisi-delete-loan", ":slug") }}';
             url = url.replace(':slug', loan_id);
             Swal.fire({
                 title: 'Apakah anda yakin?',

@@ -70,6 +70,15 @@
                                             <div class="col-sm-12 d-flex justify-content-end">
                                                 <button type="submit" class="btn btn-primary me-1 mb-1">Create</button>
                                             </div>
+                                            @if ($errors->any())
+                                                <div class="alert alert-danger mt-4">
+                                                    <ul>
+                                                        @foreach ($errors->all() as $error)
+                                                            <li>{{ $error }}</li>
+                                                        @endforeach
+                                                    </ul>
+                                                </div>
+                                            @endif
                                         </div>
                                     </div>
                                 </form>
