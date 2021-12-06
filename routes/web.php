@@ -55,6 +55,7 @@ Route::group(['middleware' => ['auth', 'divisi'], 'prefix' => 'divisi'], functio
     // LOAN
     Route::get('/loan/show', [DivisiController::class, 'show_loans'])->name('divisi-show-loans'); // READ ALL (TABLE)
     Route::get('/loan/create', [DivisiController::class, 'create_loan'])->name('divisi-create-loan'); // CREATE SINGLE LOAN (FORM)
+    Route::post('/loan/create', [DivisiController::class, 'store_loan'])->name('divisi-store-loan'); // POST CREATE LOAN
     Route::get('/loan/detail/{id}', [DivisiController::class, 'detail_loan'])->name('divisi-detail-loan'); // SHOW SINGLE (EDIT FORM)
     Route::get('/loan/delete/{id}', [DivisiController::class, 'delete_loan'])->name('divisi-delete-loan'); // DELETE SINGLE LOAN
 });

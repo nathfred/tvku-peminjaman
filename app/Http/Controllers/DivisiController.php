@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
+use App\Models\Item;
 use App\Models\Loan;
 use App\Models\User;
+use App\Models\LoanItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -165,10 +167,88 @@ class DivisiController extends Controller
         }
 
         return view('divisi.loans', [
-            'title' => 'Index',
+            'title' => 'Peminjaman',
             'active' => 'loan',
             'user' => $user,
             'loans' => $loans,
         ]);
+    }
+
+    public function create_loan()
+    {
+        $user_id = Auth::id();
+        $user = User::where('id', $user_id)->first();
+        $today = Carbon::today('GMT+7');
+
+        $items = Item::get();
+
+        return view('divisi.loan_create', [
+            'title' => 'Buat Peminjaman',
+            'active' => 'loan',
+            'user' => $user,
+            'items' => $items,
+        ]);
+    }
+
+    public function store_loan(Request $request)
+    {
+        $user_id = Auth::id();
+        $user = User::where('id', $user_id)->first();
+        $today = Carbon::today('GMT+7');
+
+        // VALIDATE REQUEST
+        $request->validate([
+            'program' => 'string|max:255',
+            'location' => 'string|max:255',
+            'created' => 'date',
+            'book_date' => 'date',
+            'book_time' => 'time',
+            'division' => 'string|max:255',
+            'req_name' => 'string|max:255',
+            'req_phone' => 'string|max:255',
+            'req_signed' => 'string|max:255',
+            'crew_name' => 'string|max:255',
+            'crew_phone' => 'string|max:255',
+            'crew_signed' => 'string|max:255',
+            'crew_division' => 'string|max:255',
+        ]);
+
+        Loan::create([
+            'user_id' => $user_id,
+            'approval' => FALSE,
+            'return' => FALSE,
+            'program' => $request->program,
+            'location' => $request->location,
+            'created' => $request->created,
+            'book_date' => $request->book_date,
+            'book_time' => $request->book_time,
+            'division' => $request->division,
+            'req_name' => $request->req_name,
+            'req_phone' => $request->req_phone,
+            'req_signed' => $request->req_signed,
+            'crew_name' => $request->crew_name,
+            'crew_phone' => $request->crew_phone,
+            'crew_signed' => $request->crew_signed,
+            'crew_division' => $request->crew_division,
+        ]);
+
+        $latest_loan = Loan::latest();
+
+        // GET REQUEST DATA (ITEM LOAN CODES ONLY)
+        $data = $request->except(['_token', '_method']);
+        foreach ($data as $key => $value) {
+            if (!empty($value)) {
+                $item = Item::where('id', $key)->first();
+                LoanItem::create([
+                    'loan_id' => $latest_loan->id,
+                    'item_id' => $key,
+                    'name' => $item->name,
+                    'category' => $item->category,
+                    'code' => $item->code,
+                ]);
+            }
+        }
+
+        return redirect(route('divisi-show-loans'))->with('message', 'success-create-loan');
     }
 }
