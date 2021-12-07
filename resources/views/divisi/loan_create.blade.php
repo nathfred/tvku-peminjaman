@@ -59,7 +59,7 @@
                                                 <label>Tanggal Dibuat</label>
                                             </div>
                                             <div class="col-md-8 form-group">
-                                                <input type="date" id="created" class="form-control" name="created">
+                                                <input type="date" id="created" class="form-control" name="created" value="{{ $today }}" readonly>
                                             </div>
                                             <div class="col-md-4">
                                                 <label>Tanggal Booking</label>
@@ -110,13 +110,13 @@
                                     <div class="form-body">
                                         <div class="row">
                                             <div class="col-md-4">
-                                                <label>Nama Produser</label>
+                                                <label>Nama Produser / Ass.</label>
                                             </div>
                                             <div class="col-md-8 form-group">
                                                 <input type="text" id="req_name" class="form-control" name="req_name">
                                             </div>
                                             <div class="col-md-4">
-                                                <label>Telp. Produser</label>
+                                                <label>Telp. Produser / Ass.</label>
                                             </div>
                                             <div class="col-md-8 form-group">
                                                 <input type="text" id="req_phone" class="form-control" name="req_phone">

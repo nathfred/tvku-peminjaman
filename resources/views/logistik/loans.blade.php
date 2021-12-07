@@ -5,6 +5,11 @@
         thead input {
             width: 100%;
         }
+
+        a.disabled {
+            pointer-events: none;
+            cursor: default;
+        }
     </style>
 
     <header class="mb-3">
@@ -40,6 +45,7 @@
                                 <th>Divisi</th>
                                 <th>Peminjam</th>
                                 <th>Approval</th>
+                                <th>Pengembalian</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -68,20 +74,32 @@
                                         @endif
                                         <!-- Approval -->
                                         @if ($loan->app_signed === NULL || $loan->app_signed == '')
-                                            <td>-</td>
+                                            <td class="text-center">-</td>
                                         @elseif ($loan->app_signed == '0' || $loan->app_signed == 0)
                                             <td><p class="btn-danger text-center text-white mt-0 mb-0">DITOLAK</p></td>
                                         @elseif ($loan->app_signed == '1' || $loan->app_signed == 1)
                                             <td><p class="btn-success text-center mt-0 mb-0">DITERIMA</p></td>
+                                        @else
+                                            <td class="text-center">-</td>
+                                        @endif
+                                        <!-- Return -->
+                                        @if ($loan->return === NULL || $loan->return == '')
+                                        <td class="text-center">-</td>
+                                        @elseif (($loan->return == '0' || $loan->return == 0) && $loan->app_signed == 1)
+                                            <td><p class="btn-warning text-center text-white mt-0 mb-0">BELUM</p></td>
+                                        @elseif ($loan->return == '1' || $loan->return == 1)
+                                            <td><p class="btn-success text-center mt-0 mb-0">SUDAH</p></td>
+                                        @else
+                                            <td class="text-center">-</td>
                                         @endif
                                         <!-- Aksi -->
                                         <td>
                                             <!-- Return -->
-                                            @if ($loan->return == 1)
+                                            {{-- @if ($loan->return == 1)
                                                 <a href="#" class="btn btn-primary"><i class="bi bi-check-square"></i></a>
                                             @else
                                                 <a href="#" class="btn btn-warning"><i class="bi bi-slash-square"></i></a>
-                                            @endif
+                                            @endif --}}
                                             <a href="{{ route('logistik-detail-loan', ['id' => $loan->id]) }}" class="btn btn-info"><i class="bi bi-arrow-left-square"></i></a>
                                             <a href="{{ route('show-pdf', ['id' => $loan->id]) }}" target="_blank" class="btn btn-success"><i class="bi bi-printer-fill"></i></a>
                                             <button class="btn btn-danger" onclick="delete_confirm('{{ $loan->id }}')"><i class="bi bi-x-square"></i></button>

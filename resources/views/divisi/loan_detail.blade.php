@@ -59,7 +59,7 @@
                                                 <label>Tanggal Dibuat</label>
                                             </div>
                                             <div class="col-md-8 form-group">
-                                                <input type="date" id="created" class="form-control" name="created" value="{{ $loan->created }}">
+                                                <input type="date" id="created" class="form-control" name="created" value="{{ $loan->created }}" readonly>
                                             </div>
                                             <div class="col-md-4">
                                                 <label>Tanggal Booking</label>
@@ -139,6 +139,42 @@
                                             <div class="col-md-8 form-group">
                                                 <input type="text" id="crew_division" class="form-control" name="crew_division" value="{{ $loan->crew_division }}">
                                             </div>
+                                            <div class="col-md-4">
+                                                <label>Nama Approver</label>
+                                            </div>
+                                            <div class="col-md-8 form-group">
+                                                <input type="text" id="app_name" class="form-control" name="app_name" value="{{ $loan->app_name }}" readonly>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label>Telp. Approver</label>
+                                            </div>
+                                            <div class="col-md-8 form-group">
+                                                <input type="text" id="app_phone" class="form-control" name="app_phone" value="{{ $loan->app_phone }}" readonly>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label>Status Approval</label>
+                                            </div>
+                                            <div class="col-md-8 form-group">
+                                                @if ($loan->app_signed == 1)
+                                                    <input type="text" id="app_signed" class="form-control" name="app_signed" value="DISETUJUI" readonly>
+                                                @elseif ($loan->app_signed === NULL)
+                                                    <input type="text" id="app_signed" class="form-control" name="app_signed" value="BELUM DIRESPON" readonly>
+                                                @else
+                                                    <input type="text" id="app_signed" class="form-control" name="app_signed" value="DITOLAK" readonly>
+                                                @endif
+                                            </div>
+                                            @if ($loan->app_signed == 1)
+                                                <div class="col-md-4">
+                                                    <label>Status Pengembalian</label>
+                                                </div>
+                                                <div class="col-md-8 form-group">
+                                                    @if ($loan->return == 1)
+                                                        <input type="text" id="return" class="form-control" name="return" value="SUDAH DIKEMBALIKAN" readonly>
+                                                    @else
+                                                        <input type="text" id="return" class="form-control" name="return" value="BELUM DIKEMBALIKAN" readonly>
+                                                    @endif
+                                                </div>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
@@ -261,7 +297,7 @@
                                             @endforeach
                                             <div class="col-sm-12 mt-3 d-flex justify-content-end">
                                                 <a href="{{ route('divisi-show-loans') }}" class="btn btn-secondary me-1 mb-1">Cancel</a>
-                                                <button type="submit" class="btn btn-primary me-1 mb-1">Confirm</button>
+                                                <button type="submit" class="btn btn-primary me-1 mb-1" {{ ($loan->app_signed === TRUE || $loan->app_signed == 1) ? 'disabled' : '' }}>Confirm</button>
                                             </div>
                                             @if ($errors->any())
                                                 <div class="alert alert-danger mt-4">

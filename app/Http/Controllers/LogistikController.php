@@ -231,7 +231,12 @@ class LogistikController extends Controller
         $loan->app_phone = $request->app_phone;
         $loan->app_signed = $request->app_signed;
         $loan->approval = $request->app_signed;
-        $loan->return = $request->return;
+        if ($request->return === NULL) {
+            // REQUEST TANPA RETURN (KONFIRMASI LOGISTIK PERTAMA KALI)
+        } else {
+            $loan->return = $request->return;
+        }
+
         $loan->save();
 
         return back()->with('message', 'success-set-code');

@@ -168,7 +168,7 @@ class DivisiController extends Controller
         }
 
         return view('divisi.loans', [
-            'title' => 'Peminjaman',
+            'title' => 'List Peminjaman',
             'active' => 'loan',
             'user' => $user,
             'loans' => $loans,
@@ -180,6 +180,7 @@ class DivisiController extends Controller
         $user_id = Auth::id();
         $user = User::where('id', $user_id)->first();
         $today = Carbon::today('GMT+7');
+        $today_string = $today->format('Y-m-d');
 
         $items = Item::get();
 
@@ -188,6 +189,7 @@ class DivisiController extends Controller
             'active' => 'loan',
             'user' => $user,
             'items' => $items,
+            'today' => $today_string,
         ]);
     }
 
@@ -213,9 +215,6 @@ class DivisiController extends Controller
             'crew_signed' => 'string|max:255',
             'crew_division' => 'string|max:255',
         ]);
-
-        // GET REQUEST DATA (ITEM LOAN CODES ONLY)
-        $data = $request->except(['_token', '_method', 'program', 'location', 'created', 'book_date', 'book_time', 'division', 'req_name', 'req_phone', 'crew_name', 'crew_phone', 'crew_division']);
 
         // BOOLEAN FOR REQ & CREW SIGN
         if (!empty($request->req_name)) {
@@ -247,6 +246,9 @@ class DivisiController extends Controller
             'crew_signed' => $crew_signed,
             'crew_division' => $request->crew_division,
         ]);
+
+        // GET REQUEST DATA (ITEM LOAN CODES ONLY)
+        $data = $request->except(['_token', '_method', 'program', 'location', 'created', 'book_date', 'book_time', 'division', 'req_name', 'req_phone', 'crew_name', 'crew_phone', 'crew_division']);
 
         $latest_loan = Loan::latest()->first();
         foreach ($data as $key => $value) {
@@ -328,9 +330,6 @@ class DivisiController extends Controller
             'crew_division' => 'string|max:255',
         ]);
 
-        // GET REQUEST DATA (ITEM LOAN CODES ONLY)
-        $data = $request->except(['_token', '_method', 'program', 'location', 'created', 'book_date', 'book_time', 'division', 'req_name', 'req_phone', 'crew_name', 'crew_phone', 'crew_division']);
-
         // BOOLEAN FOR REQ & CREW SIGN
         if (!empty($request->req_name)) {
             $req_signed = TRUE;
@@ -358,6 +357,9 @@ class DivisiController extends Controller
         $loan->crew_signed = $crew_signed;
         $loan->crew_division = $request->division;
         $loan->save();
+
+        // GET REQUEST DATA (ITEM LOAN CODES ONLY)
+        $data = $request->except(['_token', '_method', 'program', 'location', 'created', 'book_date', 'book_time', 'division', 'req_name', 'req_phone', 'crew_name', 'crew_phone', 'crew_division', 'app_name', 'app_phone', 'app_signed', 'return']);
 
         // DELETE LOAN ITEMS AND CREATE NEW
         LoanItem::where('loan_id', $id)->delete();
