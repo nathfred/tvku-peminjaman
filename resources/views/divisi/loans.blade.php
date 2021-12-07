@@ -34,6 +34,7 @@
                                 <th>Produser</th>
                                 <th>Crew</th>
                                 <th>Approval</th>
+                                <th>Kembali</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -73,10 +74,20 @@
                                         @elseif ($loan->app_signed == '1' || $loan->app_signed == 1)
                                             <td><p class="btn-success text-center mt-0 mb-0">DITERIMA</p></td>
                                         @endif
+                                        <!-- Return -->
+                                        @if ($loan->return === NULL || $loan->return == '')
+                                            <td class="text-center">-</td>
+                                        @elseif (($loan->return == '0' || $loan->return == 0) && $loan->app_signed == 1)
+                                            <td><p class="btn-warning text-center text-white mt-0 mb-0">BELUM</p></td>
+                                        @elseif ($loan->return == '1' || $loan->return == 1)
+                                            <td><p class="btn-success text-center mt-0 mb-0">SUDAH</p></td>
+                                        @else
+                                            <td class="text-center">-</td>
+                                        @endif
                                         <!-- Aksi -->
                                         <td>
                                             <a href="{{ route('divisi-detail-loan', ['id' => $loan->id]) }}" class="btn btn-info"><i class="bi bi-arrow-left-square"></i></a>
-                                            <a href="{{ route('show-pdf', ['id' => $loan->id]) }}" target="_blank" class="btn btn-success"><i class="bi bi-printer-fill"></i></a>
+                                            <a href="{{ route('test-pdf', ['id' => $loan->id]) }}" target="_blank" class="btn btn-success"><i class="bi bi-printer-fill"></i></a>
                                             @if ($loan->app_signed === NULL && $loan->app_name === NULL)
                                                 <button class="btn btn-danger" onclick="delete_confirm('{{ $loan->id }}')"><i class="bi bi-x-square"></i></button>
                                             @endif

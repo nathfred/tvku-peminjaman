@@ -84,7 +84,7 @@
                                         @endif
                                         <!-- Return -->
                                         @if ($loan->return === NULL || $loan->return == '')
-                                        <td class="text-center">-</td>
+                                            <td class="text-center">-</td>
                                         @elseif (($loan->return == '0' || $loan->return == 0) && $loan->app_signed == 1)
                                             <td><p class="btn-warning text-center text-white mt-0 mb-0">BELUM</p></td>
                                         @elseif ($loan->return == '1' || $loan->return == 1)

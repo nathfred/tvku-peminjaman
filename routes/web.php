@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DivisiController;
+use App\Http\Controllers\DOMPDFController;
 use App\Http\Controllers\LogistikController;
 
 /*
@@ -63,7 +64,8 @@ Route::group(['middleware' => ['auth', 'divisi'], 'prefix' => 'divisi'], functio
 
 // PDF EXPORT 
 Route::group(['middleware' => ['auth']], function () {
-    Route::get('/pdf/view/{id}', [UserController::class, 'test_DOMPDF'])->name('test-DOMPDF');
+    Route::get('/pdf/create/{id}', [DOMPDFController::class, 'createPDF'])->name('create-pdf');
+    Route::get('/pdf/test/{id}', [DOMPDFController::class, 'test_pdf'])->name('test-pdf');
     Route::get('/pdf/show/{id}', [DOMPDFController::class, 'show_pdf'])->name('show-pdf');
 });
 

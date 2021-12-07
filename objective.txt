@@ -8,8 +8,8 @@
 -Middleware (DONE)
 
 -Routing (Need UPDATE??)
--Install DOMPDF
--Export PDF
+-Install DOMPDF (DONE)
+-Export PDF (Progress)
 
 Auth (DONE)
 -Register
