@@ -11,7 +11,7 @@
 -Install DOMPDF
 -Export PDF
 
-Auth
+Auth (DONE)
 -Register
 -Login
 -Alerts
