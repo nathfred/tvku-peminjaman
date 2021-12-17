@@ -65,6 +65,47 @@ class DOMPDFController extends Controller
         ]);
     }
 
+    public function test_pdf2($id)
+    {
+        $loan = Loan::find($id);
+        // VALIDASI APAKAH LOAN ADA
+        if ($loan === NULL) {
+            return back()->with('message', 'loan-not-found');
+        }
+
+        // UBAH FORMAT 'created' DATE (Y-m-d menjadi d-m-Y)
+        // UBAH KE FORMAT CARBON
+        $loan->created = Carbon::createFromFormat('Y-m-d', $loan->created);
+        $loan->book_date = Carbon::createFromFormat('Y-m-d', $loan->book_date);
+        $loan->book_time = Carbon::createFromFormat('H:i:s', $loan->book_time);
+        // UBAH FORMAT KE d-m-Y
+        $loan->created = $loan->created->format('d-m-Y');
+        $loan->book_date = $loan->book_date->format('d-m-Y');
+        $loan->book_time = $loan->book_time->format('H:i');
+
+        // GET ALL ITEMS
+        $items = Item::orderBy('category', 'asc')->get();
+
+        // GET ALL LOANED ITEMS
+        $loaned_items = LoanItem::where('loan_id', $id)->orderBy('category', 'asc')->get();
+
+        // COUNT LOANED ITEM QUANTITY (EACH ITEMS)
+        foreach ($loaned_items as $item) {
+            $item->loan_quantity = LoanItem::where('loan_id', $id)->where('item_id', $item->id)->count();
+            if ($item->loan_quantity == 0) {
+                $item->loan_quantity = NULL; // SET TO NULL SUPAYA DI VIEWS TIDAK KELUAR ANGKA 0
+            }
+        }
+
+        $pdf = PDF::loadview('loan_pdf3', [
+            'loan' => $loan,
+            'items' => $loaned_items,
+        ]);
+
+        // $pdf->set_base_path("/css/");
+        return $pdf->download('SPP_' . $loan->id . '_' . $loan->program . '.pdf');
+    }
+
     public function test_pdf($id)
     {
         $loan = Loan::find($id);
