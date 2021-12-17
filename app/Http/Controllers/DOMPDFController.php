@@ -102,7 +102,7 @@ class DOMPDFController extends Controller
             'items' => $loaned_items,
         ]);
 
-        $pdf->set_base_path("/css/");
-        return $pdf->stream('SPP_' . $loan->id . '_' . $loan->program . '.pdf');
+        // $pdf->set_base_path("/css/");
+        return $pdf->download('SPP_' . $loan->id . '_' . $loan->program . '.pdf');
     }
 }
