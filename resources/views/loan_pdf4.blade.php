@@ -90,18 +90,30 @@
         </center>
     </div>
 
+    <div class="border border-dark text-center p-2">
+        <center>
+            <h3>DATA PEMINJAMAN LOGISTIK (ID : {{ $loan->id }})</h3>
+        </center>
+    </div>
+
     <div class="border border-dark p-2">
         <div class="row">
             <div class="col">
                 <div class="row">
                     <div class="col">
                         <div class="col-md-4">
-                            <label>ID Peminjaman</label>
+                            <label>Pengembalian</label>
                         </div>
                     </div>
                     <div class="col">
                         <div class="col-md-8 form-group">
-                            <label>{{ $loan->id }}</label>
+                            @if ($loan->return == 1)
+                                <label>Sudah Kembali</label>
+                            @elseif ($loan->return === NULL || $loan->return == 0)
+                                <label>Belum Kembali</label>
+                            @else
+                                <label>Tidak Diketahui</label>
+                            @endif
                         </div>
                     </div>
                     <div class="col">
@@ -278,7 +290,7 @@
                     @if ($loan->req_signed == 1)
                         <i class="bi bi-person-check-fill" style="font-size: 4.4rem;"></i>
                     @else
-                        <i class="bi bi-person-fill" style="font-size: 4.4rem;"></i>
+                        <i class="" style="font-size: 4.4rem;"></i>
                     @endif
                 </div>
                 <p>Produser/Ass.</p>
@@ -303,7 +315,7 @@
                     @if ($loan->crew_signed == 1)
                         <i class="bi bi-person-check-fill" style="font-size: 4.4rem;"></i>
                     @else
-                        <i class="bi bi-person-fill" style="font-size: 4.4rem;"></i>
+                        <i class="" style="font-size: 4.4rem;"></i>
                     @endif
                 </div>
                 <p>{{ $loan->crew_division }}</p>
@@ -328,10 +340,10 @@
                     @if ($loan->app_signed == 1)
                         <i class="bi bi-person-check-fill" style="font-size: 4.4rem;"></i>
                     @else
-                        <i class="bi bi-person-fill" style="font-size: 4.4rem;"></i>
+                        <i class="" style="font-size: 4.4rem;"></i>
                     @endif
                 </div>
-                <p>Produser/Ass.</p>
+                <p>Logistik</p>
                 <div class="row">
                     <div class="col-25">
                         <label>Nama :</label>
