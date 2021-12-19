@@ -59,7 +59,7 @@ class DOMPDFController extends Controller
             }
         }
 
-        return view('loan_pdf3', [
+        return view('loan_pdf4', [
             'loan' => $loan,
             'items' => $loaned_items,
         ]);
@@ -138,12 +138,12 @@ class DOMPDFController extends Controller
             }
         }
 
-        $pdf = PDF::loadview('loan_pdf3', [
+        $pdf = PDF::loadview('loan_pdf4', [
             'loan' => $loan,
             'items' => $loaned_items,
-        ]);
+        ])->setPaper('a4')->setOrientation('portrait');
 
         // $pdf->set_base_path("/css/");
-        return $pdf->download('SPP_' . $loan->id . '_' . $loan->program . '.pdf');
+        return $pdf->stream('SPP_' . $loan->id . '_' . $loan->program . '.pdf');
     }
 }
