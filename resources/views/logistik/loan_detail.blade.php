@@ -313,7 +313,7 @@
                                                 <div class="col-sm-12 d-flex justify-content-end">
                                                     {{-- <a href="javascript:history.back()" class="btn btn-secondary me-1 mb-1">Cancel</a> --}}
                                                     <a href="{{ route('logistik-show-loans') }}" class="btn btn-secondary me-1 mb-1">Cancel</a>
-                                                    <button type="submit" class="btn btn-primary me-1 mb-1">Confirm</button>
+                                                    <button type="submit" class="btn btn-primary me-1 mb-1" {{ ($loan->app_signed == 1 && $loan->return == 1) ? 'disabled' : '' }}>Confirm</button>
                                                 </div>
                                                 @if ($errors->any())
                                                     <div class="alert alert-danger mt-4">

@@ -2,14 +2,14 @@
 -Install Breeze (DONE)
 -Import Mazer (DONE)
 -Import Vendors (DONE)
--Design Tables (Need UPDATE??)
+-Design Tables (DONE)
 -Create Model & Eloquent (DONE)
 -Set up Factory & Seeder (DONE)
 -Middleware (DONE)
 
 -Routing (Need UPDATE??)
 -Install DOMPDF (DONE)
--Export PDF (Progress)
+-Export PDF (Revisi??)
 
 Auth (DONE)
 -Register
@@ -26,4 +26,4 @@ Divisi
 -Views (Done)
 -Alerts (Done)
 
--Auto Delete 7 Hari (Cronjob)
+-Cronjob Auto Delete 7 Hari (Need Testing)

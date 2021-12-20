@@ -207,13 +207,13 @@ class DivisiController extends Controller
             'book_date' => 'required|date',
             'book_time' => 'required',
             'division' => 'required|string|max:16',
-            'req_name' => 'string|max:24',
-            'req_phone' => 'string|max:16',
-            'req_signed' => 'string',
-            'crew_name' => 'string|max:24',
-            'crew_phone' => 'string|max:16',
-            'crew_signed' => 'string',
-            'crew_division' => 'string|max:16',
+            'req_name' => 'nullable|string|max:24',
+            'req_phone' => 'nullable|string|max:16',
+            'req_signed' => 'nullable|string',
+            'crew_name' => 'nullable|string|max:24',
+            'crew_phone' => 'nullable|string|max:16',
+            'crew_signed' => 'nullable|string',
+            'crew_division' => 'nullable|string|max:16',
         ]);
 
         // BOOLEAN FOR REQ & CREW SIGN
@@ -321,13 +321,13 @@ class DivisiController extends Controller
             'book_date' => 'required|date',
             'book_time' => 'required',
             'division' => 'required|string|max:16',
-            'req_name' => 'string|max:24',
-            'req_phone' => 'string|max:16',
-            'req_signed' => 'string',
-            'crew_name' => 'string|max:24',
-            'crew_phone' => 'string|max:16',
-            'crew_signed' => 'string',
-            'crew_division' => 'string|max:16',
+            'req_name' => 'nullable|string|max:24',
+            'req_phone' => 'nullable|string|max:16',
+            'req_signed' => 'nullable|string',
+            'crew_name' => 'nullable|string|max:24',
+            'crew_phone' => 'nullable|string|max:16',
+            'crew_signed' => 'nullable|string',
+            'crew_division' => 'nullable|string|max:16',
         ]);
 
         // BOOLEAN FOR REQ & CREW SIGN
