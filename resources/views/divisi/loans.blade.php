@@ -24,7 +24,7 @@
                     <table class="table table-striped" id="table1">
                         <thead>
                             <tr>
-                                <th class="text-center">No</th>
+                                <th class="text-center">ID</th>
                                 <th>Program</th>
                                 <th>Lokasi</th>
                                 <th>Tgl. Dibuat</th>
@@ -48,7 +48,7 @@
                                         $i++;
                                     @endphp
                                     <tr>
-                                        <td class="text-center">{{ $i }}</td>
+                                        <td class="text-center">{{ $loan->id }}</td>
                                         <td>{{ $loan->program }}</td>
                                         <td>{{ $loan->location }}</td>
                                         <td>{{ $loan->created }}</td>

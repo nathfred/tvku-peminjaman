@@ -153,7 +153,7 @@ class LogistikController extends Controller
         $user = User::where('id', $user_id)->first();
         $today = Carbon::today('GMT+7');
 
-        $loans = Loan::orderBy('created', 'desc')->get();
+        $loans = Loan::orderBy('created', 'desc')->orderBy('id', 'desc')->get();
 
         // UBAH FORMAT 'created' DATE (Y-m-d menjadi d-m-Y)
         foreach ($loans as $loan) {
@@ -168,7 +168,7 @@ class LogistikController extends Controller
         }
 
         return view('logistik.loans', [
-            'title' => 'Index',
+            'title' => 'List Peminjaman',
             'active' => 'loan',
             'user' => $user,
             'loans' => $loans,
@@ -222,8 +222,8 @@ class LogistikController extends Controller
 
         // VALIDASI APPROVAL LOGISTIK
         $request->validate([
-            'app_name' => 'string|required',
-            'app_phone' => 'string|required',
+            'app_name' => 'string|required|max:24',
+            'app_phone' => 'string|required|max:16',
             'app_signed' => 'boolean|required',
         ]);
 
@@ -266,7 +266,7 @@ class LogistikController extends Controller
         }
 
         return view('logistik.items', [
-            'title' => 'Daftar Barang',
+            'title' => 'List Barang',
             'active' => 'item',
             'items' => $items,
         ]);
@@ -283,7 +283,7 @@ class LogistikController extends Controller
         // dd($item);
 
         return view('logistik.item_detail', [
-            'title' => 'Daftar Barang',
+            'title' => 'Detail Barang',
             'active' => 'item',
             'item' => $item,
         ]);
@@ -302,8 +302,8 @@ class LogistikController extends Controller
     {
         // VALIDASI POST REQUEST
         $request->validate([
-            'name' => 'string|required',
-            'category' => 'string|required',
+            'name' => 'string|required|max:24',
+            'category' => 'string|required|max:10',
         ]);
 
         Item::create([
@@ -324,8 +324,8 @@ class LogistikController extends Controller
 
         // VALIDASI POST REQUEST
         $request->validate([
-            'name' => 'string|required',
-            'category' => 'string|required',
+            'name' => 'string|required|max:24',
+            'category' => 'string|required|max:10',
         ]);
 
         $item->name = $request->name;

@@ -36,7 +36,7 @@
                     <table class="table table-striped" id="table1">
                         <thead>
                             <tr>
-                                <th class="text-center">No</th>
+                                <th class="text-center">ID</th>
                                 <th>Program</th>
                                 <th>Lokasi</th>
                                 <th>Tgl. Dibuat</th>
@@ -59,7 +59,7 @@
                                         $i++;
                                     @endphp
                                     <tr>
-                                        <td class="text-center">{{ $i }}</td>
+                                        <td class="text-center">{{ $loan->id }}</td>
                                         <td>{{ $loan->program }}</td>
                                         <td>{{ $loan->location }}</td>
                                         <td>{{ $loan->created }}</td>
@@ -118,20 +118,20 @@
     </div>
 
     <script src="{{ asset('vendors/simple-datatables/simple-datatables.js') }}"></script>
-    {{-- <script>
+    <script>
         // Simple Datatable
         let table1 = document.querySelector('#table1');
         let dataTable = new simpleDatatables.DataTable(table1);
-    </script> --}}
+    </script>
 
     {{-- Datatables --}}
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    {{-- <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/fixedheader/3.2.0/js/dataTables.fixedHeader.min.js"></script>
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script> --}}
 
     {{-- Datatables --}}
-    <script>
+    {{-- <script>
         $(document).ready(function () {
             // Setup - add a text input to each footer cell
             $('#table1 thead tr')
@@ -192,7 +192,7 @@
                 },
             });
         });
-    </script>
+    </script> --}}
 
     <script>
         function delete_confirm(loan_id) {

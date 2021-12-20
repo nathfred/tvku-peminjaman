@@ -153,7 +153,7 @@ class DivisiController extends Controller
         $user = User::where('id', $user_id)->first();
         $today = Carbon::today('GMT+7');
 
-        $loans = Loan::where('user_id', $user_id)->orderBy('created', 'desc')->get();
+        $loans = Loan::where('user_id', $user_id)->orderBy('created', 'desc')->orderBy('id', 'desc')->get();
 
         // UBAH FORMAT 'created' DATE (Y-m-d menjadi d-m-Y)
         foreach ($loans as $loan) {
@@ -201,19 +201,19 @@ class DivisiController extends Controller
 
         // VALIDATE REQUEST
         $request->validate([
-            'program' => 'string|max:255',
-            'location' => 'string|max:255',
-            'created' => 'date',
-            'book_date' => 'date',
-            'book_time' => '',
-            'division' => 'string|max:255',
-            'req_name' => 'string|max:255',
-            'req_phone' => 'string|max:255',
-            'req_signed' => 'string|max:255',
-            'crew_name' => 'string|max:255',
-            'crew_phone' => 'string|max:255',
-            'crew_signed' => 'string|max:255',
-            'crew_division' => 'string|max:255',
+            'program' => 'required|string|max:24',
+            'location' => 'required|string|max:24',
+            'created' => 'required|date',
+            'book_date' => 'required|date',
+            'book_time' => 'required',
+            'division' => 'required|string|max:16',
+            'req_name' => 'string|max:24',
+            'req_phone' => 'string|max:16',
+            'req_signed' => 'string',
+            'crew_name' => 'string|max:24',
+            'crew_phone' => 'string|max:16',
+            'crew_signed' => 'string',
+            'crew_division' => 'string|max:16',
         ]);
 
         // BOOLEAN FOR REQ & CREW SIGN
@@ -315,19 +315,19 @@ class DivisiController extends Controller
 
         // VALIDATE REQUEST
         $request->validate([
-            'program' => 'string|max:255',
-            'location' => 'string|max:255',
-            'created' => 'date',
-            'book_date' => 'date',
-            'book_time' => '',
-            'division' => 'string|max:255',
-            'req_name' => 'string|max:255',
-            'req_phone' => 'string|max:255',
-            'req_signed' => 'string|max:255',
-            'crew_name' => 'string|max:255',
-            'crew_phone' => 'string|max:255',
-            'crew_signed' => 'string|max:255',
-            'crew_division' => 'string|max:255',
+            'program' => 'required|string|max:24',
+            'location' => 'required|string|max:24',
+            'created' => 'required|date',
+            'book_date' => 'required|date',
+            'book_time' => 'required',
+            'division' => 'required|string|max:16',
+            'req_name' => 'string|max:24',
+            'req_phone' => 'string|max:16',
+            'req_signed' => 'string',
+            'crew_name' => 'string|max:24',
+            'crew_phone' => 'string|max:16',
+            'crew_signed' => 'string',
+            'crew_division' => 'string|max:16',
         ]);
 
         // BOOLEAN FOR REQ & CREW SIGN
