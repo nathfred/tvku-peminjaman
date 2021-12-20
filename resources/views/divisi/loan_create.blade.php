@@ -47,13 +47,13 @@
                                                 <label>Program</label>
                                             </div>
                                             <div class="col-md-8 form-group">
-                                                <input type="text" id="program" class="form-control" name="program">
+                                                <input type="text" id="program" class="form-control" name="program" value="{{ old('program') }}">
                                             </div>
                                             <div class="col-md-4">
                                                 <label>Lokasi</label>
                                             </div>
                                             <div class="col-md-8 form-group">
-                                                <input type="text" id="location" class="form-control" name="location">
+                                                <input type="text" id="location" class="form-control" name="location" value="{{ old('location') }}">
                                             </div>
                                             <div class="col-md-4">
                                                 <label>Tanggal Dibuat</label>
@@ -65,32 +65,32 @@
                                                 <label>Tanggal Booking</label>
                                             </div>
                                             <div class="col-md-8 form-group">
-                                                <input type="date" id="book_date" class="form-control" name="book_date">
+                                                <input type="date" id="book_date" class="form-control" name="book_date" value="{{ old('book_date') }}">
                                             </div>
                                             <div class="col-md-4">
                                                 <label>Jam Booking</label>
                                             </div>
                                             <div class="col-md-8 form-group">
-                                                <input type="time" id="book_time" class="form-control" name="book_time">
+                                                <input type="time" id="book_time" class="form-control" name="book_time" value="{{ old('book_time') }}">
                                             </div>
                                             <div class="col-md-4">
                                                 <label>Divisi</label>
                                             </div>
                                             <div class="col-md-8 form-group">
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="division" id="division" value="Produksi">
+                                                    <input class="form-check-input" type="radio" name="division" id="division" value="Produksi" @if(old('division')=='Produksi') checked @endif>
                                                     <label class="form-check-label" for="division">Produksi</label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="division" id="division" value="News">
+                                                    <input class="form-check-input" type="radio" name="division" id="division" value="News" @if(old('division')=='News') checked @endif>
                                                     <label class="form-check-label" for="division">News</label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="division" id="division" value="Studio">
+                                                    <input class="form-check-input" type="radio" name="division" id="division" value="Studio" @if(old('division')=='Studio') checked @endif>
                                                     <label class="form-check-label" for="division">Studio</label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="division" id="division" value="Lain-lain">
+                                                    <input class="form-check-input" type="radio" name="division" id="division" value="Lain-lain" @if(old('division')=='Lain-lain') checked @endif>
                                                     <label class="form-check-label" for="division">Lain-lain</label>
                                                 </div>
                                             </div>
@@ -113,31 +113,31 @@
                                                 <label>Nama Produser / Ass.</label>
                                             </div>
                                             <div class="col-md-8 form-group">
-                                                <input type="text" id="req_name" class="form-control" name="req_name">
+                                                <input type="text" id="req_name" class="form-control" name="req_name" value="{{ old('req_name') }}">
                                             </div>
                                             <div class="col-md-4">
                                                 <label>Telp. Produser / Ass.</label>
                                             </div>
                                             <div class="col-md-8 form-group">
-                                                <input type="text" id="req_phone" class="form-control" name="req_phone">
+                                                <input type="text" id="req_phone" class="form-control" name="req_phone" value="{{ old('req_phone') }}">
                                             </div>
                                             <div class="col-md-4">
                                                 <label>Nama Crew</label>
                                             </div>
                                             <div class="col-md-8 form-group">
-                                                <input type="text" id="crew_name" class="form-control" name="crew_name">
+                                                <input type="text" id="crew_name" class="form-control" name="crew_name" value="{{ old('crew_name') }}">
                                             </div>
                                             <div class="col-md-4">
                                                 <label>Telp. Crew</label>
                                             </div>
                                             <div class="col-md-8 form-group">
-                                                <input type="text" id="crew_phone" class="form-control" name="crew_phone">
+                                                <input type="text" id="crew_phone" class="form-control" name="crew_phone" value="{{ old('crew_phone') }}">
                                             </div>
                                             <div class="col-md-4">
                                                 <label>Divisi Crew</label>
                                             </div>
                                             <div class="col-md-8 form-group">
-                                                <input type="text" id="crew_division" class="form-control" name="crew_division">
+                                                <input type="text" id="crew_division" class="form-control" name="crew_division" value="{{ old('crew_division') }}">
                                             </div>
                                         </div>
                                     </div>
@@ -167,7 +167,7 @@
                                                             <label>{{ $item->name }}</label>
                                                         </div>
                                                         <div class="col-md-8 form-group">
-                                                            <input type="text" id="{{ $item->id }}" class="form-control" name="{{ $item->id }}">
+                                                            <input type="text" id="{{ $item->id }}" class="form-control" name="{{ $item->id }}" value="{{ old($item->id) }}">
                                                         </div>
                                                     </div>
                                                 @endif
@@ -194,7 +194,7 @@
                                                             <label>{{ $item->name }}</label>
                                                         </div>
                                                         <div class="col-md-8 form-group">
-                                                            <input type="text" id="{{ $item->id }}" class="form-control" name="{{ $item->id }}">
+                                                            <input type="text" id="{{ $item->id }}" class="form-control" name="{{ $item->id }}" value="{{ old($item->id) }}">
                                                         </div>
                                                     </div>
                                                 @endif
@@ -227,7 +227,7 @@
                                                             <label>{{ $item->name }}</label>
                                                         </div>
                                                         <div class="col-md-8 form-group">
-                                                            <input type="text" id="{{ $item->id }}" class="form-control" name="{{ $item->id }}">
+                                                            <input type="text" id="{{ $item->id }}" class="form-control" name="{{ $item->id }}" value="{{ old($item->id) }}">
                                                         </div>
                                                     </div>
                                                 @endif
@@ -254,7 +254,7 @@
                                                             <label>{{ $item->name }}</label>
                                                         </div>
                                                         <div class="col-md-8 form-group">
-                                                            <input type="text" id="{{ $item->id }}" class="form-control" name="{{ $item->id }}">
+                                                            <input type="text" id="{{ $item->id }}" class="form-control" name="{{ $item->id }}" value="{{ old($item->id) }}">
                                                         </div>
                                                     </div>
                                                 @endif
