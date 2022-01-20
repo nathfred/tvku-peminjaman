@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\SuperController;
 use App\Http\Controllers\DivisiController;
 use App\Http\Controllers\DOMPDFController;
 use App\Http\Controllers\LogistikController;
@@ -26,7 +27,7 @@ Route::get('/logout', [UserController::class, 'logout'])->name('logout');
 Route::get('/back', [UserController::class, 'back'])->name('back-button');
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    return redirect()->route('login');
 })->middleware(['auth'])->name('dashboard');
 
 // LOGISTIK
@@ -60,6 +61,21 @@ Route::group(['middleware' => ['auth', 'divisi'], 'prefix' => 'divisi'], functio
     Route::get('/loan/detail/{id}', [DivisiController::class, 'detail_loan'])->name('divisi-detail-loan'); // SHOW SINGLE (EDIT FORM)
     Route::post('/loan/detail/{id}', [DivisiController::class, 'save_loan'])->name('divisi-save-loan'); // POST REQUEST EDIT LOAN
     Route::get('/loan/delete/{id}', [DivisiController::class, 'delete_loan'])->name('divisi-delete-loan'); // DELETE SINGLE LOAN
+});
+
+// SUPER ACTIVITY USES SUPERCONTROLLER
+Route::group(['middleware' => ['auth', 'super'], 'prefix' => 'super'], function () {
+    Route::get('/index', [SuperController::class, 'index'])->name('super-index');
+
+    Route::get('/show/user/{id}', [SuperController::class, 'show_user'])->name('super-show-user');
+
+    Route::post('/edit/user/{id}', [SuperController::class, 'edit_user'])->name('super-edit-user');
+    Route::post('/save/user', [SuperController::class, 'save_user'])->name('super-save-user');
+
+    Route::get('/edit/user/password/{id}', [SuperController::class, 'edit_user_password'])->name('super-edit-user-password');
+    Route::post('/save/user/password/{id}', [SuperController::class, 'save_user_password'])->name('super-save-user-password');
+
+    Route::get('/delete/user/{id}', [SuperController::class, 'delete_user'])->name('super-delete-user');
 });
 
 // PDF EXPORT 

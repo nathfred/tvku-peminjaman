@@ -25,6 +25,16 @@ class DatabaseSeeder extends Seeder
     {
         $faker = Faker::create('id_ID');
 
+        // SUPER
+        User::create([
+            'name' => 'Super User',
+            'role' => 'super',
+            'email' => 'root@tvku.tv',
+            'email_verified_at' => now(),
+            'password' => bcrypt('TvkuLogistik123!@$'),
+            'remember_token' => Str::random(10),
+        ]);
+
         // LOGISTIK
         User::create([
             'name' => 'Admin Logistik',
