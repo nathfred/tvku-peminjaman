@@ -143,7 +143,14 @@
                     <div class="col-md-6 col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="card-title">Video</h4>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <h4 class="card-title">Video</h4>
+                                    </div>
+                                    <div class="col-md-8 form-group">
+                                        <h4 class="card-title">Jumlah</h4>
+                                    </div>
+                                </div>
                             </div>
                             <div class="card-content">
                                 <div class="card-body">
@@ -170,7 +177,14 @@
                     <div class="col-md-6 col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="card-title">Audio</h4>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <h4 class="card-title">Audio</h4>
+                                    </div>
+                                    <div class="col-md-8 form-group">
+                                        <h4 class="card-title">Jumlah</h4>
+                                    </div>
+                                </div>
                             </div>
                             <div class="card-content">
                                 <div class="card-body">
@@ -203,7 +217,14 @@
                     <div class="col-md-6 col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="card-title">Lighting</h4>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <h4 class="card-title">Lighting</h4>
+                                    </div>
+                                    <div class="col-md-8 form-group">
+                                        <h4 class="card-title">Jumlah</h4>
+                                    </div>
+                                </div>
                             </div>
                             <div class="card-content">
                                 <div class="card-body">
@@ -230,7 +251,14 @@
                     <div class="col-md-6 col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="card-title">Lain-lain</h4>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <h4 class="card-title">Lain-lain</h4>
+                                    </div>
+                                    <div class="col-md-8 form-group">
+                                        <h4 class="card-title">Jumlah</h4>
+                                    </div>
+                                </div>
                             </div>
                             <div class="card-content">
                                 <div class="card-body">
@@ -309,6 +337,10 @@
                                                             <label class="form-check-label" for="return">Belum Dikembalikan</label>
                                                         </div>
                                                     </div>
+                                                    {{-- BUKTI PENGEMBALIAN (IMAGE FILE) --}}
+                                                    {{-- <label for="return_attachment">Lampiran Pengembalian</label><br>
+                                                    <img src="{{ url($loan->return_attachment) }}" alt="return_attachment" style="max-height: 200px; max-width: 200px;">
+                                                    <input type="file" name="return_attachment" class="form-control"> --}}
                                                 @endif
                                                 <div class="col-sm-12 d-flex justify-content-end">
                                                     {{-- <a href="javascript:history.back()" class="btn btn-secondary me-1 mb-1">Cancel</a> --}}

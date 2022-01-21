@@ -16,11 +16,11 @@ class CreateLoanItemsTable extends Migration
         Schema::create('loan_items', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('loan_id');
-            $table->foreign('loan_id')->references('id')->on('loans');
-            $table->unsignedBigInteger('item_id');
-            $table->foreign('item_id')->references('id')->on('items');
+            $table->foreign('loan_id')->references('id')->on('loans')->onDelete('cascade')->change();
+            $table->unsignedBigInteger('item_id')->nullable();
+            $table->foreign('item_id')->references('id')->on('items')->nullOnDelete()->change();
             // $table->foreignId('loan_id')->constrained('loans');
-            // $table->foreignId('item_id')->constrained('items');
+            // $table->foreignId('item_id')->constrained('items');1
             $table->string('name', 24);
             $table->string('category', 10);
             $table->string('code', 4)->nullable();

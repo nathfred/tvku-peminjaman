@@ -107,50 +107,50 @@ class DatabaseSeeder extends Seeder
                 Item::create([
                     'name' => $full_array[$i],
                     'category' => 'Video',
-                    'quantity' => 5,
+                    // 'quantity' => 5,
                 ]);
             } elseif ($i < 23) {
                 Item::create([
                     'name' => $full_array[$i],
                     'category' => 'Audio',
-                    'quantity' => 5,
+                    // 'quantity' => 5,
                 ]);
             } elseif ($i < 32) {
                 Item::create([
                     'name' => $full_array[$i],
                     'category' => 'Lighting',
-                    'quantity' => 5,
+                    // 'quantity' => 5,
                 ]);
             } elseif ($i < 37) {
                 Item::create([
                     'name' => $full_array[$i],
                     'category' => 'Additional',
-                    'quantity' => 5,
+                    // 'quantity' => 5,
                 ]);
             }
         }
 
         // LOANS
-        Loan::factory()->count(5)->create();
+        // Loan::factory()->count(5)->create();
 
         // LOAN ITEMS
         // $all_items = Item::get();
-        for ($i = 0; $i < 3; $i++) { // 3 SAMPLE LOAN
-            for ($j = 0; $j < mt_rand(1, 10); $j++) { // 1 - 10 ITEMS PER LOAN
-                // GET RANDOM ITEM FROM ITEM MODEL
-                $random_item = Item::inRandomOrder()->first();
+        // for ($i = 0; $i < 3; $i++) { // 3 SAMPLE LOAN
+        //     for ($j = 0; $j < mt_rand(1, 10); $j++) { // 1 - 10 ITEMS PER LOAN
+        //         // GET RANDOM ITEM FROM ITEM MODEL
+        //         $random_item = Item::inRandomOrder()->first();
 
-                // GENERATE RANDOM CODE FOR ITEM
-                $code = strtoupper($faker->randomLetter() . mt_rand(1, 20));
+        //         // GENERATE RANDOM CODE FOR ITEM
+        //         $code = strtoupper($faker->randomLetter() . mt_rand(1, 20));
 
-                LoanItem::create([
-                    'loan_id' => $i + 1,
-                    'item_id' => $random_item->id,
-                    'name' => $random_item->name,
-                    'category' => $random_item->category,
-                    'code' => $code,
-                ]);
-            }
-        }
+        //         LoanItem::create([
+        //             'loan_id' => $i + 1,
+        //             'item_id' => $random_item->id,
+        //             'name' => $random_item->name,
+        //             'category' => $random_item->category,
+        //             'code' => $code,
+        //         ]);
+        //     }
+        // }
     }
 }

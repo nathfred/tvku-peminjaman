@@ -154,7 +154,14 @@
                     <div class="col-md-6 col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="card-title">Video</h4>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <h4 class="card-title">Video</h4>
+                                    </div>
+                                    <div class="col-md-8 form-group">
+                                        <h4 class="card-title">Jumlah</h4>
+                                    </div>
+                                </div>
                             </div>
                             <div class="card-content">
                                 <div class="card-body">
@@ -181,7 +188,14 @@
                     <div class="col-md-6 col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="card-title">Audio</h4>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <h4 class="card-title">Audio</h4>
+                                    </div>
+                                    <div class="col-md-8 form-group">
+                                        <h4 class="card-title">Jumlah</h4>
+                                    </div>
+                                </div>
                             </div>
                             <div class="card-content">
                                 <div class="card-body">
@@ -214,7 +228,14 @@
                     <div class="col-md-6 col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="card-title">Lighting</h4>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <h4 class="card-title">Lighting</h4>
+                                    </div>
+                                    <div class="col-md-8 form-group">
+                                        <h4 class="card-title">Jumlah</h4>
+                                    </div>
+                                </div>
                             </div>
                             <div class="card-content">
                                 <div class="card-body">
@@ -241,7 +262,14 @@
                     <div class="col-md-6 col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="card-title">Lain-lain</h4>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <h4 class="card-title">Lain-lain</h4>
+                                    </div>
+                                    <div class="col-md-8 form-group">
+                                        <h4 class="card-title">Jumlah</h4>
+                                    </div>
+                                </div>
                             </div>
                             <div class="card-content">
                                 <div class="card-body">

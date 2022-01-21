@@ -35,6 +35,7 @@ class CreateLoansTable extends Migration
             $table->string('app_name', 24)->nullable();
             $table->string('app_phone', 16)->nullable();
             $table->boolean('app_signed')->nullable();
+            // $table->string('return_attachment', 100)->nullable();
             $table->timestamps();
         });
     }

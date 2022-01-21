@@ -193,7 +193,7 @@ class LogistikController extends Controller
         $loan->book_date = $loan->book_date->format('d-m-Y');
         $loan->book_time = $loan->book_time->format('H:i');
 
-        $loan_items = LoanItem::where('loan_id', $id)->orderBy('category', 'asc')->get();
+        $loan_items = LoanItem::where('loan_id', $id)->orderBy('name', 'asc')->get();
 
         return view('logistik.loan_detail', [
             'title' => 'Detail Peminjaman',
@@ -223,7 +223,7 @@ class LogistikController extends Controller
         // VALIDASI APPROVAL LOGISTIK
         $request->validate([
             'app_name' => 'string|required|max:24',
-            'app_phone' => 'string|required|max:16',
+            'app_phone' => 'max:16',
             'app_signed' => 'boolean|required',
         ]);
 
@@ -256,7 +256,7 @@ class LogistikController extends Controller
 
     public function show_items()
     {
-        $items = Item::orderBy('category', 'desc')->get();
+        $items = Item::orderBy('category', 'desc')->orderBy('name', 'asc')->get();
 
         // UBAH ADDITIONAL KE LAIN-LAIN
         foreach ($items as $item) {

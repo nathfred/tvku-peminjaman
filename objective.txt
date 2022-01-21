@@ -27,4 +27,8 @@ Divisi
 -Alerts (Done)
 
 -Cronjob Auto Delete 7 Hari (Need Testing)
--Add Super User
+-Add Super User (DONE)
+-Fix Loan Items Migration (DONE)
+-Update Loan Views (DONE)
+-Add Return Attachment for Logistik (SKIPPED)
+-Fix PDF (DOMPDF)

@@ -182,7 +182,7 @@ class DivisiController extends Controller
         $today = Carbon::today('GMT+7');
         $today_string = $today->format('Y-m-d');
 
-        $items = Item::get();
+        $items = Item::orderBy('name', 'asc')->get();
 
         return view('divisi.loan_create', [
             'title' => 'Buat Peminjaman',
@@ -281,7 +281,7 @@ class DivisiController extends Controller
         }
 
         // GET ALL ITEMS
-        $items = Item::orderBy('category', 'asc')->get();
+        $items = Item::orderBy('name', 'asc')->get();
 
         // GET ALL LOANED ITEMS
         $loaned_items = LoanItem::where('loan_id', $id)->orderBy('category', 'asc')->get();
