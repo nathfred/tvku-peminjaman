@@ -142,7 +142,7 @@
                                                     <!-- Aksi -->
                                                     <td>
                                                         <a href="{{ route('divisi-detail-loan', ['id' => $loan->id]) }}" class="btn btn-info"><i class="bi bi-arrow-left-square"></i></a>
-                                                        <a href="{{ route('show-pdf', ['id' => $loan->id]) }}" target="_blank" class="btn btn-success"><i class="bi bi-printer-fill"></i></a>
+                                                        <a href="{{ route('test-pdf', ['id' => $loan->id]) }}" target="_blank" class="btn btn-success"><i class="bi bi-printer-fill"></i></a>
                                                     </td>
                                                 </tr>
                                             @endforeach

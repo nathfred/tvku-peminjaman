@@ -213,7 +213,7 @@ class DivisiController extends Controller
             'crew_name' => 'nullable|string|max:24',
             'crew_phone' => 'nullable|max:16',
             'crew_signed' => 'nullable|string',
-            'crew_division' => 'nullable|string|max:16',
+            'crew_division' => 'required|string|max:16',
         ]);
 
         // BOOLEAN FOR REQ & CREW SIGN
@@ -304,6 +304,7 @@ class DivisiController extends Controller
 
     public function save_loan(Request $request, $id)
     {
+        // dd($request);
         $user_id = Auth::id();
         $user = User::where('id', $user_id)->first();
         $today = Carbon::today('GMT+7');
@@ -327,7 +328,7 @@ class DivisiController extends Controller
             'crew_name' => 'nullable|string|max:24',
             'crew_phone' => 'nullable|max:16',
             'crew_signed' => 'nullable|string',
-            'crew_division' => 'nullable|string|max:16',
+            'crew_division' => 'required|string|max:16',
         ]);
 
         // BOOLEAN FOR REQ & CREW SIGN
@@ -355,7 +356,7 @@ class DivisiController extends Controller
         $loan->crew_name = $request->crew_name;
         $loan->crew_phone = $request->crew_phone;
         $loan->crew_signed = $crew_signed;
-        $loan->crew_division = $request->division;
+        $loan->crew_division = $request->crew_division;
         $loan->save();
 
         // GET REQUEST DATA (ITEM LOAN CODES ONLY)

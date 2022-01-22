@@ -125,10 +125,10 @@ class DOMPDFController extends Controller
         $loan->book_time = $loan->book_time->format('H:i');
 
         // GET ALL ITEMS
-        $items = Item::orderBy('category', 'asc')->get();
+        // $items = Item::orderBy('category', 'asc')->get();
 
         // GET ALL LOANED ITEMS
-        $loaned_items = LoanItem::where('loan_id', $id)->orderBy('category', 'asc')->get();
+        $loaned_items = LoanItem::where('loan_id', $id)->orderBy('category', 'asc')->orderBy('name', 'asc')->get();
 
         // COUNT LOANED ITEM QUANTITY (EACH ITEMS)
         foreach ($loaned_items as $item) {

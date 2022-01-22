@@ -133,11 +133,28 @@
                                             <div class="col-md-8 form-group">
                                                 <input type="text" id="crew_phone" class="form-control" name="crew_phone" value="{{ $loan->crew_phone }}">
                                             </div>
-                                            <div class="col-md-4">
+                                            {{-- <div class="col-md-4">
                                                 <label>Divisi Crew</label>
                                             </div>
                                             <div class="col-md-8 form-group">
                                                 <input type="text" id="crew_division" class="form-control" name="crew_division" value="{{ $loan->crew_division }}">
+                                            </div> --}}
+                                            <div class="col-md-4">
+                                                <label>Divisi Crew</label>
+                                            </div>
+                                            <div class="col-md-8 form-group">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="crew_division" id="crew_division" value="Campers" {{ ($loan->crew_division == 'Campers') ? 'checked' : '' }}>
+                                                    <label class="form-check-label" for="crew_division">Campers</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="crew_division" id="crew_division" value="Audio" {{ ($loan->crew_division == 'Audio') ? 'checked' : '' }}>
+                                                    <label class="form-check-label" for="crew_division">Audio</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="crew_division" id="crew_division" value="Lighting" {{ ($loan->crew_division == 'Lighting') ? 'checked' : '' }}>
+                                                    <label class="form-check-label" for="crew_division">Lighting</label>
+                                                </div>
                                             </div>
                                             <div class="col-md-4">
                                                 <label>Nama Approver</label>
