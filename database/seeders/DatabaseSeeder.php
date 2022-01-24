@@ -60,6 +60,15 @@ class DatabaseSeeder extends Seeder
             ]);
         }
 
+        // DINUS FM
+        User::create([
+            'name' => 'DINUS FM',
+            'role' => 'divisi',
+            'email' => 'dinusfm@tvku.tv',
+            'email_verified_at' => now(),
+            'password' => bcrypt('123123'),
+            'remember_token' => Str::random(10),
+        ]);
 
         // // VIDEO
         // $video_array = ['Camera X', 'Camera Y', 'Battery A', 'Battery AA', 'Charger B', 'Charger BB', 'Lens 14', 'Lens 21', 'Tripod', 'Monopod', 'Portajib', 'Dolly Track', 'Slider', 'Shoulder Mount', 'Video Cable'];
@@ -101,33 +110,34 @@ class DatabaseSeeder extends Seeder
         // Loan::factory()->count(3)->create();
 
         // ITEM
-        $full_array = ['Camera X', 'Camera Y', 'Battery A', 'Battery AA', 'Charger B', 'Charger BB', 'Lens 14', 'Lens 21', 'Tripod', 'Monopod', 'Portajib', 'Dolly Track', 'Slider', 'Shoulder Mount', 'Video Cable', 'Clip On', 'Hand Mic', 'Boom Mic', 'Headphone', 'Mixer', 'Speaker', 'Stand', 'Audio Cable', 'Connector', 'Cold Light', 'Read Head', 'Blonde', 'LED Light', 'LED Portable', 'Filter', 'Unomax', 'Reflector', 'Stand', 'Laptop', 'MC', 'Flashdisk', 'USB Converter', 'Audio Converter'];
-        for ($i = 0; $i < count($full_array); $i++) {
-            if ($i < 15) {
-                Item::create([
-                    'name' => $full_array[$i],
-                    'category' => 'Video',
-                    // 'quantity' => 5,
-                ]);
-            } elseif ($i < 23) {
-                Item::create([
-                    'name' => $full_array[$i],
-                    'category' => 'Audio',
-                    // 'quantity' => 5,
-                ]);
-            } elseif ($i < 32) {
-                Item::create([
-                    'name' => $full_array[$i],
-                    'category' => 'Lighting',
-                    // 'quantity' => 5,
-                ]);
-            } elseif ($i < 37) {
-                Item::create([
-                    'name' => $full_array[$i],
-                    'category' => 'Additional',
-                    // 'quantity' => 5,
-                ]);
-            }
+        $video_array = ['Camera PMW', 'Camera X70', 'Charger', 'Lens', 'Tripod', 'Monopod', 'Portajib', 'Dolly Track', 'Slider', 'Shoulder Mount', 'Video Cable', 'Camera Canon 6D', 'Handycam Sony', 'Camera HD', 'Camera Nikon'];
+        $audio_array = ['Clip On', 'Hand Mic', 'Boom Mic', 'Headphone', 'Mixer', 'Speaker', 'Stand', 'Audio Cable'];
+        $lighting_array = ['Connector', 'Cold Light', 'Read Head', 'Blonde', 'LED Light', 'LED Portable', 'Filter', 'Unomax', 'Reflector'];
+        $additional_array = ['Battery', 'Battery AA', 'Battery AAA', 'Stand', 'Laptop', 'MMC 32GB', 'Flashdisk', 'USB Converter', 'Audio Converter', 'Ezcap'];
+
+        for ($i = 0; $i < count($video_array); $i++) {
+            Item::create([
+                'name' => $video_array[$i],
+                'category' => 'Video',
+            ]);
+        }
+        for ($i = 0; $i < count($audio_array); $i++) {
+            Item::create([
+                'name' => $audio_array[$i],
+                'category' => 'Audio',
+            ]);
+        }
+        for ($i = 0; $i < count($lighting_array); $i++) {
+            Item::create([
+                'name' => $lighting_array[$i],
+                'category' => 'Lighting',
+            ]);
+        }
+        for ($i = 0; $i < count($additional_array); $i++) {
+            Item::create([
+                'name' => $additional_array[$i],
+                'category' => 'Additional',
+            ]);
         }
 
         // LOANS

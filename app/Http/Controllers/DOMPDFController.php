@@ -8,6 +8,8 @@ use Carbon\Carbon;
 use App\Models\Item;
 use App\Models\Loan;
 use App\Models\LoanItem;
+use Barryvdh\DomPDF\PDF as DomPDFPDF;
+use Barryvdh\DomPDF\Facade as PDF2;
 use Illuminate\Http\Request;
 
 class DOMPDFController extends Controller
@@ -23,7 +25,7 @@ class DOMPDFController extends Controller
         $items = Item::orderBy('category', 'desc')->get();
         $loaned_items = LoanItem::where('loan_id', $id)->get();
 
-        $pdf = PDF::loadview('loan_pdf', ['loan' => $loan]);
+        $pdf = PDF2::loadview('loan_pdf', ['loan' => $loan]);
         return $pdf->download('Peminjaman_' . $loan->id . '_' . $loan->program . '.pdf');
     }
 
@@ -59,7 +61,7 @@ class DOMPDFController extends Controller
             }
         }
 
-        return view('loan_pdf4', [
+        return view('loan_pdf3', [
             'loan' => $loan,
             'items' => $loaned_items,
         ]);
@@ -97,7 +99,7 @@ class DOMPDFController extends Controller
             }
         }
 
-        $pdf = PDF::loadview('loan_pdf3', [
+        $pdf = PDF2::loadview('loan_pdf3', [
             'loan' => $loan,
             'items' => $loaned_items,
         ]);
@@ -138,10 +140,15 @@ class DOMPDFController extends Controller
             }
         }
 
-        $pdf = PDF::loadview('loan_pdf4', [
+        // $pdf = PDF::loadview('loan_pdf4', [
+        //     'loan' => $loan,
+        //     'items' => $loaned_items,
+        // ])->setPaper('a4')->setOrientation('portrait');
+        // $pdf = new DomPDFPDF();
+        $pdf = PDF2::loadview('loan_pdf2', [
             'loan' => $loan,
             'items' => $loaned_items,
-        ])->setPaper('a4')->setOrientation('portrait');
+        ]);
 
         // $pdf->set_base_path("/css/");
         return $pdf->stream('SPP_' . $loan->id . '_' . $loan->program . '.pdf');
