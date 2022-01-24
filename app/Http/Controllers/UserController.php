@@ -28,8 +28,10 @@ class UserController extends Controller
         } elseif ($user->role == 'divisi') {
             return redirect()->route('divisi-index');
         } else {
-            return redirect()->route('login');
+            return redirect()->route('logout');
         }
+
+        return redirect()->route('logout');
     }
 
     public function back()

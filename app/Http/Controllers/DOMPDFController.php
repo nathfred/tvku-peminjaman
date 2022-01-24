@@ -51,7 +51,7 @@ class DOMPDFController extends Controller
         $items = Item::orderBy('category', 'asc')->get();
 
         // GET ALL LOANED ITEMS
-        $loaned_items = LoanItem::where('loan_id', $id)->orderBy('category', 'asc')->get();
+        $loaned_items = LoanItem::where('loan_id', $id)->orderBy('category', 'asc')->orderBy('name', 'asc')->get();
 
         // COUNT LOANED ITEM QUANTITY (EACH ITEMS)
         foreach ($loaned_items as $item) {
@@ -61,7 +61,7 @@ class DOMPDFController extends Controller
             }
         }
 
-        return view('loan_pdf3', [
+        return view('loan_pdf_non_bootstrap', [
             'loan' => $loan,
             'items' => $loaned_items,
         ]);
@@ -145,12 +145,12 @@ class DOMPDFController extends Controller
         //     'items' => $loaned_items,
         // ])->setPaper('a4')->setOrientation('portrait');
         // $pdf = new DomPDFPDF();
-        $pdf = PDF2::loadview('loan_pdf2', [
+        $pdf = PDF2::loadview('loan_pdf_non_bootstrap', [
             'loan' => $loan,
             'items' => $loaned_items,
         ]);
 
         // $pdf->set_base_path("/css/");
-        return $pdf->stream('SPP_' . $loan->id . '_' . $loan->program . '.pdf');
+        return $pdf->stream('Peminjaman_' . $loan->id . '_' . $loan->program . '.pdf');
     }
 }

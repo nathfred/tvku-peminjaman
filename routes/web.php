@@ -26,9 +26,7 @@ Route::get('/home', [UserController::class, 'home'])->name('home');
 Route::get('/logout', [UserController::class, 'logout'])->name('logout');
 Route::get('/back', [UserController::class, 'back'])->name('back-button');
 
-Route::get('/dashboard', function () {
-    return redirect()->route('login');
-})->middleware(['auth'])->name('dashboard');
+Route::get('/dashboard', [UserController::class, 'home'])->middleware(['auth'])->name('dashboard');
 
 // LOGISTIK
 Route::group(['middleware' => ['auth', 'logistik'], 'prefix' => 'logistik'], function () {
