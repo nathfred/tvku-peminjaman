@@ -120,11 +120,12 @@
 </head>
 
 <body style="background-color: transparent;">
-    <div class="border border-dark text-center p-2">
+    <img src="{{ asset('img/tvku_logo_spp.jpg') }}" style="height: auto; width: 100px; float: left;">
+    <div class="border border-dark text-center p-2" style="width: 100%;">
+        <h4 style="padding-bottom: 0%; float: none; margin-left: 19%;">TELEVISI KAMPUS UNIVERSITAS DIAN NUSWANTORO</h4>
+        <h4 style="padding-bottom: 0%; float: none; margin-top: 0px; margin-left: 10%;">Gedung E Lt.2 Kompleks UDINUS Jl. Nakula I/No.5-11 Semarang 50131</h4>
         <center>
-            <h2>TELEVISI KAMPUS UNIVERSITAS DIAN NUSWANTORO</h2>
-            <h4>Gedung E Lt.2 Kompleks UDINUS Jl. Nakula I/No.5-11 Semarang 50131</h4>
-            <h4>Telp. (024)356-8491 Fax. (024)356-4645</h4>
+            <h4 style="margin-top: 0px;">Telp. (024)356-8491 Fax. (024)356-4645</h4>
         </center>
     </div>
 
