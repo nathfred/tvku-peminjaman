@@ -95,6 +95,26 @@
         table, th, td {
             border: 1px solid black;
         }
+
+        /* HEADER TABLE */
+        .header-left {
+            font-weight: bold;
+            width: 20%;
+        }
+        .header-right {
+            width: 30%;
+            text-align: center;
+        }
+
+        /* FOOTER TABLE */
+        .footer-left {
+            font-weight: bold;
+            width: 7%;
+        }
+        .footer-right {
+            width: 26%;
+            text-align: center;
+        }
         </style>
 
 </head>
@@ -178,30 +198,31 @@
         </div>
     </div> --}}
 
+    {{-- HEADER TABLE --}}
     <table style="width:100%">
         <tr>
-            <td style="font-weight: bold;">Pengembalian</td>
+            <td class="header-left">Pengembalian</td>
             @if ($loan->return == 1)
-                <td>Sudah Kembali</td>
+                <td class="header-right">Sudah Kembali</td>
             @elseif ($loan->return === NULL || $loan->return == 0)
-                <td>Belum Kembali</td>
+                <td class="header-right">Belum Kembali</td>
             @else
-                <td>Tidak Diketahui</td>
+                <td class="header-right">Tidak Diketahui</td>
             @endif
-            <td style="font-weight: bold;">Tanggal Dibuat</td>
-            <td>{{ $loan->created }}</td>
+            <td class="header-left">Tanggal Dibuat</td>
+            <td class="header-right">{{ $loan->created }}</td>
         </tr>
         <tr>
-            <td style="font-weight: bold;">Program</td>
-            <td>{{ $loan->program }}</td>
-            <td style="font-weight: bold;">Tanggal Booking</td>
-            <td>{{ $loan->book_date }}</td>
+            <td class="header-left">Program</td>
+            <td class="header-right">{{ $loan->program }}</td>
+            <td class="header-left">Tanggal Booking</td>
+            <td class="header-right">{{ $loan->book_date }}</td>
         </tr>
         <tr>
-            <td style="font-weight: bold;">Lokasi</td>
-            <td>{{ $loan->location }}</td>
-            <td style="font-weight: bold;">Jam Booking</td>
-            <td>{{ $loan->book_time }}</td>
+            <td class="header-left">Lokasi</td>
+            <td class="header-right">{{ $loan->location }}</td>
+            <td class="header-left">Jam Booking</td>
+            <td class="header-right">{{ $loan->book_time }}</td>
         </tr>
     </table>
 
@@ -258,7 +279,7 @@
                 @foreach ($items as $item)
                     @if ($item->category == 'Video')
                         {{ $item->name }}
-                        @if($item->code === NULL)
+                        @if($item->code === NULL), 
                         @else [{{ $item->code }}], 
                         @endif
                     @endif
@@ -271,7 +292,7 @@
                 @foreach ($items as $item)
                     @if ($item->category == 'Audio')
                         {{ $item->name }}
-                        @if($item->code === NULL)
+                        @if($item->code === NULL), 
                         @else [{{ $item->code }}], 
                         @endif
                     @endif
@@ -284,7 +305,7 @@
                 @foreach ($items as $item)
                     @if ($item->category == 'Lighting')
                         {{ $item->name }}
-                        @if($item->code === NULL)
+                        @if($item->code === NULL), 
                         @else [{{ $item->code }}], 
                         @endif
                     @endif
@@ -297,7 +318,7 @@
                 @foreach ($items as $item)
                     @if ($item->category == 'Additional')
                         {{ $item->name }}
-                        @if($item->code === NULL)
+                        @if($item->code === NULL), 
                         @else [{{ $item->code }}], 
                         @endif
                     @endif
@@ -450,22 +471,40 @@
                 </div> --}}
             </div>
         </div>
+
+        {{-- FOOTER TABLE --}}
         <table style="width:100%">
             <tr>
-                <td style="font-weight: bold;">Nama</td>
-                <td>{{ $loan->req_name }}</td>
-                <td style="font-weight: bold;">Nama</td>
-                <td>{{ $loan->crew_name }}</td>
-                <td style="font-weight: bold;">Nama</td>
-                <td>{{ $loan->app_name }}</td>
+                <td class="footer-left">Nama</td>
+                <td class="footer-right">{{ $loan->req_name }}</td>
+                <td class="footer-left">Nama</td>
+                @if($loan->crew_name === NULL)
+                    <td class="footer-right">-</td>
+                @else
+                    <td class="footer-right">{{ $loan->crew_name }}</td>
+                @endif
+                <td class="footer-left">Nama</td>
+                @if($loan->app_name === NULL)
+                    <td class="footer-right">-</td>
+                @else
+                    <td class="footer-right">{{ $loan->app_name }}</td>
+                @endif
             </tr>
             <tr>
-                <td style="font-weight: bold;">HP</td>
-                <td>{{ $loan->req_phone }}</td>
-                <td style="font-weight: bold;">HP</td>
-                <td>{{ $loan->crew_phone }}</td>
-                <td style="font-weight: bold;">HP</td>
-                <td>{{ $loan->app_phone }}</td>
+                <td class="footer-left">HP</td>
+                <td class="footer-right">{{ $loan->req_phone }}</td>
+                <td class="footer-left">HP</td>
+                @if($loan->crew_phone === NULL)
+                    <td class="footer-right">-</td>
+                @else
+                    <td class="footer-right">{{ $loan->crew_phone }}</td>
+                @endif
+                <td class="footer-left">HP</td>
+                @if($loan->app_phone === NULL)
+                    <td class="footer-right">-</td>
+                @else
+                    <td class="footer-right">{{ $loan->app_phone }}</td>
+                @endif
             </tr>
         </table>
     </div>
